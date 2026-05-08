@@ -1862,7 +1862,7 @@ function renderContextDetail(skill) {
 
 function viewSkillDetail(skillId) {
   if (skillId === 'fix-403-forbidden-access') {
-    window.parent.location.href = '/#/skills/on-doc';
+    window.parent.location.href = window.parent.location.href.split('#')[0] + '#/skills/on-doc';
     return;
   }
   const skill = skills.find(item => item.id === skillId);
