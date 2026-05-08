@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { Footer } from './Footer';
 import {
   Sparkles,
@@ -180,8 +181,8 @@ By the end of this skill, you will:
               </p>
 
               {/* Go to library CTA pill */}
-              <a
-                href="/skills/library"
+              <Link
+                to="/skills/library"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -215,7 +216,7 @@ By the end of this skill, you will:
                 }}>
                   <ArrowRight size={16} color="white" />
                 </span>
-              </a>
+              </Link>
             </div>
 
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">

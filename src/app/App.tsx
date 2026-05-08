@@ -1,6 +1,27 @@
-import { RouterProvider } from 'react-router';
-import { router } from './routes';
+import { HashRouter, Routes, Route } from "react-router";
+import { Root } from "./components/Root";
+import { MainContent } from "./components/MainContent";
+import { SkillsPage } from "./components/SkillsPage";
+import { FixPermissionErrorPage } from "./components/FixPermissionErrorPage";
+import { GetStartedPage } from "./components/GetStartedPage";
+import { SkillLibraryPage } from "./components/SkillLibraryPage";
+import { SkillDetailPage } from "./components/SkillDetailPage";
+import { SkillOnDocPage } from "./components/SkillOnDocPage";
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Root />}>
+          <Route index element={<MainContent />} />
+          <Route path="skills" element={<SkillsPage />} />
+          <Route path="skills/library" element={<SkillLibraryPage />} />
+          <Route path="skills/detail" element={<SkillDetailPage />} />
+          <Route path="skills/on-doc" element={<SkillOnDocPage />} />
+          <Route path="fix-permission-error" element={<FixPermissionErrorPage />} />
+          <Route path="get-started" element={<GetStartedPage />} />
+        </Route>
+      </Routes>
+    </HashRouter>
+  );
 }
