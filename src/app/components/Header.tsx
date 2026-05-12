@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import { MaterialIcon } from "./MaterialIcon";
 
 const technologyAreas = [
@@ -25,14 +25,7 @@ const crossProductTools = [
   "SDK, languages, frameworks, and tools",
 ];
 
-const navLinks = [
-  { label: "Skill Library", to: "/skills/library" },
-  { label: "Skill Detail", to: "/skills/detail" },
-  { label: "Skill on Doc", to: "/skills/on-doc" },
-];
-
 export function Header() {
-  const location = useLocation();
   const [isTechOpen, setIsTechOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
@@ -112,43 +105,43 @@ export function Header() {
                 </div>
               )}
             </div>
-
-            <div className="mx-1 h-4 w-px bg-[#dadce0]" />
-
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`rounded px-2 py-1.5 hover:bg-[#f1f3f4] ${
-                  location.pathname === link.to
-                    ? "text-[#1a73e8] font-medium"
-                    : "text-[#3c4043]"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
           </nav>
         </div>
 
         <div className="flex items-center gap-1 text-[#5f6368]">
-          <button className="hidden items-center gap-1 rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium text-[#3c4043] hover:bg-[#f8f9fa] md:flex">
-            Console
-            <MaterialIcon name="open_in_new" size={16} />
-          </button>
-          <button className="hidden rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium text-[#3c4043] hover:bg-[#f8f9fa] md:block">
+          <button
+            type="button"
+            className="hidden items-center gap-1.5 rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium text-[#3c4043] hover:bg-[#f8f9fa] md:inline-flex"
+          >
+            <MaterialIcon name="terminal" size={18} />
             Shell
           </button>
-          <button className="rounded p-2 hover:bg-[#f1f3f4]">
+          <button type="button" className="rounded p-2 hover:bg-[#f1f3f4]" aria-label="Theme">
             <MaterialIcon name="light_mode" size={18} />
           </button>
-          <button className="hidden items-center gap-1 rounded px-2 py-1.5 text-[12px] hover:bg-[#f1f3f4] sm:flex">
+          <button
+            type="button"
+            className="hidden items-center gap-1 rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium text-[#3c4043] hover:bg-[#f8f9fa] sm:inline-flex"
+          >
             <MaterialIcon name="language" size={16} />
             English
             <MaterialIcon name="keyboard_arrow_down" size={16} />
           </button>
+          <button
+            type="button"
+            className="hidden items-center gap-1.5 rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium hover:bg-[#f8f9fa] md:inline-flex"
+          >
+            <MaterialIcon name="computer" size={18} color="#5f6368" />
+            <span className="text-[#1a73e8]">Console</span>
+          </button>
           <div className="relative" ref={moreRef}>
-            <button className="rounded p-2 hover:bg-[#f1f3f4]" onClick={() => setIsMoreOpen((v) => !v)}>
+            <button
+              type="button"
+              className="rounded-full border border-[#dadce0] p-1.5 hover:bg-[#f1f3f4]"
+              aria-label="More options"
+              aria-expanded={isMoreOpen}
+              onClick={() => setIsMoreOpen((v) => !v)}
+            >
               <MaterialIcon name="more_vert" size={18} />
             </button>
             {isMoreOpen && (
@@ -159,8 +152,12 @@ export function Header() {
               </div>
             )}
           </div>
-          <button className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#0b57d0] text-xs font-medium text-white">
-            J
+          <button
+            type="button"
+            aria-label="Account"
+            className="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-[#0b57d0] text-white"
+          >
+            <MaterialIcon name="person" size={18} color="white" />
           </button>
         </div>
       </div>

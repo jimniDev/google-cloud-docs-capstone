@@ -53,6 +53,9 @@
       --blue-tint: color-mix(in srgb, var(--nimbus-primary) 10%, var(--nimbus-surface));
       --yellow-tint: color-mix(in srgb, var(--nimbus-warning) 16%, var(--nimbus-surface));
       --shadow: var(--nimbus-shadow-md);
+      --detail-section-gap: 88px;
+      --detail-heading-space: 26px;
+      --detail-quick-stack-gap: 16px;
     }
 
     body {
@@ -69,7 +72,7 @@
 
     .screen-shell {
       min-height: 100vh;
-      padding: 18px 28px 48px;
+      padding: 24px 32px 64px;
     }
 
     .page {
@@ -87,7 +90,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 0 40px 18px;
+      padding: 0 40px 28px;
       border-bottom: 0;
       background: transparent;
     }
@@ -144,7 +147,7 @@
     .container {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 190px;
-      gap: 28px;
+      gap: 40px;
       max-width: none;
       margin: 0;
       padding: 0;
@@ -153,7 +156,7 @@
 
     .doc-content {
       min-width: 0;
-      padding: 44px 40px 56px;
+      padding: 52px 40px 76px;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -163,7 +166,7 @@
     .page-tools {
       display: flex;
       justify-content: flex-end;
-      margin: -4px 0 20px;
+      margin: -4px 0 32px;
     }
 
     .feedback {
@@ -206,7 +209,7 @@
 
     .toc a {
       display: block;
-      margin: 0 0 9px;
+      margin: 0 0 13px;
       color: var(--body);
       font-size: 13px;
       line-height: 16px;
@@ -223,15 +226,15 @@
     }
 
     .page-title-section {
-      padding: 0;
-      margin-bottom: 22px;
+      padding: 20px 0 0;
+      margin-bottom: 36px;
     }
 
     .breadcrumb {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 0 0 18px;
+      margin: 0 0 42px;
       color: var(--muted);
       font-size: 15px;
       line-height: 22px;
@@ -294,7 +297,7 @@
     }
 
     .content-card {
-      margin: 0 0 68px;
+      margin: 0 0 var(--detail-section-gap);
       padding: 0;
       background: transparent;
       border: 0;
@@ -303,7 +306,7 @@
     }
 
     .section-title {
-      margin: 0 0 18px;
+      margin: 0 0 var(--detail-heading-space);
       color: var(--text);
       font-family: "Google Sans", Arial, sans-serif;
       font-size: 26px;
@@ -327,14 +330,28 @@
 
     .quick-start-card {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: var(--detail-quick-stack-gap);
       padding: 0;
       background: transparent;
       border: 0;
       border-radius: 0;
     }
 
+    .quick-start-card .input-group,
+    .quick-start-card .skill-file-section,
+    .quick-start-card .config-section {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .quick-start-card .btn-primary-action {
+      margin-top: 0;
+    }
+
     .quick-start-card + .content-card {
-      margin-top: 8px;
+      margin-top: 20px;
     }
 
     .checklist {
@@ -696,7 +713,7 @@
     .steps-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 20px;
     }
 
     .step-item {
@@ -877,7 +894,7 @@
     .doc-links {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      gap: 24px;
     }
 
     .doc-card {
@@ -941,7 +958,7 @@
     .related-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 24px;
     }
 
     .skill-mini-card {
@@ -1228,7 +1245,7 @@
     }
 
     .screen-shell {
-      padding: 24px 28px 48px;
+      padding: 28px 32px 72px;
     }
 
     .page {
@@ -1237,17 +1254,17 @@
     }
 
     .page-header-nav {
-      padding: 0 0 20px;
+      padding: 0 0 28px;
     }
 
     .container {
       grid-template-columns: minmax(0, 760px) 200px;
-      gap: 24px;
+      gap: 40px;
       justify-content: center;
     }
 
     .doc-content {
-      padding: 32px;
+      padding: 44px 40px 80px;
       border-color: var(--nimbus-border);
       border-radius: var(--nimbus-radius-xl);
       box-shadow: var(--nimbus-shadow-sm);
@@ -1295,7 +1312,7 @@
     }
 
     .content-card {
-      margin-bottom: 48px;
+      margin-bottom: var(--detail-section-gap);
     }
 
     .doc-card,
@@ -1542,7 +1559,7 @@
       .doc-content {
         border: 0;
         border-radius: 0;
-        padding: 32px 20px 56px;
+        padding: 36px 20px 72px;
       }
 
       .toc {
@@ -1556,7 +1573,7 @@
       }
 
       .page-title-section {
-        padding: 0;
+        padding: 16px 0 0;
       }
 
       .command-block,
@@ -1666,7 +1683,7 @@
 
           <div class="input-group">
             <div class="command-block">
-              <code id="installCommand">gcloud skills run fix-403-error skill</code>
+              <code id="installCommand">gcloud skills enable iam-permission-troubleshooter</code>
               <div class="button-group-split">
                 <button class="btn-copy" type="button" onclick="copyCommand()">Copy</button>
               </div>
@@ -2081,7 +2098,7 @@
     }
 
     function copyCommand() {
-      writeClipboard("gcloud skills run fix-403-error skill", "Command copied to clipboard");
+      writeClipboard("gcloud skills enable iam-permission-troubleshooter", "Command copied to clipboard");
     }
 
     function editParam(id) {
