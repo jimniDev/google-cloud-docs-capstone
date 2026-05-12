@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-[#e5e7eb] bg-[#f8f9fa] text-sm text-[#3c4043]">
+    <footer className="mt-20 bg-[#f8f9fa] text-sm text-[#3c4043]">
       <div className="mx-auto max-w-[1600px] px-6 py-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-4">
           <div>
@@ -43,7 +43,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-[#e5e7eb] pt-6">
+        <div className="mt-10 pt-6">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-[#5f6368]">
             <a href="#" className="hover:text-[#1a73e8]">About Google</a>
             <a href="#" className="hover:text-[#1a73e8]">Privacy</a>

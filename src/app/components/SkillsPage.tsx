@@ -129,10 +129,10 @@ By the end of this skill, you will:
 
   return (
     <main className="flex-1 overflow-y-auto bg-white relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-8 pb-24">
+      <div className="mx-auto max-w-7xl px-6 pb-36 pt-12 lg:px-12">
         
         {/* Breadcrumbs */}
-        <nav className="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+        <nav className="mb-12 flex text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="inline-flex items-center">
             <li className="inline-flex items-center">
               <a href="#" className="inline-flex items-center hover:text-blue-600 transition-colors">
@@ -148,10 +148,10 @@ By the end of this skill, you will:
           </ol>
         </nav>
 
-        <div className="flex flex-col lg:flex-row justify-between lg:items-start gap-8 relative items-stretch">
+        <div className="relative flex flex-col items-stretch justify-between gap-12 lg:flex-row lg:items-start lg:gap-16">
           <div className="flex-1">
             {/* Header Section */}
-            <div className="mb-12">
+            <div className="mb-28">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xs font-semibold text-blue-600 uppercase tracking-widest">
                   GENAI-CONTENT SKILLS FOR GOOGLE
@@ -176,7 +176,7 @@ By the end of this skill, you will:
                   borderRadius: 9999,
                   padding: '12px 12px 12px 22px',
                   textDecoration: 'none',
-                  marginTop: 24,
+                  marginTop: 32,
                   width: 'fit-content',
                   transition: 'background 120ms ease-out, box-shadow 120ms ease-out',
                 }}
@@ -203,18 +203,18 @@ By the end of this skill, you will:
               </Link>
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            <div className="flex flex-col gap-20 lg:flex-row lg:gap-32">
               {/* Left Column: Code Table & Landing Page Content */}
-              <div className="flex-1 min-w-0">
+              <div className="flex min-w-0 flex-1 flex-col gap-36">
             
             {/* Introduction Section */}
-            <div className="prose prose-lg max-w-none text-gray-600 mb-12 space-y-6">
+            <div className="prose prose-lg max-w-none space-y-12 text-gray-600">
               <h2 className="text-xl font-medium text-gray-900 mb-4 mt-0">What's a skill</h2>
               <p className="mb-6">
                 A skill is a structured bundle of guidance, steps, and resources designed to help users accomplish a specific goal—whether that's setting up a project, deploying a model, connecting services, or optimizing performance. Instead of navigating multiple pages and piecing together information, users can follow a skill to move from intent to execution in a clear, guided way.
               </p>
               
-              <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 my-12">
+              <div className="mt-28 mb-28 rounded-2xl border border-blue-100 bg-blue-50/50 p-10">
                 <h3 className="text-xl font-medium text-gray-900 mb-6 flex items-center gap-3">
                   <MaterialIcon name="smart_toy" size={24} className="text-blue-500" />
                   Empowering both Humans and AI Agents
@@ -242,9 +242,9 @@ By the end of this skill, you will:
                 </ul>
               </div>
 
-              <h3 className="text-xl font-medium text-gray-900 mt-12 mb-4">Inside a Skill</h3>
+              <h3 className="mt-0 mb-4 text-xl font-medium text-gray-900">Inside a Skill</h3>
               <p className="mb-6">Each skill focuses on a specific task or workflow and can include:</p>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="mb-0 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
                   <MaterialIcon name="check_circle" size={24} className="text-blue-500 mb-3" />
                   <h4 className="font-medium text-gray-900 mb-2">Clear instructions</h4>
@@ -267,8 +267,10 @@ By the end of this skill, you will:
                 </div>
               </div>
 
-              {/* Example SKILL.md — foldable, placed directly under Inside a Skill */}
-              <div className="mt-6 mb-8 border border-gray-200 rounded-xl overflow-hidden">
+              <h3 className="mt-28 mb-4 text-xl font-medium text-gray-900">Example</h3>
+
+              {/* Example SKILL.md — foldable, under Example */}
+              <div className="mb-0 overflow-hidden rounded-xl border border-gray-200">
                 <button
                   onClick={() => setSkillMdOpen(o => !o)}
                   className="w-full flex items-center justify-between px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
@@ -329,16 +331,14 @@ By the end of this skill, you will:
               </div>
             </div> */}
 
-            <hr className="border-gray-100 my-16" />
-
             {/* Use Cases Section */}
-            <div className="mb-16">
-              <h2 className="text-3xl font-medium text-gray-900 mb-6">What can you do with skills?</h2>
-              <p className="text-lg text-gray-600 mb-8">
+            <div className="mb-0">
+              <h2 className="mb-6 text-xl font-medium text-gray-900">What can you do with skills?</h2>
+              <p className="mb-14 text-lg text-gray-600">
                 Skills support a wide range of common actions across Google Cloud, including:
               </p>
-              
-              <div className="grid md:grid-cols-2 gap-6">
+
+              <div className="grid gap-12 md:grid-cols-2">
                 {[
                   {
                     title: "Getting started",
@@ -396,13 +396,13 @@ By the end of this skill, you will:
             </div>
 
             {/* Summary Section */}
-            <div className="bg-blue-50/50 border border-blue-100 rounded-3xl p-10 md:p-12 text-gray-900">
+            <div className="rounded-3xl border border-blue-100 bg-blue-50/50 p-12 text-gray-900 md:p-16">
               <div className="max-w-3xl">
-                <h2 className="text-3xl font-medium mb-6">How skills help</h2>
-                <p className="text-gray-600 text-lg mb-8">
+                <h2 className="mb-8 text-3xl font-medium">How skills help</h2>
+                <p className="mb-12 text-lg text-gray-600">
                   By turning documentation into modular, task-oriented experiences, skills allow users to:
                 </p>
-                <ul className="space-y-4">
+                <ul className="space-y-6">
                   <li className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
                       <span className="text-sm font-bold">1</span>
@@ -430,12 +430,15 @@ By the end of this skill, you will:
           <div className="hidden lg:block w-64 flex-shrink-0">
             <div className="pl-4 border-l border-gray-200 sticky top-24 pt-2">
               <h2 className="font-semibold text-gray-900 mb-4 text-xs uppercase tracking-wider text-left">On this page</h2>
-              <nav className="space-y-3 text-left">
+              <nav className="space-y-4 text-left">
                 <a href="#" className="block text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors">
                   What's a skill
                 </a>
                 <a href="#" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4">
                   Inside a Skill
+                </a>
+                <a href="#" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4">
+                  Example
                 </a>
                 <a href="#" className="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4">
                   Example SKILL.md
