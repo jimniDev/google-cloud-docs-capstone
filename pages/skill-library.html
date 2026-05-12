@@ -2278,18 +2278,6 @@
       }
 
       function viewSkillDetail(skillId) {
-        if (skillId === "fix-403-forbidden-access") {
-          try {
-            if (window.top && window.top !== window) {
-              window.top.location.hash = "#/skills/detail";
-              return;
-            }
-          } catch (e) {
-            /* ignore cross-origin */
-          }
-          window.location.hash = "#/skills/detail";
-          return;
-        }
         const skill = skills.find((item) => item.id === skillId);
         if (!skill) return;
         currentSkillId = skillId;

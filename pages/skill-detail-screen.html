@@ -1716,17 +1716,21 @@
                 <span class="breadcrumb-separator">›</span>
                 <span>Skill</span>
               </nav>
-              <h1>Fix 403 Forbidden Access Skill</h1>
+              <h1 id="detailTitle">Fix 403 Forbidden Access Skill</h1>
               <div class="page-meta-row">
-                <p class="page-meta">Troubleshooting · 4 steps · 5 min</p>
-                <p class="run-count">★ 12,400 runs in the last 30 days</p>
+                <p class="page-meta" id="detailMeta">
+                  Troubleshooting · 4 steps · 5 min
+                </p>
+                <p class="run-count" id="detailRuns">
+                  ★ 12,400 runs in the last 30 days
+                </p>
               </div>
             </div>
             <hr class="section-divider" />
 
             <section class="content-card" id="overview">
               <h2 class="section-title">Overview</h2>
-              <p>
+              <p id="overviewText">
                 Diagnose and resolve permission errors for Gemini Enterprise
                 endpoint calls in GCP. This skill guides you through identifying
                 the caller identity, checking IAM roles, and granting necessary
@@ -2279,6 +2283,94 @@
     <script>
       let isSaved = false;
       let toastTimer;
+      const SKILL_DETAIL_DATA = {
+        "fix-403-forbidden-access": {
+          title: "Fix 403 Forbidden Access Skill",
+          meta: "Troubleshooting · 4 steps · 5 min",
+          runs: "★ 12,400 runs in the last 30 days",
+          overview:
+            "Diagnose and resolve permission errors for Gemini Enterprise endpoint calls in GCP. This skill guides you through identifying the caller identity, checking IAM roles, and granting necessary permissions.",
+          installCommand: "claude-skill install fix-403-forbidden-access",
+        },
+        "deploy-cloud-run-service": {
+          title: "Deploy Cloud Run Service",
+          meta: "Setup & Configuration · 6 steps · 15 min",
+          runs: "★ 4,820 runs in the last 30 days",
+          overview:
+            "Deploy containerized applications to Cloud Run with a guided setup flow, from image selection through rollout verification.",
+          installCommand: "claude-skill install deploy-cloud-run-service",
+        },
+        "optimize-bigquery-query-performance": {
+          title: "Optimize BigQuery Query Performance",
+          meta: "Optimization & Best Practices · 8 steps · 30 min",
+          runs: "★ 3,210 runs in the last 30 days",
+          overview:
+            "Analyze query plans and runtime metrics to reduce scanned bytes, improve execution speed, and lower BigQuery costs.",
+          installCommand:
+            "claude-skill install optimize-bigquery-query-performance",
+        },
+        "vertex-ai-model-monitoring": {
+          title: "Set Up Vertex AI Model Monitoring",
+          meta: "Setup & Configuration · 7 steps · 20 min",
+          runs: "★ 1,475 runs in the last 30 days",
+          overview:
+            "Configure model monitoring and alerting for deployed Vertex AI endpoints, including drift thresholds and verification checks.",
+          installCommand: "claude-skill install vertex-ai-model-monitoring",
+        },
+        "troubleshoot-cloud-build-failures": {
+          title: "Troubleshoot Cloud Build Failures",
+          meta: "Troubleshooting & Debugging · 5 steps · 10 min",
+          runs: "★ 2,530 runs in the last 30 days",
+          overview:
+            "Identify root causes for failed Cloud Build pipelines, validate fixes, and confirm successful reruns.",
+          installCommand:
+            "claude-skill install troubleshoot-cloud-build-failures",
+        },
+        "configure-iam-custom-roles": {
+          title: "Configure IAM Custom Roles",
+          meta: "Setup & Configuration · 9 steps · 25 min",
+          runs: "★ 1,720 runs in the last 30 days",
+          overview:
+            "Design and apply least-privilege IAM custom roles with validation steps to ensure secure and precise access control.",
+          installCommand: "claude-skill install configure-iam-custom-roles",
+        },
+        "set-up-cloud-storage-lifecycle-rules": {
+          title: "Set Up Cloud Storage Lifecycle Rules",
+          meta: "Setup & Configuration · 6 steps · 12 min",
+          runs: "★ 1,860 runs in the last 30 days",
+          overview:
+            "Create and verify lifecycle policies that automatically transition or delete objects based on age and storage class needs.",
+          installCommand:
+            "claude-skill install set-up-cloud-storage-lifecycle-rules",
+        },
+        "debug-cloud-functions-timeout": {
+          title: "Debug Cloud Functions Timeout",
+          meta: "Troubleshooting & Debugging · 5 steps · 14 min",
+          runs: "★ 2,040 runs in the last 30 days",
+          overview:
+            "Troubleshoot Cloud Functions timeout errors by validating runtime limits, dependencies, and cold-start behavior.",
+          installCommand: "claude-skill install debug-cloud-functions-timeout",
+        },
+      };
+
+      function applySkillFromQuery() {
+        const skillId = new URLSearchParams(window.location.search).get("skill");
+        if (!skillId || !SKILL_DETAIL_DATA[skillId]) return;
+        const detail = SKILL_DETAIL_DATA[skillId];
+        document.title = `${detail.title} - Skill Detail`;
+        const titleEl = document.getElementById("detailTitle");
+        const metaEl = document.getElementById("detailMeta");
+        const runsEl = document.getElementById("detailRuns");
+        const overviewEl = document.getElementById("overviewText");
+        const installEl = document.getElementById("installCommand");
+        const shareEl = document.querySelector(".share-url-input");
+        if (titleEl) titleEl.textContent = detail.title;
+        if (metaEl) metaEl.textContent = detail.meta;
+        if (runsEl) runsEl.textContent = detail.runs;
+        if (overviewEl) overviewEl.textContent = detail.overview;
+        if (installEl) installEl.textContent = detail.installCommand;
+        if (shareEl) shareEl.value = window.location.href;
+      }
 
       function showToast(message) {
         const toast = document.getElementById("toast");
@@ -2319,8 +2411,11 @@
       }
 
       function copyCommand() {
+        const installCommand =
+          document.getElementById("installCommand")?.textContent.trim() ||
+          "claude-skill install fix-403-forbidden-access";
         writeClipboard(
-          "gcloud skills enable iam-permission-troubleshooter",
+          installCommand,
           "Command copied to clipboard",
         );
       }
@@ -2394,6 +2489,8 @@
           closeShareModal();
         }
       });
+
+      applySkillFromQuery();
     </script>
     <script src="./assets/site-header.js"></script>
   </body>
