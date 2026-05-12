@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Documentation Skills - Fix 403 Forbidden Access (Updated)</title>
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/nimbus-theme.css" />
+    <link rel="stylesheet" href="./assets/site-header.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
@@ -20,25 +25,28 @@
         padding: 0;
       }
       body {
-        font-family: Inter, system-ui, sans-serif;
+        font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
         background: var(--nimbus-surface-subtle);
         color: var(--nimbus-text-primary);
         padding: 0;
         line-height: 1.5;
       }
+      .gcloud-header {
+        position: static;
+      }
 
-      .cloud-topbar {
-        align-items: flex-start;
+      .enterprise-topbar {
+        align-items: center;
         background: #eaf2ff;
         border-bottom: 0;
         display: flex;
         height: 58px;
-        padding: 16px 28px 0;
-        position: sticky;
-        top: 0;
-        z-index: 20;
+        padding: 0 28px;
+        position: static;
+        top: auto;
+        z-index: 21;
       }
-      .cloud-brand {
+      .enterprise-brand {
         align-items: center;
         color: #202124;
         display: flex;
@@ -48,40 +56,10 @@
         gap: 8px;
         letter-spacing: -0.2px;
       }
-      .cloud-logo {
+      .enterprise-logo {
         color: #1a73e8;
         font-size: 20px;
         line-height: 1;
-      }
-      .cloud-primary-nav {
-        display: none;
-      }
-      .cloud-primary-nav a,
-      .cloud-utility a {
-        color: #5f6368;
-        font-size: 14px;
-        line-height: 20px;
-        text-decoration: none;
-      }
-      .cloud-primary-nav a.active {
-        color: #1a73e8;
-        font-weight: 500;
-      }
-      .cloud-search {
-        display: none;
-      }
-      .cloud-utility {
-        display: none;
-      }
-      .console-btn {
-        background: #1a73e8;
-        border: 1px solid #1a73e8;
-        border-radius: 4px;
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        height: 36px;
-        padding: 0 16px;
       }
       .cloud-docbar {
         align-items: center;
@@ -92,8 +70,8 @@
         gap: 0;
         height: 44px;
         padding: 0 28px;
-        position: sticky;
-        top: 58px;
+        position: static;
+        top: auto;
         z-index: 19;
       }
       .docbar-title {
@@ -135,8 +113,8 @@
         border-radius: 0;
         min-height: calc(100vh - 128px);
         padding: 0 18px 24px 20px;
-        position: sticky;
-        top: 124px;
+        position: static;
+        top: auto;
       }
       .filter-row {
         align-items: center;
@@ -193,7 +171,7 @@
       .right-panel {
         min-width: 0;
         position: sticky;
-        top: 124px;
+        top: 24px;
         height: fit-content;
       }
 
@@ -1586,15 +1564,18 @@
       }
 
       @media (max-width: 900px) {
-        .cloud-primary-nav,
-        .cloud-utility,
         .cloud-docbar {
           display: none;
         }
-        .cloud-topbar {
+        .enterprise-topbar {
           position: static;
+          top: auto;
           height: auto;
-          padding-bottom: 12px;
+          min-height: 58px;
+          padding: 12px 20px;
+        }
+        .enterprise-brand {
+          font-size: 20px;
         }
         .container {
           display: block;
@@ -1625,28 +1606,11 @@
     </style>
   </head>
   <body>
-    <header class="cloud-topbar" aria-label="Google Cloud header">
-      <div class="cloud-brand">
-        <span class="cloud-logo" aria-hidden="true">✦</span>
+    <div data-site-header data-home="./home.html"></div>
+    <header class="enterprise-topbar" aria-label="Enterprise product header">
+      <div class="enterprise-brand">
+        <span class="enterprise-logo" aria-hidden="true">✦</span>
         <span>Gemini Enterprise Agent Platform</span>
-      </div>
-      <nav class="cloud-primary-nav" aria-label="Primary navigation">
-        <a href="#">Overview</a>
-        <a href="#">Studio</a>
-        <a href="#">Agents</a>
-        <a class="active" href="#">Models</a>
-        <a href="#">Notebooks</a>
-        <a href="#">Pricing</a>
-        <a href="#">Engineering Blog</a>
-      </nav>
-      <div class="cloud-search" role="search" aria-label="Search documentation">
-        <span aria-hidden="true">⌕</span>
-        <span>Search</span>
-      </div>
-      <div class="cloud-utility">
-        <a href="#">English</a>
-        <a href="#">Console</a>
-        <button class="console-btn" type="button">Sign in</button>
       </div>
     </header>
 
@@ -2980,6 +2944,8 @@
 
     <script>
       let currentSelectedStep = null;
+      let clearHighlightOnScroll = false;
+      let suppressHighlightClearUntil = 0;
 
       function showToast(message) {
         const toast = document.getElementById("toast");
@@ -3073,6 +3039,7 @@
                 "doc" + stepId.charAt(0).toUpperCase() + stepId.slice(1),
               );
         if (docSection) {
+          suppressHighlightClearUntil = Date.now() + 900;
           docSection.scrollIntoView({ behavior: "smooth", block: "center" });
         }
 
@@ -3086,6 +3053,34 @@
         const navItem = document.querySelector(`[data-nav="${stepId}"]`);
         if (navItem) {
           navItem.classList.add("active");
+        }
+      }
+
+      function stepIdFromSectionId(sectionId) {
+        if (sectionId === "docIntro") return "intro";
+        if (!sectionId || !sectionId.startsWith("doc")) return null;
+        const rawStep = sectionId.slice(3);
+        return rawStep ? rawStep.charAt(0).toLowerCase() + rawStep.slice(1) : null;
+      }
+
+      function updateOnThisPageByScroll() {
+        const sections = Array.from(document.querySelectorAll(".doc-section"));
+        if (!sections.length) return;
+
+        const activationLine = 140;
+        let activeSection = sections[0];
+
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= activationLine) {
+            activeSection = section;
+          } else {
+            break;
+          }
+        }
+
+        const stepId = stepIdFromSectionId(activeSection.id);
+        if (stepId) {
+          updateNavigation(stepId);
         }
       }
 
@@ -3105,12 +3100,20 @@
             section.classList.add("dimmed");
           }
         });
+        clearHighlightOnScroll = true;
       }
 
       function clearHighlight() {
         document.querySelectorAll(".doc-section").forEach((section) => {
           section.classList.remove("highlighted", "dimmed");
         });
+      }
+
+      function clearHighlightWhenUserScrolls() {
+        if (!clearHighlightOnScroll) return;
+        if (Date.now() < suppressHighlightClearUntil) return;
+        clearHighlight();
+        clearHighlightOnScroll = false;
       }
 
       // Delete step
@@ -3288,6 +3291,14 @@
           passive: true,
         });
         window.addEventListener("resize", updateStepNavigatorVisibility);
+        updateOnThisPageByScroll();
+        window.addEventListener("scroll", updateOnThisPageByScroll, {
+          passive: true,
+        });
+        window.addEventListener("scroll", clearHighlightWhenUserScrolls, {
+          passive: true,
+        });
+        window.addEventListener("resize", updateOnThisPageByScroll);
 
         stepList.addEventListener("dragstart", (e) => {
           draggedItem = e.target.closest(".step-item");
@@ -3334,5 +3345,6 @@
         item.setAttribute("draggable", "true");
       });
     </script>
+    <script src="./assets/site-header.js"></script>
   </body>
 </html>
