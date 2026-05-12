@@ -1,0 +1,60 @@
+:root {
+  --nimbus-primary: #1a73e8;
+  --nimbus-primary-hover: #1666cc;
+  --nimbus-primary-active: #0f4fa8;
+  --nimbus-secondary: #5f6368;
+  --nimbus-secondary-hover: #4a4d52;
+  --nimbus-success: #1e8e3e;
+  --nimbus-warning: #f9ab00;
+  --nimbus-error: #d93025;
+  --nimbus-info: #0288d1;
+  --nimbus-surface: #ffffff;
+  --nimbus-surface-subtle: #f8f9fa;
+  --nimbus-border: #e0e3e7;
+  --nimbus-text-primary: #202124;
+  --nimbus-text-secondary: #5f6368;
+  --nimbus-text-disabled: #9aa0a6;
+
+  --nimbus-display-l-size: 48px;
+  --nimbus-display-l-lh: 56px;
+  --nimbus-display-m-size: 36px;
+  --nimbus-display-m-lh: 44px;
+  --nimbus-headline-l-size: 28px;
+  --nimbus-headline-l-lh: 36px;
+  --nimbus-headline-m-size: 24px;
+  --nimbus-headline-m-lh: 32px;
+  --nimbus-title-l-size: 20px;
+  --nimbus-title-l-lh: 28px;
+  --nimbus-title-m-size: 18px;
+  --nimbus-title-m-lh: 26px;
+  --nimbus-body-l-size: 16px;
+  --nimbus-body-l-lh: 24px;
+  --nimbus-body-m-size: 14px;
+  --nimbus-body-m-lh: 20px;
+  --nimbus-label-size: 12px;
+  --nimbus-label-lh: 16px;
+
+  --nimbus-space-1: 4px;
+  --nimbus-space-2: 8px;
+  --nimbus-space-3: 12px;
+  --nimbus-space-4: 16px;
+  --nimbus-space-5: 20px;
+  --nimbus-space-6: 24px;
+  --nimbus-space-8: 32px;
+  --nimbus-space-10: 40px;
+  --nimbus-space-12: 48px;
+  --nimbus-space-16: 64px;
+
+  --nimbus-radius-sm: 4px;
+  --nimbus-radius-md: 6px;
+  --nimbus-radius-lg: 8px;
+  --nimbus-radius-xl: 12px;
+
+  --nimbus-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --nimbus-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --nimbus-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  --nimbus-motion-fast: 120ms ease-out;
+  --nimbus-motion-medium: 180ms ease;
+  --nimbus-motion-slow: 240ms ease-in-out;
+}

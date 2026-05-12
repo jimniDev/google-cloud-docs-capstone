@@ -1,6 +1,6 @@
 ---
-description: Nimbus Design System component patterns for React TSX files. Enforces layout structure, component variants, interaction states, accessibility, and icon usage.
-globs: src/app/components/**/*.tsx
+description: Nimbus Design System component patterns for HTML/CSS pages. Enforces layout structure, variants, interaction states, accessibility, and icon usage.
+globs: pages/**/*.html
 alwaysApply: false
 ---
 
@@ -8,15 +8,15 @@ alwaysApply: false
 
 ## Layout: Docs Layout (default for this project)
 
-```tsx
+```html
 // Sidebar: w-[240px], sticky, left
 // Content: max-w-[760px], px-nimbus-8
 // TOC (optional): w-[200px], right, sticky
 
-<div className="flex min-h-screen bg-nimbus-surface">
-  <aside className="w-[240px] shrink-0 sticky top-0 h-screen border-r border-nimbus-border bg-nimbus-surface-subtle" />
-  <main className="flex-1 max-w-[760px] px-nimbus-8 py-nimbus-6" />
-  <nav className="w-[200px] shrink-0 sticky top-0 h-screen" /> {/* optional TOC */}
+<div class="flex min-h-screen bg-nimbus-surface">
+  <aside class="w-[240px] shrink-0 sticky top-0 h-screen border-r border-nimbus-border bg-nimbus-surface-subtle"></aside>
+  <main class="flex-1 max-w-[760px] px-nimbus-8 py-nimbus-6"></main>
+  <nav class="w-[200px] shrink-0 sticky top-0 h-screen"></nav> <!-- optional TOC -->
 </div>
 ```
 
@@ -24,9 +24,9 @@ Top bar height: `h-[56px]`. Sidebar width: `w-[240px]`.
 
 ## Buttons
 
-```tsx
+```html
 // Primary
-<button className="min-w-[96px] h-[36px] px-nimbus-4 rounded-nimbus-md
+<button class="min-w-[96px] h-[36px] px-nimbus-4 rounded-nimbus-md
   bg-nimbus-primary text-white font-medium text-[14px]
   hover:bg-nimbus-primary-hover active:bg-nimbus-primary-active
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nimbus-primary focus-visible:ring-offset-2
@@ -36,7 +36,7 @@ Top bar height: `h-[56px]`. Sidebar width: `w-[240px]`.
 </button>
 
 // Secondary (Ghost)
-<button className="min-w-[96px] h-[36px] px-nimbus-4 rounded-nimbus-md
+<button class="min-w-[96px] h-[36px] px-nimbus-4 rounded-nimbus-md
   border border-nimbus-border text-nimbus-text-primary
   hover:bg-nimbus-surface-subtle
   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nimbus-primary focus-visible:ring-offset-2
@@ -45,37 +45,30 @@ Top bar height: `h-[56px]`. Sidebar width: `w-[240px]`.
 </button>
 
 // Destructive
-<button className="... bg-nimbus-error text-white hover:opacity-90">Delete</button>
+<button class="... bg-nimbus-error text-white hover:opacity-90">Delete</button>
 ```
 
 ## Cards
 
-```tsx
+```html
 // Default
-<div className="rounded-nimbus-lg border border-nimbus-border bg-nimbus-surface shadow-nimbus-sm p-nimbus-4">
+<div class="rounded-nimbus-lg border border-nimbus-border bg-nimbus-surface shadow-nimbus-sm p-nimbus-4">
 
 // Elevated
-<div className="rounded-nimbus-lg bg-nimbus-surface shadow-nimbus-md p-nimbus-6">
+<div class="rounded-nimbus-lg bg-nimbus-surface shadow-nimbus-md p-nimbus-6">
 ```
 
 Card title spacing: `mb-nimbus-3`. Body text: `text-nimbus-text-secondary`.
 
 ## Alerts
 
-```tsx
+```html
 // success | warning | error | info
-const alertStyles = {
-  success: 'border-nimbus-success bg-[#E6F4EA] text-nimbus-success',
-  warning: 'border-nimbus-warning bg-[#FEF7E0] text-[#B06000]',
-  error:   'border-nimbus-error bg-[#FCE8E6] text-nimbus-error',
-  info:    'border-nimbus-info bg-[#E3F2FD] text-nimbus-info',
-};
-
-<div className={`flex gap-nimbus-2 rounded-nimbus-md border p-nimbus-3 ${alertStyles[variant]}`}>
-  <span className="material-symbols-outlined text-[20px]">{icon}</span>
+<div class="flex gap-nimbus-2 rounded-nimbus-md border p-nimbus-3 border-nimbus-info text-nimbus-info" role="alert">
+  <span class="material-symbols-outlined text-[20px]">info</span>
   <div>
-    <p className="font-medium">{title}</p>
-    <p className="text-[14px] mt-nimbus-1">{description}</p>
+    <p class="font-medium">Title</p>
+    <p class="text-[14px] mt-nimbus-1">Description</p>
   </div>
 </div>
 ```
@@ -84,7 +77,7 @@ const alertStyles = {
 
 Always include focus-visible ring. Never remove outlines without replacement.
 
-```tsx
+```html
 // Focus ring pattern (apply to all interactive elements)
 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nimbus-primary focus-visible:ring-offset-2"
 
@@ -103,19 +96,19 @@ Use the Outlined style. Load via Google Fonts in `fonts.css`:
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 ```
 
-```tsx
+```html
 // Sizes: 16px (sm), 20px (default), 24px (lg), 32px (hero)
-<span className="material-symbols-outlined text-[20px] text-nimbus-text-secondary">search</span>
+<span class="material-symbols-outlined text-[20px] text-nimbus-text-secondary">search</span>
 
 // Icon + label: gap-nimbus-2
-<button className="flex items-center gap-nimbus-2">
-  <span className="material-symbols-outlined text-[20px]">add</span>
+<button class="flex items-center gap-nimbus-2" type="button">
+  <span class="material-symbols-outlined text-[20px]">add</span>
   New item
 </button>
 
 // Icon-only button: 36×36 container
-<button className="w-[36px] h-[36px] flex items-center justify-center rounded-nimbus-md">
-  <span className="material-symbols-outlined text-[20px]">more_vert</span>
+<button class="w-[36px] h-[36px] flex items-center justify-center rounded-nimbus-md" type="button" aria-label="More actions">
+  <span class="material-symbols-outlined text-[20px]">more_vert</span>
 </button>
 ```
 

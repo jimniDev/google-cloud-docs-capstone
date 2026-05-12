@@ -2,30 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>google-cloud-docs-capstone</title>
-    <script>
-      (function (l) {
-        if (l.search[1] === "/") {
-          var decoded = l.search
-            .slice(1)
-            .split("&")
-            .map(function (s) {
-              return s.replace(/~and~/g, "&");
-            })
-            .join("?");
-          window.history.replaceState(
-            null,
-            null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      })(window.location);
-    </script>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Google Cloud Docs Capstone</title>
+    <meta http-equiv="refresh" content="0; url=./pages/home.html" />
+    <link rel="canonical" href="./pages/home.html" />
+    <style>
+      body {
+        font-family:
+          "Google Sans Text", "Inter", system-ui, sans-serif;
+        color: #5f6368;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background: #f8f9fa;
+      }
+      a {
+        color: #1a73e8;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <p>
+      Redirecting to
+      <a href="./pages/home.html">./pages/home.html</a>…
+    </p>
+    <script>
+      window.location.replace("./pages/home.html");
+    </script>
   </body>
 </html>

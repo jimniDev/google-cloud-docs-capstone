@@ -1,11 +1,11 @@
 ---
 name: nimbus-component
-description: Create Nimbus Design System compliant React components for the google-cloud-docs-capstone project. Use when creating, refactoring, or reviewing UI components; when asked to build buttons, cards, inputs, alerts, layout shells, or any UI element; when the user mentions Nimbus DS, design system, or Google Cloud UI patterns.
+description: Create Nimbus Design System compliant HTML/CSS/JS UI blocks for the google-cloud-docs-capstone project. Use when creating, refactoring, or reviewing page sections, components, interaction patterns, and layouts in static HTML files.
 ---
 
 # Nimbus Component Creation
 
-Creates WCAG 2.2 AA compliant React components following Nimbus Design System v1.0.
+Creates WCAG 2.2 AA compliant HTML UI components following Nimbus Design System v1.0.
 
 ## Quick Rules
 
@@ -23,113 +23,82 @@ Creates WCAG 2.2 AA compliant React components following Nimbus Design System v1
 - [ ] Include focus-visible ring on interactive elements
 - [ ] Add aria-label for icon-only controls
 - [ ] Associate labels with inputs
-- [ ] Export as named export (not default)
-- [ ] Place in src/app/components/ui/ (atoms) or layout/ (layout shells)
+- [ ] Keep behavior in small vanilla JS helpers (avoid framework assumptions)
+- [ ] Keep reusable CSS classes near the page style block or shared stylesheet
 ```
 
 ## Token Reference (quick)
 
-```tsx
-// Colors → bg-nimbus-primary, text-nimbus-text-primary, border-nimbus-border, ...
-// Spacing → p-nimbus-4 (16px), gap-nimbus-2 (8px), px-nimbus-8 (32px), ...
-// Radius → rounded-nimbus-sm (4px), rounded-nimbus-md (6px), rounded-nimbus-lg (8px)
-// Shadow → shadow-nimbus-sm, shadow-nimbus-md, shadow-nimbus-lg
-// Motion → duration-[120ms] (fast), duration-[180ms] (medium), duration-[240ms] (slow)
+```html
+<!-- Colors → var(--nimbus-primary), var(--nimbus-text-primary), var(--nimbus-border) -->
+<!-- Spacing → var(--nimbus-space-4), var(--nimbus-space-2), var(--nimbus-space-8) -->
+<!-- Radius → var(--nimbus-radius-sm/md/lg/xl) -->
+<!-- Shadow → var(--nimbus-shadow-sm/md/lg) -->
+<!-- Motion → var(--nimbus-motion-fast/medium/slow) -->
 ```
 
 ## Component Templates
 
 ### Button
 
-```tsx
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'destructive';
+```html
+<button class="nimbus-btn nimbus-btn--primary" type="button">Label</button>
+<button class="nimbus-btn nimbus-btn--secondary" type="button">Label</button>
+<button class="nimbus-btn nimbus-btn--ghost" type="button">Label</button>
+<button class="nimbus-btn nimbus-btn--destructive" type="button">Delete</button>
+```
 
-const variantStyles: Record<ButtonVariant, string> = {
-  primary:     'bg-nimbus-primary text-white hover:bg-nimbus-primary-hover active:bg-nimbus-primary-active',
-  secondary:   'border border-nimbus-border text-nimbus-text-primary hover:bg-nimbus-surface-subtle',
-  ghost:       'text-nimbus-primary hover:bg-nimbus-surface-subtle',
-  destructive: 'bg-nimbus-error text-white hover:opacity-90',
-};
-
-export function Button({ variant = 'primary', disabled, children, ...props }: ButtonProps) {
-  return (
-    <button
-      className={[
-        'min-w-[96px] h-[36px] px-nimbus-4 rounded-nimbus-md font-medium text-[14px]',
-        'inline-flex items-center justify-center gap-nimbus-2',
-        'transition-[background-color,box-shadow] duration-[120ms] ease-out',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nimbus-primary focus-visible:ring-offset-2',
-        'disabled:opacity-40 disabled:pointer-events-none',
-        variantStyles[variant],
-      ].join(' ')}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </button>
-  );
+```css
+.nimbus-btn {
+  align-items: center;
+  border-radius: var(--nimbus-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--nimbus-body-m-size);
+  font-weight: 500;
+  gap: var(--nimbus-space-2);
+  height: 36px;
+  justify-content: center;
+  min-width: 96px;
+  padding: 0 var(--nimbus-space-4);
+  transition: background var(--nimbus-motion-fast), box-shadow var(--nimbus-motion-fast);
 }
+.nimbus-btn:focus-visible { outline: 2px solid var(--nimbus-primary); outline-offset: 2px; }
+.nimbus-btn:disabled { opacity: 0.4; pointer-events: none; }
+.nimbus-btn--primary { background: var(--nimbus-primary); color: var(--nimbus-surface); }
+.nimbus-btn--primary:hover { background: var(--nimbus-primary-hover); }
+.nimbus-btn--secondary { background: var(--nimbus-surface); border-color: var(--nimbus-border); color: var(--nimbus-text-primary); }
+.nimbus-btn--secondary:hover { background: var(--nimbus-surface-subtle); }
 ```
 
 ### Card
 
-```tsx
-type CardVariant = 'default' | 'elevated';
-
-export function Card({ variant = 'default', children, className }: CardProps) {
-  const base = 'rounded-nimbus-lg bg-nimbus-surface';
-  const styles = {
-    default:  'border border-nimbus-border shadow-nimbus-sm p-nimbus-4',
-    elevated: 'shadow-nimbus-md p-nimbus-6',
-  };
-  return <div className={`${base} ${styles[variant]} ${className ?? ''}`}>{children}</div>;
-}
+```html
+<article class="nimbus-card nimbus-card--default">...</article>
+<article class="nimbus-card nimbus-card--elevated">...</article>
 ```
 
 ### Alert
 
-```tsx
-const alertConfig = {
-  success: { bg: 'bg-[#E6F4EA]', border: 'border-nimbus-success', text: 'text-nimbus-success', icon: 'check_circle' },
-  warning: { bg: 'bg-[#FEF7E0]', border: 'border-nimbus-warning', text: 'text-[#B06000]',      icon: 'warning' },
-  error:   { bg: 'bg-[#FCE8E6]', border: 'border-nimbus-error',   text: 'text-nimbus-error',   icon: 'error' },
-  info:    { bg: 'bg-[#E3F2FD]', border: 'border-nimbus-info',    text: 'text-nimbus-info',    icon: 'info' },
-};
-
-export function Alert({ variant, title, description }: AlertProps) {
-  const { bg, border, text, icon } = alertConfig[variant];
-  return (
-    <div className={`flex gap-nimbus-2 rounded-nimbus-md border p-nimbus-3 ${bg} ${border}`} role="alert">
-      <span className={`material-symbols-outlined text-[20px] ${text}`}>{icon}</span>
-      <div>
-        <p className={`font-medium text-[14px] ${text}`}>{title}</p>
-        {description && <p className="text-nimbus-text-secondary text-[14px] mt-nimbus-1">{description}</p>}
-      </div>
-    </div>
-  );
-}
+```html
+<div class="nimbus-alert nimbus-alert--info" role="alert">
+  <span class="material-symbols-outlined">info</span>
+  <div>
+    <p class="nimbus-alert__title">Title</p>
+    <p class="nimbus-alert__desc">Description text</p>
+  </div>
+</div>
 ```
 
 ### Docs Layout Shell
 
-```tsx
-export function DocsLayout({ sidebar, toc, children }: DocsLayoutProps) {
-  return (
-    <div className="flex min-h-screen bg-nimbus-surface">
-      <aside className="w-[240px] shrink-0 sticky top-0 h-screen overflow-y-auto border-r border-nimbus-border bg-nimbus-surface-subtle">
-        {sidebar}
-      </aside>
-      <main className="flex-1 min-w-0 max-w-[760px] px-nimbus-8 py-nimbus-6">
-        {children}
-      </main>
-      {toc && (
-        <nav className="w-[200px] shrink-0 sticky top-0 h-screen overflow-y-auto px-nimbus-4 py-nimbus-6">
-          {toc}
-        </nav>
-      )}
-    </div>
-  );
-}
+```html
+<div class="docs-layout">
+  <aside class="docs-layout__sidebar"><!-- nav --></aside>
+  <main class="docs-layout__main"><!-- content --></main>
+  <nav class="docs-layout__toc"><!-- optional toc --></nav>
+</div>
 ```
 
 ## Accessibility Checklist
@@ -144,12 +113,13 @@ export function DocsLayout({ sidebar, toc, children }: DocsLayoutProps) {
 - [ ] No motion without prefers-reduced-motion fallback for critical animations
 ```
 
-## File Placement
+## File Placement (HTML-first)
 
 ```
-src/app/components/
-  ui/           ← atomic components (Button, Card, Input, Alert, Chip)
-  layout/       ← layout shells (DocsLayout, AppShell, Sidebar, Topbar)
+pages/*.html                    ← page markup
+pages/assets/*.css              ← shared page styles (optional)
+pages/assets/*.js               ← interaction helpers
+src/styles/theme.css            ← Nimbus tokens (single source of truth)
 ```
 
 ## Additional Reference
