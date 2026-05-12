@@ -1,0 +1,77 @@
+---
+description: Nimbus Design System token usage rules. Enforces no hardcoded values and correct use of --nimbus-* CSS variables and nimbus-* Tailwind utilities throughout the project.
+alwaysApply: true
+---
+
+# Nimbus Design System - Token Rules
+
+**Never hardcode colors, spacing, radii, shadows, or motion values.** Always use Nimbus tokens.
+
+## Colors
+
+| Tailwind utility | CSS variable | Value |
+|---|---|---|
+| `bg-nimbus-primary` / `text-nimbus-primary` | `--nimbus-primary` | `#1A73E8` |
+| `bg-nimbus-primary-hover` | `--nimbus-primary-hover` | `#1666CC` |
+| `bg-nimbus-secondary` / `text-nimbus-secondary` | `--nimbus-secondary` | `#5F6368` |
+| `bg-nimbus-success` | `--nimbus-success` | `#1E8E3E` |
+| `bg-nimbus-warning` | `--nimbus-warning` | `#F9AB00` |
+| `bg-nimbus-error` | `--nimbus-error` | `#D93025` |
+| `bg-nimbus-surface` | `--nimbus-surface` | `#FFFFFF` |
+| `bg-nimbus-surface-subtle` | `--nimbus-surface-subtle` | `#F8F9FA` |
+| `border-nimbus-border` | `--nimbus-border` | `#E0E3E7` |
+| `text-nimbus-text-primary` | `--nimbus-text-primary` | `#202124` |
+| `text-nimbus-text-secondary` | `--nimbus-text-secondary` | `#5F6368` |
+| `text-nimbus-text-disabled` | `--nimbus-text-disabled` | `#9AA0A6` |
+
+## Spacing (4/8 scale)
+
+Use `gap-nimbus-{n}`, `p-nimbus-{n}`, `m-nimbus-{n}` utilities, or `var(--nimbus-space-{n})`:
+
+`1`=4px · `2`=8px · `3`=12px · `4`=16px · `5`=20px · `6`=24px · `8`=32px · `10`=40px · `12`=48px · `16`=64px
+
+## Typography
+
+| Scale | Size | Weight | CSS var |
+|---|---|---|---|
+| Display L | 48px | 700 | `--nimbus-display-l-size` |
+| Display M | 36px | 600 | `--nimbus-display-m-size` |
+| Headline L | 28px | 600 | `--nimbus-headline-l-size` |
+| Headline M | 24px | 600 | `--nimbus-headline-m-size` |
+| Title L | 20px | 600 | `--nimbus-title-l-size` |
+| Title M | 18px | 600 | `--nimbus-title-m-size` |
+| Body L | 16px | 400 | `--nimbus-body-l-size` |
+| Body M | 14px | 400 | `--nimbus-body-m-size` |
+| Label | 12px | 500 | `--nimbus-label-size` |
+
+Font: `"Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif` (already set on `body`).
+
+## Radii, Shadows, Motion
+
+```css
+/* Radii */
+--nimbus-radius-sm: 4px   --nimbus-radius-md: 6px
+--nimbus-radius-lg: 8px   --nimbus-radius-xl: 12px
+
+/* Shadows */
+--nimbus-shadow-sm: 0 1px 2px rgba(0,0,0,0.06)
+--nimbus-shadow-md: 0 2px 4px rgba(0,0,0,0.08)
+--nimbus-shadow-lg: 0 4px 12px rgba(0,0,0,0.10)
+
+/* Motion */
+--nimbus-motion-fast: 120ms ease-out
+--nimbus-motion-medium: 180ms ease
+--nimbus-motion-slow: 240ms ease-in-out
+```
+
+## Bad vs. Good
+
+```tsx
+// ❌ BAD - hardcoded
+<div style={{ color: '#1A73E8', padding: '16px' }} />
+<div className="text-blue-600 p-4" />
+
+// ✅ GOOD - Nimbus tokens
+<div className="text-nimbus-primary p-nimbus-4" />
+<div style={{ color: 'var(--nimbus-primary)', padding: 'var(--nimbus-space-4)' }} />
+```
