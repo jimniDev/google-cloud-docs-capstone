@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills · Google Cloud</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/site-header.css" />
+
+    <style>
+      html {
+        font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
+      }
+      body {
+        background: #ffffff;
+        color: #202124;
+      }
+      /* Force 4-column grid for "Inside a Skill" cards regardless of Tailwind
+         CDN responsive class behavior. Below 768px it collapses to 2 columns. */
+      [data-cols-4-at] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      @media (min-width: 768px) {
+        [data-cols-4-at] {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+      /* Keep "Inside a Skill" card titles on a single line where possible. */
+      .skill-card-title {
+        font-size: 15px;
+        line-height: 1.35;
+        white-space: nowrap;
+      }
+      .skill-card-desc {
+        font-size: 13px;
+        line-height: 1.55;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-white text-slate-900 selection:bg-blue-100 selection:text-blue-900">
+    <div data-site-header data-home="./home.html"></div>
+
+    <div class="relative min-h-[calc(100vh-57px)]">
+      <main class="flex-1 overflow-y-auto bg-white relative">
+        <div class="mx-auto max-w-7xl px-6 pb-36 pt-12 lg:px-12">
+          <!-- Breadcrumbs -->
+          <nav class="mb-12 flex text-sm text-gray-500" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center">
+              <li class="inline-flex items-center">
+                <a href="./home.html" class="inline-flex items-center hover:text-blue-600 transition-colors">
+                  Home
+                </a>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <span class="material-symbols-outlined text-gray-400 mx-0.5" style="font-size: 18px">chevron_right</span>
+                  <span class="text-gray-900 font-medium">Skills</span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+
+          <div class="relative flex flex-col items-stretch justify-between gap-12 lg:flex-row lg:items-start lg:gap-12">
+            <div class="flex-1 min-w-0">
+              <!-- Header Section -->
+              <div class="mb-16">
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest">
+                    GENAI-CONTENT SKILLS FOR GOOGLE
+                  </span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight mb-6">
+                  Skills
+                </h1>
+                <p class="text-xl text-gray-600 leading-relaxed max-w-4xl">
+                  Skills transform Google Cloud Documentation from static
+                  information into actionable, reusable workflows that help
+                  users complete tasks faster and with more confidence.
+                </p>
+
+                <!-- Go to library CTA pill -->
+                <a
+                  href="./skill-library.html"
+                  class="gtl-pill"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: #eaf2fd;
+                    border: 1px solid #bddaf9;
+                    border-radius: 9999px;
+                    padding: 12px 12px 12px 22px;
+                    text-decoration: none;
+                    margin-top: 32px;
+                    width: fit-content;
+                    transition: background 120ms ease-out, box-shadow 120ms ease-out;
+                  "
+                >
+                  <span style="font-size: 15px; color: #1a73e8; line-height: 22px">
+                    <strong style="font-weight: 600">Go to library</strong>
+                  </span>
+                  <span
+                    style="
+                      width: 32px;
+                      height: 32px;
+                      border-radius: 9999px;
+                      background: #1a73e8;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      flex-shrink: 0;
+                      margin-left: 16px;
+                    "
+                  >
+                    <span class="material-symbols-outlined" style="font-size: 16px; color: white">
+                      arrow_forward
+                    </span>
+                  </span>
+                </a>
+              </div>
+
+              <div class="flex flex-col gap-16 lg:flex-row lg:gap-8">
+                <!-- Left Column: Content -->
+                <div class="flex min-w-0 flex-1 flex-col gap-16">
+                  <!-- Introduction Section -->
+                  <div class="max-w-none space-y-6 text-gray-600 text-base leading-relaxed">
+                    <h2 id="whats-a-skill" class="text-xl font-medium text-gray-900 mb-4 mt-0">What's a skill</h2>
+                    <p class="mb-6">
+                      A skill is a structured bundle of guidance, steps, and
+                      resources designed to help users accomplish a specific
+                      goal—whether that's setting up a project, deploying a
+                      model, connecting services, or optimizing performance.
+                      Instead of navigating multiple pages and piecing together
+                      information, users can follow a skill to move from intent
+                      to execution in a clear, guided way.
+                    </p>
+
+                    <div class="mt-12 mb-12 rounded-2xl border border-blue-100 bg-blue-50/50 p-10">
+                      <h3 class="text-xl font-medium text-gray-900 mb-6 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-blue-500" style="font-size: 24px">smart_toy</span>
+                        Empowering both Humans and AI Agents
+                      </h3>
+                      <p class="mb-6">
+                        Skills can be used by both humans and AI agents (e.g.,
+                        in Vertex AI), enabling:
+                      </p>
+                      <ul class="grid sm:grid-cols-2 gap-4 list-none pl-0">
+                        <li class="flex items-start gap-3">
+                          <span class="material-symbols-outlined text-yellow-500 flex-shrink-0 mt-0.5" style="font-size: 20px">bolt</span>
+                          <span>
+                            <strong class="font-medium text-gray-900">Faster task completion</strong>
+                            through step-by-step, goal-oriented workflows
+                          </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                          <span class="material-symbols-outlined text-blue-500 flex-shrink-0 mt-0.5" style="font-size: 20px">account_tree</span>
+                          <span>
+                            <strong class="font-medium text-gray-900">Reduced cognitive load</strong>
+                            by eliminating the need to reconstruct information
+                            across documentation
+                          </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                          <span class="material-symbols-outlined text-green-500 flex-shrink-0 mt-0.5" style="font-size: 20px">shield</span>
+                          <span>
+                            <strong class="font-medium text-gray-900">Consistent and reliable execution</strong>
+                            based on trusted, official sources
+                          </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                          <span class="material-symbols-outlined text-purple-500 flex-shrink-0 mt-0.5" style="font-size: 20px">auto_awesome</span>
+                          <span>
+                            <strong class="font-medium text-gray-900">Adaptive support</strong>
+                            that works for both beginners (structured guidance)
+                            and advanced users (efficient, direct actions)
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <h3 id="inside-a-skill" class="mt-0 mb-3 text-xl font-medium text-gray-900">Inside a Skill</h3>
+                    <p class="mb-6">Each skill focuses on a specific task or workflow and can include:</p>
+                    <div class="mb-0 grid gap-4" data-cols-4-at="640">
+                      <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
+                        <span class="material-symbols-outlined text-blue-500 mb-3 block" style="font-size: 22px">check_circle</span>
+                        <h4 class="skill-card-title font-medium text-gray-900 mb-1.5">Clear instructions</h4>
+                        <p class="skill-card-desc text-gray-500">Step-by-step guidance and clear decision points.</p>
+                      </div>
+                      <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
+                        <span class="material-symbols-outlined text-green-500 mb-3 block" style="font-size: 22px">search</span>
+                        <h4 class="skill-card-title font-medium text-gray-900 mb-1.5">Relevant links</h4>
+                        <p class="skill-card-desc text-gray-500">Direct connections to required documentation and tools.</p>
+                      </div>
+                      <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
+                        <span class="material-symbols-outlined text-purple-500 mb-3 block" style="font-size: 22px">terminal</span>
+                        <h4 class="skill-card-title font-medium text-gray-900 mb-1.5">Examples</h4>
+                        <p class="skill-card-desc text-gray-500">Ready-to-use commands, configurations, or templates.</p>
+                      </div>
+                      <div class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
+                        <span class="material-symbols-outlined text-orange-500 mb-3 block" style="font-size: 22px">verified_user</span>
+                        <h4 class="skill-card-title font-medium text-gray-900 mb-1.5">Validation</h4>
+                        <p class="skill-card-desc text-gray-500">Steps to confirm successful completion of tasks.</p>
+                      </div>
+                    </div>
+
+                    <h3 id="example" class="mt-12 mb-4 text-xl font-medium text-gray-900">Example</h3>
+
+                    <!-- Example SKILL.md - foldable -->
+                    <div class="mb-0 overflow-hidden rounded-xl border border-gray-200" id="skill-md-block">
+                      <button
+                        type="button"
+                        class="skill-md-toggle w-full flex items-center justify-between px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                        aria-expanded="false"
+                        aria-controls="skill-md-body"
+                      >
+                        <span class="font-medium text-gray-900">Example SKILL.md</span>
+                        <span
+                          class="material-symbols-outlined text-gray-500 transition-transform duration-200 skill-md-arrow"
+                          style="font-size: 18px; transform: rotate(0deg)"
+                        >keyboard_arrow_down</span>
+                      </button>
+                      <div id="skill-md-body" class="px-6 py-5 bg-white border-t border-gray-200" hidden>
+                        <div class="space-y-4" id="skill-md-blocks"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Use Cases Section -->
+                  <div class="mb-0">
+                    <h2 id="what-can-you-do" class="mb-4 text-xl font-medium text-gray-900">What can you do with skills?</h2>
+                    <p class="mb-8 text-base text-gray-600">
+                      Skills support a wide range of common actions across Google Cloud, including:
+                    </p>
+
+                    <div class="grid gap-6 md:grid-cols-2" id="usecase-grid"></div>
+                  </div>
+
+                  <!-- Summary Section -->
+                  <div id="how-skills-help" class="rounded-3xl border border-blue-100 bg-blue-50/50 p-10 text-gray-900 md:p-12">
+                    <div class="max-w-3xl">
+                      <h2 class="mb-4 text-2xl font-medium">How skills help</h2>
+                      <p class="mb-8 text-base text-gray-600">
+                        By turning documentation into modular, task-oriented experiences, skills allow users to:
+                      </p>
+                      <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
+                            <span class="text-sm font-bold">1</span>
+                          </div>
+                          <span class="text-base text-gray-800">Start from a clear goal instead of searching for information</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
+                            <span class="text-sm font-bold">2</span>
+                          </div>
+                          <span class="text-base text-gray-800">Stay in their workflow without unnecessary context switching</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                          <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
+                            <span class="text-sm font-bold">3</span>
+                          </div>
+                          <span class="text-base text-gray-800">Execute tasks with confidence using trusted, structured guidance</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column: Outline Sidebar -->
+                <div class="hidden lg:block w-40 flex-shrink-0">
+                  <div class="pl-4 border-l border-gray-200 sticky top-20 pt-1">
+                    <h2 class="font-semibold text-gray-900 mb-3 text-xs uppercase tracking-wider text-left">On this page</h2>
+                    <nav class="space-y-3 text-left">
+                      <a href="#whats-a-skill" class="block text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors">
+                        What's a skill
+                      </a>
+                      <a href="#inside-a-skill" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4">
+                        Inside a Skill
+                      </a>
+                      <a href="#example" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4">
+                        Example
+                      </a>
+                      <a href="#example" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4">
+                        Example SKILL.md
+                      </a>
+                      <a href="#what-can-you-do" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                        What can you do with skills?
+                      </a>
+                      <a href="#how-skills-help" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors">
+                        How skills help
+                      </a>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-site-footer></div>
+      </main>
+    </div>
+
+    <script src="./assets/site-header.js"></script>
+    <script>
+      // Hover interaction for the "Go to library" pill
+      document.querySelectorAll(".gtl-pill").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          el.style.background = "#D2E3FC";
+          el.style.boxShadow = "0 2px 8px rgba(26,115,232,0.15)";
+        });
+        el.addEventListener("mouseleave", () => {
+          el.style.background = "#EAF2FD";
+          el.style.boxShadow = "none";
+        });
+      });
+
+      // Foldable Example SKILL.md
+      const skillBlocks = [
+        {
+          markdown:
+            "---\n## Step 1: Identify the error context\n\nCapture the full error message and note:\n- Resource being accessed (e.g., project, bucket, API)\n- Identity making the request (user, service account)\n- Action being attempted (read, write, deploy)\n\nExample error:",
+          outside: "403 PERMISSION_DENIED: Caller does not have permission",
+        },
+        {
+          markdown:
+            "---\n## Step 2: Verify the active identity\n\nCheck which identity is being used:\n---",
+          outside: "gcloud auth list",
+        },
+        {
+          markdown: "If using a service account:",
+          outside: "gcloud config get-value account",
+        },
+        {
+          markdown:
+            "Confirm this matches the identity in the error.\n\n---\n\n## Step 3: Inspect IAM permissions\n\nCheck IAM roles for the resource:",
+          outside: "gcloud projects get-iam-policy <PROJECT_ID>",
+        },
+        {
+          markdown: "Or for more specific resources (e.g., Cloud Storage):",
+          outside: "gsutil iam get gs://<BUCKET_NAME>",
+        },
+        {
+          markdown:
+            "Look for:\n- Missing roles\n- Incorrect member bindings\n- Conflicting policies\n\n---\n\n## Step 4: Add required role (if missing)\n\nGrant the minimum required role:",
+          outside:
+            'gcloud projects add-iam-policy-binding <PROJECT_ID>\n--member="user:<EMAIL>"\n--role="roles/<ROLE_NAME>"',
+        },
+        {
+          markdown:
+            "Common roles:\n- roles/viewer\n- roles/editor\n- roles/storage.objectViewer\n- roles/run.invoker\n\n---\n\n## Step 5: Validate API access\n\nEnsure the required API is enabled:",
+          outside: "gcloud services enable <API_NAME>",
+        },
+        {
+          markdown: "Example:",
+          outside: "gcloud services enable run.googleapis.com",
+        },
+        {
+          markdown:
+            "---\n\n## Step 6: Re-test the action\n\nRetry the original command or request.\n\nIf the error persists:\n- Wait for IAM propagation (can take up to a few minutes)\n- Double-check resource-level permissions\n\n---\n\n## Step 7: Apply least privilege\n\nOnce resolved:\n- Remove overly broad roles (e.g., Editor)\n- Replace with more specific roles\n\n---\n\n## Troubleshooting tips\n\n- Use Policy Troubleshooter:\n  https://cloud.google.com/iam/docs/troubleshooting-access\n\n- Check audit logs for denied requests:\n  Cloud Logging → Filter by `status.code=7`\n\n- Confirm organization policies are not blocking access\n\n---\n\n## When to use this skill\n\nUse the **fix-403-permission-error** skill when:\n- You see `403 PERMISSION_DENIED`\n- A deployment or API call fails due to access issues\n- You're unsure which IAM role is required\n\n---\n\n## Expected outcome\n\nBy the end of this skill, you will:\n- Identify the missing permission\n- Grant the correct IAM role\n- Successfully complete your original task",
+          outside: null,
+        },
+      ];
+
+      const blocksHost = document.getElementById("skill-md-blocks");
+      blocksHost.innerHTML = skillBlocks
+        .map(
+          (block) => `
+        <div>
+          <div class="relative group bg-blue-50/50 border border-blue-100 rounded-xl p-5 mb-2">
+            <button class="absolute top-3 right-3 text-gray-400 hover:text-blue-600 transition-colors opacity-0 group-hover:opacity-100" title="Copy code" type="button">
+              <span class="material-symbols-outlined" style="font-size: 16px">content_copy</span>
+            </button>
+            <pre class="font-mono text-sm text-gray-800 whitespace-pre-wrap m-0 leading-relaxed">${block.markdown.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+          </div>
+          ${
+            block.outside
+              ? `<div class="px-2 py-1 font-mono text-sm text-gray-600 whitespace-pre-wrap">${block.outside.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>`
+              : ""
+          }
+        </div>`
+        )
+        .join("");
+
+      const toggle = document.querySelector(".skill-md-toggle");
+      const body = document.getElementById("skill-md-body");
+      const arrow = document.querySelector(".skill-md-arrow");
+      toggle.addEventListener("click", () => {
+        const open = !body.hidden;
+        body.hidden = open;
+        toggle.setAttribute("aria-expanded", String(!open));
+        arrow.style.transform = open ? "rotate(0deg)" : "rotate(180deg)";
+      });
+
+      // Use cases grid
+      const useCases = [
+        {
+          title: "Getting started",
+          links: ["Set up projects", "Configure environments", "Enable services"],
+          icon: "bolt",
+          color: "text-blue-500",
+        },
+        {
+          title: "Building and deploying",
+          links: ["Launch applications", "Models", "Infrastructure"],
+          icon: "database",
+          color: "text-green-500",
+        },
+        {
+          title: "Connecting systems",
+          links: ["Integrate services", "APIs", "Data pipelines"],
+          icon: "account_tree",
+          color: "text-purple-500",
+        },
+        {
+          title: "Configuring and customizing",
+          links: ["Adjust settings", "Parameters", "Environments"],
+          icon: "code",
+          color: "text-orange-500",
+        },
+        {
+          title: "Automating workflows",
+          links: ["Create repeatable processes", "Scale operations"],
+          icon: "smart_toy",
+          color: "text-indigo-500",
+        },
+        {
+          title: "Monitoring and improving",
+          links: ["Track performance", "Optimize systems"],
+          icon: "search",
+          color: "text-teal-500",
+        },
+        {
+          title: "Exploring capabilities",
+          links: ["Learn features", "Guided workflows", "Hands-on workflows"],
+          icon: "auto_awesome",
+          color: "text-rose-500",
+        },
+      ];
+
+      document.getElementById("usecase-grid").innerHTML = useCases
+        .map(
+          (item) => `
+          <div class="flex gap-4 p-5 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
+            <div class="flex-shrink-0 mt-1">
+              <span class="material-symbols-outlined ${item.color}" style="font-size: 20px">${item.icon}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+              <ul class="text-sm space-y-0 mt-2">
+                ${item.links
+                  .map(
+                    (link) =>
+                      `<li class="leading-tight"><a href="#" class="text-blue-600 hover:text-blue-800 hover:underline">${link}</a></li>`
+                  )
+                  .join("")}
+              </ul>
+            </div>
+          </div>`
+        )
+        .join("");
+    </script>
+  </body>
+</html>
