@@ -1830,27 +1830,34 @@
           </div>
         </section>
 
-        <section class="content-card" id="verification">
-          <h2 class="section-title">Verification</h2>
-          <div class="verification-list">
-            <label class="verify-item">
-              <input type="checkbox" id="check1">
-              <span class="checkmark"></span>
-              <span class="verify-label">gcloud config shows correct account</span>
-            </label>
+        <section class="content-card" id="source-metadata">
+          <h2 class="section-title">Source &amp; Metadata</h2>
+          <details class="skill-file-section">
+            <summary class="skill-file-toggle">
+              Source &amp; Metadata
+            </summary>
+            <div class="skill-file-content">
+              <p><strong>SOURCE</strong></p>
+              <p>
+                <strong>Documentation:</strong>
+                cloud.google.com/iam/docs/troubleshooting-access
+              </p>
 
-            <label class="verify-item">
-              <input type="checkbox" id="check2">
-              <span class="checkmark"></span>
-              <span class="verify-label">IAM policy includes aiplatform.user</span>
-            </label>
+              <p><strong>VERSION</strong></p>
+              <p><strong>Current:</strong> 2024.10.15</p>
+              <p><strong>Last verified:</strong> Oct 15, 2024</p>
+              <p><strong>Skill API:</strong> skills.cloud.google.com/v1</p>
+              <p>
+                <strong>Pin a version:</strong> gcloud skills /iam/diagnose-403-error@2024.10.15
+              </p>
 
-            <label class="verify-item">
-              <input type="checkbox" id="check3">
-              <span class="checkmark"></span>
-              <span class="verify-label">test_endpoint.py returns success</span>
-            </label>
-          </div>
+              <p><strong>USED BY</strong></p>
+              <p>★ 12,400 runs in the last 30 days</p>
+              <p>
+                ✓ Verified: works on projects, folders, and organizations
+              </p>
+            </div>
+          </details>
         </section>
 
         <section class="content-card" id="documentation-sources">
@@ -1933,7 +1940,7 @@
           <a href="#prerequisites">Prerequisites</a>
           <a href="#quick-start">Quick Start</a>
           <a href="#step-by-step-guide">Step-by-step Guide</a>
-          <a href="#verification">Verification</a>
+          <a href="#source-metadata">Source &amp; Metadata</a>
           <a href="#documentation-sources">Documentation Sources</a>
           <a href="#related-skills">Related Skills</a>
         </aside>
@@ -2113,7 +2120,11 @@
       showToast("Executing in: " + environment);
     }
 
+    const DEFAULT_SHARE_URL = "https://skills.cloud.google.com/fix-403-error";
+
     function openShareModal() {
+      const input = document.querySelector(".share-url-input");
+      if (input) input.value = DEFAULT_SHARE_URL;
       document.getElementById("shareModal").style.display = "flex";
     }
 

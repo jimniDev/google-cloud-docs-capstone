@@ -208,9 +208,36 @@
         padding: 8px 22px;
       }
 
+      .feedback .btn-feedback {
+        align-items: center;
+        justify-content: center;
+        display: inline-flex;
+        gap: 8px;
+        min-width: 96px;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 6px;
+        border: 1px solid #cfd4dc;
+        background: #f8f9fa;
+        color: var(--nimbus-primary);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+
+      .feedback .btn-feedback .feedback-icon {
+        font-size: 18px;
+      }
+
       .btn-feedback:hover {
         background: var(--subtle);
         border-color: var(--line);
+      }
+
+      .feedback .btn-feedback:hover {
+        background: #f1f3f4;
+        border-color: #c3c9d1;
+        color: #185abc;
       }
 
       .toc {
@@ -1692,18 +1719,30 @@
             <div class="page-tools">
               <div class="feedback">
                 <button
+                  id="saveBtn"
                   class="btn-feedback"
                   type="button"
                   onclick="toggleSave()"
                 >
-                  Save
+                  <span
+                    class="material-symbols-outlined feedback-icon"
+                    aria-hidden="true"
+                    id="saveIcon"
+                    >bookmark_add</span
+                  >
+                  <span class="button-label">Save</span>
                 </button>
                 <button
                   class="btn-feedback"
                   type="button"
                   onclick="openShareModal()"
                 >
-                  Share
+                  <span
+                    class="material-symbols-outlined feedback-icon"
+                    aria-hidden="true"
+                    >share</span
+                  >
+                  <span class="button-label">Share</span>
                 </button>
               </div>
             </div>
@@ -1761,7 +1800,7 @@
               <details class="skill-file-section" id="prerequisites">
                 <summary class="skill-file-toggle">Prerequisites</summary>
                 <div class="skill-file-content">
-                  <ul class="checklist">
+                  <ul class="checklist" id="prereqList">
                     <li>Owner or IAM Admin role on project</li>
                     <li>Cloud Shell or gcloud CLI available</li>
                     <li><code>test_endpoint.py</code> script created</li>
@@ -1773,12 +1812,16 @@
                 <summary class="skill-file-toggle">Skill.md</summary>
                 <div class="skill-file-content">
                   <p>
-                    <strong>Goal:</strong> Fix 403 permission error on Gemini
-                    Enterprise endpoint
+                    <strong>Goal:</strong>
+                    <span id="skillGoalText"
+                      >Fix 403 permission error on Gemini Enterprise endpoint</span
+                    >
                   </p>
                   <p>
-                    <strong>Context:</strong> When aiplatform.endpoints.predict
-                    permission is denied
+                    <strong>Context:</strong>
+                    <span id="skillContextText"
+                      >When aiplatform.endpoints.predict permission is denied</span
+                    >
                   </p>
                   <p><strong>Project:</strong> recipe-assistant-test-p06</p>
 
@@ -1936,7 +1979,7 @@
 
             <section class="content-card" id="step-by-step-guide">
               <h2 class="section-title">Step-by-step Guide</h2>
-              <div class="steps-container">
+              <div class="steps-container" id="stepsContainer">
                 <details class="step-item">
                   <summary class="step-summary">
                     <div class="step-number">1</div>
@@ -2290,15 +2333,43 @@
           runs: "★ 12,400 runs in the last 30 days",
           overview:
             "Diagnose and resolve permission errors for Gemini Enterprise endpoint calls in GCP. This skill guides you through identifying the caller identity, checking IAM roles, and granting necessary permissions.",
+          goal: "Fix 403 permission error on Gemini Enterprise endpoint",
+          context: "When aiplatform.endpoints.predict permission is denied",
           installCommand: "claude-skill install fix-403-forbidden-access",
+          prerequisites: [
+            "Owner or IAM Admin role on project",
+            "Cloud Shell or gcloud CLI available",
+            "Sample endpoint test command or script prepared",
+          ],
+          steps: [
+            "Identify caller identity",
+            "Check current IAM roles",
+            "Grant Vertex AI User role",
+            "Verify access",
+          ],
         },
-        "deploy-cloud-run-service": {
-          title: "Deploy Cloud Run Service",
+        "deploy-web-app-cloud-run": {
+          title: "Deploy Web App to Cloud Run",
           meta: "Setup & Configuration · 6 steps · 15 min",
           runs: "★ 4,820 runs in the last 30 days",
           overview:
             "Deploy containerized applications to Cloud Run with a guided setup flow, from image selection through rollout verification.",
-          installCommand: "claude-skill install deploy-cloud-run-service",
+          goal: "Deploy a web application to Cloud Run",
+          context: "From container image build to public service URL",
+          installCommand: "claude-skill install deploy-web-app-cloud-run",
+          prerequisites: [
+            "Project with billing enabled",
+            "Container image source code available",
+            "Cloud Run and Artifact Registry APIs enabled",
+          ],
+          steps: [
+            "Prepare application source",
+            "Build and push container image",
+            "Deploy service to Cloud Run",
+            "Configure authentication and traffic",
+            "Validate endpoint response",
+            "Monitor logs and metrics",
+          ],
         },
         "optimize-bigquery-query-performance": {
           title: "Optimize BigQuery Query Performance",
@@ -2306,8 +2377,25 @@
           runs: "★ 3,210 runs in the last 30 days",
           overview:
             "Analyze query plans and runtime metrics to reduce scanned bytes, improve execution speed, and lower BigQuery costs.",
+          goal: "Reduce BigQuery query runtime and cost",
+          context: "Tune query design and storage layout for better performance",
           installCommand:
             "claude-skill install optimize-bigquery-query-performance",
+          prerequisites: [
+            "BigQuery dataset and query history access",
+            "Target queries selected for optimization",
+            "Cost and performance baseline captured",
+          ],
+          steps: [
+            "Inspect query execution plan",
+            "Check scanned bytes and slot usage",
+            "Rewrite expensive joins or subqueries",
+            "Apply partitioning and clustering",
+            "Materialize repeated intermediate results",
+            "Benchmark before and after changes",
+            "Validate data correctness",
+            "Document optimization outcomes",
+          ],
         },
         "vertex-ai-model-monitoring": {
           title: "Set Up Vertex AI Model Monitoring",
@@ -2315,7 +2403,23 @@
           runs: "★ 1,475 runs in the last 30 days",
           overview:
             "Configure model monitoring and alerting for deployed Vertex AI endpoints, including drift thresholds and verification checks.",
+          goal: "Configure Vertex AI model monitoring and alerts",
+          context: "Detect data drift and prediction quality issues early",
           installCommand: "claude-skill install vertex-ai-model-monitoring",
+          prerequisites: [
+            "Deployed Vertex AI endpoint",
+            "Permissions for Vertex AI and Cloud Monitoring",
+            "Monitoring baseline dataset prepared",
+          ],
+          steps: [
+            "Select model endpoint to monitor",
+            "Set baseline dataset",
+            "Choose drift and skew metrics",
+            "Define alert thresholds",
+            "Create monitoring job",
+            "Trigger test alert",
+            "Review dashboards and notifications",
+          ],
         },
         "troubleshoot-cloud-build-failures": {
           title: "Troubleshoot Cloud Build Failures",
@@ -2323,8 +2427,22 @@
           runs: "★ 2,530 runs in the last 30 days",
           overview:
             "Identify root causes for failed Cloud Build pipelines, validate fixes, and confirm successful reruns.",
+          goal: "Find and fix failing Cloud Build pipelines",
+          context: "Use logs and build config validation to restore successful builds",
           installCommand:
             "claude-skill install troubleshoot-cloud-build-failures",
+          prerequisites: [
+            "Access to Cloud Build history and logs",
+            "Failed build ID or trigger identified",
+            "Permissions to edit trigger or build config",
+          ],
+          steps: [
+            "Open failed build details",
+            "Inspect step logs for root cause",
+            "Validate substitutions and environment variables",
+            "Fix permissions or config errors",
+            "Re-run build and verify success",
+          ],
         },
         "configure-iam-custom-roles": {
           title: "Configure IAM Custom Roles",
@@ -2332,29 +2450,61 @@
           runs: "★ 1,720 runs in the last 30 days",
           overview:
             "Design and apply least-privilege IAM custom roles with validation steps to ensure secure and precise access control.",
+          goal: "Create least-privilege IAM custom roles",
+          context: "Replace broad predefined roles with scoped permissions",
           installCommand: "claude-skill install configure-iam-custom-roles",
-        },
-        "set-up-cloud-storage-lifecycle-rules": {
-          title: "Set Up Cloud Storage Lifecycle Rules",
-          meta: "Setup & Configuration · 6 steps · 12 min",
-          runs: "★ 1,860 runs in the last 30 days",
-          overview:
-            "Create and verify lifecycle policies that automatically transition or delete objects based on age and storage class needs.",
-          installCommand:
-            "claude-skill install set-up-cloud-storage-lifecycle-rules",
-        },
-        "debug-cloud-functions-timeout": {
-          title: "Debug Cloud Functions Timeout",
-          meta: "Troubleshooting & Debugging · 5 steps · 14 min",
-          runs: "★ 2,040 runs in the last 30 days",
-          overview:
-            "Troubleshoot Cloud Functions timeout errors by validating runtime limits, dependencies, and cold-start behavior.",
-          installCommand: "claude-skill install debug-cloud-functions-timeout",
+          prerequisites: [
+            "IAM Admin permissions",
+            "Permission list for target use case",
+            "Test principal for validation",
+          ],
+          steps: [
+            "Define use case and scope",
+            "Draft required permissions",
+            "Create custom role",
+            "Assign role to test principal",
+            "Validate access behavior",
+            "Remove unnecessary broad roles",
+            "Document ownership and review cycle",
+            "Set periodic role audit schedule",
+            "Publish role usage guidance",
+          ],
         },
       };
 
+      function escapeHtml(text) {
+        return String(text)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
+      }
+
+      function renderSteps(stepTitles, skillTitle) {
+        return stepTitles
+          .map(
+            (stepTitle, index) => `
+        <details class="step-item">
+          <summary class="step-summary">
+            <div class="step-number">${index + 1}</div>
+            <h3 class="step-title">${escapeHtml(stepTitle)}</h3>
+          </summary>
+          <div class="step-content">
+            <p>Complete this step for ${escapeHtml(skillTitle)} and record the outcome before proceeding.</p>
+          </div>
+        </details>
+      `,
+          )
+          .join("");
+      }
+
       function applySkillFromQuery() {
-        const skillId = new URLSearchParams(window.location.search).get("skill");
+        const hashMatch = window.location.hash.match(/^#skills\/(.+)$/);
+        const hashSkillId = hashMatch ? decodeURIComponent(hashMatch[1]) : "";
+        const querySkillId =
+          new URLSearchParams(window.location.search).get("skill") || "";
+        const skillId = hashSkillId || querySkillId;
+        const shareEl = document.querySelector(".share-url-input");
+        if (shareEl) shareEl.value = window.location.href;
         if (!skillId || !SKILL_DETAIL_DATA[skillId]) return;
         const detail = SKILL_DETAIL_DATA[skillId];
         document.title = `${detail.title} - Skill Detail`;
@@ -2363,13 +2513,25 @@
         const runsEl = document.getElementById("detailRuns");
         const overviewEl = document.getElementById("overviewText");
         const installEl = document.getElementById("installCommand");
-        const shareEl = document.querySelector(".share-url-input");
+        const goalEl = document.getElementById("skillGoalText");
+        const contextEl = document.getElementById("skillContextText");
+        const prereqListEl = document.getElementById("prereqList");
+        const stepsContainerEl = document.getElementById("stepsContainer");
         if (titleEl) titleEl.textContent = detail.title;
         if (metaEl) metaEl.textContent = detail.meta;
         if (runsEl) runsEl.textContent = detail.runs;
         if (overviewEl) overviewEl.textContent = detail.overview;
         if (installEl) installEl.textContent = detail.installCommand;
-        if (shareEl) shareEl.value = window.location.href;
+        if (goalEl) goalEl.textContent = detail.goal;
+        if (contextEl) contextEl.textContent = detail.context;
+        if (prereqListEl) {
+          prereqListEl.innerHTML = detail.prerequisites
+            .map((item) => `<li>${escapeHtml(item)}</li>`)
+            .join("");
+        }
+        if (stepsContainerEl) {
+          stepsContainerEl.innerHTML = renderSteps(detail.steps, detail.title);
+        }
       }
 
       function showToast(message) {
@@ -2403,10 +2565,11 @@
       function toggleSave() {
         isSaved = !isSaved;
         const btn = document.getElementById("saveBtn");
-        const label = btn.querySelector(".button-label");
-
-        label.textContent = isSaved ? "Saved" : "Save";
-        btn.classList.toggle("saved", isSaved);
+        const label = btn?.querySelector(".button-label");
+        const icon = document.getElementById("saveIcon");
+        if (label) label.textContent = isSaved ? "Saved" : "Save";
+        if (icon) icon.textContent = isSaved ? "bookmark_added" : "bookmark_add";
+        if (btn) btn.classList.toggle("saved", isSaved);
         showToast(isSaved ? "Skill saved" : "Skill removed from saved");
       }
 

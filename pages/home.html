@@ -439,16 +439,46 @@
         border-radius: 0;
         margin: 0 calc(50% - 50vw) 36px;
         padding: 28px calc(50vw - 50%) 20px;
+        position: relative;
       }
       .task-carousel-track {
+        --task-carousel-fade: 22px;
         display: flex;
         gap: 24px;
         margin: 0 -32px;
         overflow-x: auto;
-        padding: 0 32px 14px;
+        padding: 0 40px 14px;
         scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(
+          to right,
+          #000 0,
+          #000 calc(100% - var(--task-carousel-fade)),
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          to right,
+          #000 0,
+          #000 calc(100% - var(--task-carousel-fade)),
+          transparent 100%
+        );
+      }
+      .task-carousel-track.has-left-fade {
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent 0,
+          #000 var(--task-carousel-fade),
+          #000 calc(100% - var(--task-carousel-fade)),
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          to right,
+          transparent 0,
+          #000 var(--task-carousel-fade),
+          #000 calc(100% - var(--task-carousel-fade)),
+          transparent 100%
+        );
       }
       .task-carousel-track::-webkit-scrollbar {
         display: none;
@@ -847,6 +877,11 @@
       @media (max-width: 760px) {
         .shell {
           padding: 40px 20px;
+        }
+        .task-carousel-track {
+          --task-carousel-fade: 12px;
+          margin: 0 -20px;
+          padding: 0 24px 14px;
         }
         .hero h1,
         .hero p {
@@ -1699,6 +1734,17 @@
 
       taskCarouselNext.addEventListener("click", () => {
         taskCarouselTrack.scrollBy({ left: 354, behavior: "smooth" });
+      });
+
+      function syncTaskCarouselFade() {
+        taskCarouselTrack.classList.toggle(
+          "has-left-fade",
+          taskCarouselTrack.scrollLeft > 56,
+        );
+      }
+
+      taskCarouselTrack.addEventListener("scroll", syncTaskCarouselFade, {
+        passive: true,
       });
     </script>
     <script src="./assets/site-header.js"></script>

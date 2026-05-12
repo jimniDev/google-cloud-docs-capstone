@@ -2280,15 +2280,8 @@
       function viewSkillDetail(skillId) {
         const skill = skills.find((item) => item.id === skillId);
         if (!skill) return;
-        currentSkillId = skillId;
-        document.getElementById("libraryView").style.display = "none";
-        document.getElementById("createView").style.display = "none";
-        document.querySelector(".skill-filters").style.display = "none";
-        const detail = document.getElementById("detailView");
-        detail.style.display = "block";
-        detail.innerHTML = renderContextDetail(skill);
-        restoreCheckpointState();
-        history.replaceState(null, "", `#skills/${skill.id}`);
+        const target = `./skill-detail-screen.html#skills/${encodeURIComponent(skill.id)}`;
+        window.location.href = target;
       }
 
       function toggleSaveState(skillId) {
