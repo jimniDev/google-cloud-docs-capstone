@@ -235,6 +235,17 @@
         right: 0;
         top: calc(100% + 8px);
       }
+      .suggestion-panel.dock-bottom {
+        bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+        left: 50%;
+        max-width: none;
+        position: fixed;
+        right: auto;
+        top: auto;
+        transform: translateX(-50%);
+        width: min(720px, calc(100vw - 32px));
+        z-index: 55;
+      }
       .is-open {
         display: block;
       }
@@ -278,16 +289,6 @@
         height: 1px;
         margin: 4px 0;
       }
-      .suggestion-title {
-        align-items: center;
-        background: var(--nimbus-surface-subtle);
-        border-bottom: 1px solid var(--nimbus-border);
-        display: flex;
-        gap: 8px;
-        padding: 12px 16px;
-        font-size: 14px;
-        font-weight: 500;
-      }
       .suggestion-list {
         display: flex;
         flex-direction: column;
@@ -305,6 +306,53 @@
         display: block;
         font-size: 14px;
         margin-bottom: 4px;
+      }
+      .suggestion-doc-hit {
+        color: inherit;
+        text-decoration: none;
+      }
+      .suggestion-card.suggestion-doc-hit {
+        background: transparent;
+        border: none;
+      }
+      .suggestion-doc-hit:hover .suggestion-hit-title {
+        text-decoration: underline;
+      }
+      .suggestion-hit-title {
+        color: var(--nimbus-primary);
+        display: block;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.35;
+        margin: 0 0 6px;
+      }
+      .suggestion-hit-title .suggestion-hit-doc-suffix {
+        color: var(--nimbus-primary);
+        font-weight: 400;
+      }
+      .suggestion-hit-breadcrumb {
+        color: #137333;
+        font-size: 12px;
+        line-height: 18px;
+        margin: 0 0 10px;
+        word-break: break-word;
+      }
+      .suggestion-hit-snippet {
+        color: var(--nimbus-text-primary);
+        font-size: 13px;
+        line-height: 22px;
+        margin: 0 0 10px;
+      }
+      .suggestion-card .suggestion-hit-snippet {
+        color: var(--nimbus-text-primary);
+        font-size: 13px;
+        line-height: 22px;
+        margin: 0 0 10px;
+      }
+      .suggestion-hit-snippet strong {
+        display: inline;
+        font-size: inherit;
+        font-weight: 700;
       }
       .suggestion-card p {
         color: var(--nimbus-text-secondary);
@@ -795,29 +843,28 @@
       }
 
       .bottom-search {
-        align-items: center;
-        background: color-mix(in srgb, var(--nimbus-primary) 10%, white);
-        border: 0;
-        border-radius: 9999px;
-        bottom: 32px;
-        box-shadow: 0 12px 30px rgba(60, 64, 67, 0.18);
-        color: var(--nimbus-text-secondary);
-        cursor: pointer;
+        bottom: 0;
         display: none;
-        font-size: 16px;
-        font-weight: 500;
-        height: 70px;
-        justify-content: space-between;
-        left: 50%;
-        line-height: 24px;
-        padding: 0 24px 0 28px;
+        justify-content: center;
+        left: 0;
+        padding: 0 16px calc(16px + env(safe-area-inset-bottom, 0px));
+        pointer-events: none;
         position: fixed;
-        transform: translateX(-50%);
-        width: min(640px, calc(100vw - 64px));
+        right: 0;
+        width: 100%;
         z-index: 60;
       }
       .bottom-search.visible {
         display: flex;
+        pointer-events: auto;
+      }
+      .bottom-search-pill-wrap {
+        margin: 0 auto;
+        max-width: min(720px, 100%);
+        width: 100%;
+      }
+      .bottom-search-pill.search-pill {
+        box-shadow: 0 12px 30px rgba(60, 64, 67, 0.18);
       }
 
       .footer {
@@ -1035,29 +1082,30 @@
           </div>
 
           <div class="suggestion-panel" id="suggestionPanel">
-            <div class="suggestion-title">
-              <span class="material-symbols-outlined">fact_check</span>
-              Navigating to:
-            </div>
             <div class="suggestion-list">
-              <div class="suggestion-card">
-                <strong>Go to IAM &amp; Admin → Section 4.2</strong>
-                <p>
-                  To add a service account for Vertex AI, follow step 3 in the
-                  Access Control guide.
+              <a class="suggestion-card suggestion-doc-hit" href="./skill-on-doc.html">
+                <span class="suggestion-hit-title">
+                  Agent Platform access control with IAM
+                  <span class="suggestion-hit-doc-suffix">| Google Cloud Documentation</span>
+                </span>
+                <div class="suggestion-hit-breadcrumb">
+                  Google Cloud Documentation &gt; gemini-enterprise-agent-platform &gt;
+                  machine-learning &gt; general &gt; access-control
+                </div>
+                <p class="suggestion-hit-snippet">
+                  <strong>Agent Platform</strong> uses <strong>IAM</strong> to manage
+                  <strong>access</strong> to your resources. Plan
+                  <strong>access control</strong> at the project level or resource
+                  level — roles and permissions aligned with Gemini Enterprise workloads.
                 </p>
                 <div class="suggestion-meta">
                   <span
-                    ><span
-                      class="material-symbols-outlined"
-                      style="font-size: 12px"
-                      >description</span
-                    >
-                    From official IAM guide</span
-                  >
-                  <span>Verify in docs →</span>
+                    ><span class="material-symbols-outlined" style="font-size: 12px"
+                      >description</span>
+                    Skill on Doc prototype</span>
+                  <span>Open Skill on Doc →</span>
                 </div>
-              </div>
+              </a>
               <a class="suggestion-card" href="./skill-detail-screen.html">
                 <div class="suggestion-meta" style="margin-bottom: 8px">
                   <span
@@ -1068,19 +1116,13 @@
                     "
                     >TROUBLESHOOTING SKILL</span
                   >
-                  <span>Powered by Gemini</span>
+                  <span class="recommended">RECOMMENDED</span>
                 </div>
                 <strong>Fix 403 Error Message Skill</strong>
                 <p>
                   Automatically diagnose and resolve permission errors with
                   guided troubleshooting.
                 </p>
-                <div class="suggestion-meta">
-                  <span style="color: var(--nimbus-primary); font-weight: 600"
-                    >Click to open skill →</span
-                  >
-                  <span class="recommended">RECOMMENDED</span>
-                </div>
               </a>
             </div>
           </div>
@@ -1618,17 +1660,44 @@
           </div>
         </div>
       </footer>
-
-      <button class="bottom-search" id="bottomSearch" type="button">
-        <span>Continue conversation</span>
-        <span class="material-symbols-outlined">open_in_full</span>
-      </button>
     </main>
+
+    <div class="bottom-search" id="bottomSearch" aria-hidden="true">
+      <div class="bottom-search-pill-wrap">
+        <div class="search-pill bottom-search-pill">
+          <button
+            class="round-btn"
+            type="button"
+            id="bottomPlusButton"
+            aria-label="Open add menu (scrolls to top search)"
+          >
+            <span class="material-symbols-outlined">add</span>
+          </button>
+          <input
+            class="search-input"
+            id="bottomSearchInput"
+            type="text"
+            placeholder="Ask Docs AI"
+            autocomplete="off"
+          />
+          <div class="search-actions">
+            <button class="icon-btn" type="button" aria-label="Voice search">
+              <span class="material-symbols-outlined">mic</span>
+            </button>
+            <button class="icon-btn" type="button" aria-label="Scan document">
+              <span class="material-symbols-outlined">document_scanner</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
       const plusButton = document.getElementById("plusButton");
+      const bottomPlusButton = document.getElementById("bottomPlusButton");
       const plusMenu = document.getElementById("plusMenu");
       const searchInput = document.getElementById("searchInput");
+      const bottomSearchInput = document.getElementById("bottomSearchInput");
       const searchPlaceholderMarquee = document.getElementById(
         "searchPlaceholderMarquee",
       );
@@ -1644,45 +1713,105 @@
         plusMenu.classList.toggle("is-open");
       });
 
+      bottomPlusButton?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        heroSearch.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => {
+          plusMenu.classList.add("is-open");
+        }, 280);
+      });
+
       document.addEventListener("click", (event) => {
-        if (!plusMenu.contains(event.target) && event.target !== plusButton) {
+        const t = event.target;
+        if (
+          !plusMenu.contains(t) &&
+          t !== plusButton &&
+          t !== bottomPlusButton
+        ) {
           plusMenu.classList.remove("is-open");
         }
       });
 
       function syncPlaceholderMarquee() {
         const hasText = searchInput.value.trim().length > 0;
-        const isFocused = document.activeElement === searchInput;
+        const isFocused =
+          document.activeElement === searchInput ||
+          document.activeElement === bottomSearchInput;
         searchPlaceholderMarquee.classList.toggle(
           "is-hidden",
           hasText || isFocused,
         );
       }
 
-      searchInput.addEventListener("input", () => {
+      function updateSuggestionDockMode() {
+        const pinned =
+          bottomSearch.classList.contains("visible") &&
+          document.activeElement === bottomSearchInput;
+        suggestionPanel.classList.toggle("dock-bottom", pinned);
+      }
+
+      function refreshSuggestionsOpen() {
+        const rich = searchInput.value.trim().length > 2;
+        const ae = document.activeElement;
+        const fieldFocused = ae === searchInput || ae === bottomSearchInput;
         suggestionPanel.classList.toggle(
           "is-open",
-          searchInput.value.trim().length > 2,
+          rich && fieldFocused,
         );
+        updateSuggestionDockMode();
+      }
+
+      function scheduleSuggestionClose() {
+        window.setTimeout(() => {
+          const ae = document.activeElement;
+          if (
+            ae === searchInput ||
+            ae === bottomSearchInput ||
+            suggestionPanel.contains(ae)
+          ) {
+            updateSuggestionDockMode();
+            return;
+          }
+          suggestionPanel.classList.remove("is-open");
+          updateSuggestionDockMode();
+        }, 200);
+      }
+
+      bottomSearchInput.value = searchInput.value;
+
+      searchInput.addEventListener("input", () => {
+        bottomSearchInput.value = searchInput.value;
         syncPlaceholderMarquee();
+        suggestionPanel.classList.remove("dock-bottom");
+        refreshSuggestionsOpen();
       });
       searchInput.addEventListener("focus", () => {
-        if (searchInput.value.trim().length > 2)
-          suggestionPanel.classList.add("is-open");
+        suggestionPanel.classList.remove("dock-bottom");
         syncPlaceholderMarquee();
+        refreshSuggestionsOpen();
       });
       searchInput.addEventListener("blur", () => {
-        window.setTimeout(
-          () => suggestionPanel.classList.remove("is-open"),
-          200,
-        );
         syncPlaceholderMarquee();
+        scheduleSuggestionClose();
+      });
+
+      bottomSearchInput.addEventListener("input", () => {
+        searchInput.value = bottomSearchInput.value;
+        syncPlaceholderMarquee();
+        refreshSuggestionsOpen();
+      });
+      bottomSearchInput.addEventListener("focus", () => {
+        refreshSuggestionsOpen();
+      });
+      bottomSearchInput.addEventListener("blur", () => {
+        scheduleSuggestionClose();
       });
 
       let placeholderAlt = false;
       window.setInterval(() => {
         if (searchInput.value.trim().length > 0) return;
-        if (document.activeElement === searchInput) return;
+        const ae = document.activeElement;
+        if (ae === searchInput || ae === bottomSearchInput) return;
         placeholderAlt = !placeholderAlt;
         searchPlaceholderMarquee.classList.toggle("is-alt", placeholderAlt);
       }, 4500);
@@ -1698,22 +1827,29 @@
         });
       });
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          const rootTop = entry.rootBounds?.top || 0;
-          bottomSearch.classList.toggle(
-            "visible",
-            !entry.isIntersecting && entry.boundingClientRect.bottom < rootTop,
-          );
-        },
-        { threshold: 0 },
-      );
-      observer.observe(heroSearch);
+      function updateFloatingSearchVisibility() {
+        const heroRect = heroSearch.getBoundingClientRect();
+        const show = heroRect.bottom < 96;
+        bottomSearch.classList.toggle("visible", show);
+        bottomSearch.setAttribute("aria-hidden", show ? "false" : "true");
+        if (!show) suggestionPanel.classList.remove("dock-bottom");
+        updateSuggestionDockMode();
+      }
 
-      bottomSearch.addEventListener("click", () => {
-        heroSearch.scrollIntoView({ behavior: "smooth", block: "center" });
-        window.setTimeout(() => searchInput.focus(), 250);
-      });
+      window.addEventListener(
+        "scroll",
+        updateFloatingSearchVisibility,
+        true,
+      );
+      document
+        .querySelector(".page")
+        ?.addEventListener(
+          "scroll",
+          updateFloatingSearchVisibility,
+          { passive: true },
+        );
+      window.addEventListener("resize", updateFloatingSearchVisibility);
+      updateFloatingSearchVisibility();
 
       taskCarouselPrev.addEventListener("click", () => {
         taskCarouselTrack.scrollBy({ left: -354, behavior: "smooth" });

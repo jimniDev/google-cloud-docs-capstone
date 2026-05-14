@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "npx --yes serve@14 .",
     "start": "npx --yes serve@14 .",
-    "build": "node ./scripts/build.mjs"
+    "build": "node ./scripts/build.mjs",
+    "deploy": "npm run build && gh-pages -d dist -m \"chore: deploy site\""
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
