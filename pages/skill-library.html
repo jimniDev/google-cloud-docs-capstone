@@ -44,10 +44,12 @@
         scrollbar-gutter: stable;
       }
       body {
-        font-family: Inter, system-ui, sans-serif;
+        font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial,
+          sans-serif;
         background: var(--nimbus-surface-subtle);
         color: var(--nimbus-text-primary);
         line-height: 1.5;
+        padding: 0;
       }
       button,
       input,
@@ -81,8 +83,7 @@
       .icon-xl {
         font-size: 32px;
       }
-      .btn .material-symbols-outlined,
-      .nav-pill .material-symbols-outlined {
+      .btn .material-symbols-outlined {
         margin-right: 8px;
       }
       .icon-only .material-symbols-outlined,
@@ -98,169 +99,170 @@
         outline: 2px solid var(--nimbus-primary);
         outline-offset: 2px;
       }
-      .cloud-nav {
-        align-items: center;
-        background: var(--nimbus-surface);
-        border-bottom: 1px solid var(--nimbus-border);
-        box-shadow: var(--nimbus-shadow-sm);
+      .gcloud-header {
+        position: static;
+      }
+
+      /* Match .gcloud-header-inner (1600px, 24px gutters) */
+      .enterprise-topbar {
+        background: #eaf2ff;
+        border-bottom: 0;
+        position: static;
+        top: auto;
+        z-index: 21;
+      }
+      .enterprise-topbar-inner {
+        align-items: flex-start;
+        box-sizing: border-box;
         display: flex;
-        gap: 24px;
-        height: 56px;
-        justify-content: space-between;
-        padding: 0 24px;
+        flex-direction: column;
+        gap: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1600px;
+        padding: 16px 24px 18px;
       }
-      .cloud-nav-left,
-      .cloud-nav-right,
-      .cloud-logo,
-      .cloud-links {
+      .enterprise-brand {
         align-items: center;
+        color: #202124;
         display: flex;
-      }
-      .cloud-nav-left {
-        gap: 24px;
-      }
-      .cloud-nav-right {
-        gap: 6px;
-      }
-      .cloud-logo {
-        color: var(--nimbus-text-secondary);
-        font-size: 14px;
-        gap: 4px;
-        white-space: nowrap;
-      }
-      .google-wordmark {
-        font-weight: 500;
+        flex: 0 0 auto;
+        font-size: 22px;
+        font-weight: 400;
+        gap: 8px;
         letter-spacing: -0.2px;
       }
-      .google-wordmark .blue {
-        color: var(--google-blue);
+      .library-page-intro {
+        color: #3c4043;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        margin: 0;
+        max-width: 840px;
       }
-      .google-wordmark .red {
-        color: var(--google-red);
-      }
-      .google-wordmark .yellow {
-        color: var(--google-yellow);
-      }
-      .google-wordmark .green {
-        color: var(--google-green);
-      }
-      .cloud-links {
-        gap: 28px;
-      }
-      .cloud-links a,
-      .cloud-nav-right a {
-        color: var(--nimbus-text-secondary);
-        font-size: 12px;
-        text-decoration: none;
-      }
-      .cloud-links a:hover,
-      .cloud-nav-right a:hover {
-        color: var(--nimbus-primary);
-      }
-      .avatar {
-        align-items: center;
-        background: linear-gradient(
-          135deg,
-          var(--nimbus-primary),
-          var(--nimbus-success)
-        );
-        border: 2px solid var(--nimbus-surface);
-        box-shadow: 0 0 0 1px var(--nimbus-border);
-        border-radius: 50%;
-        color: var(--nimbus-surface);
-        display: inline-flex;
-        font-size: 10px;
-        font-weight: 600;
-        height: 24px;
-        justify-content: center;
-        width: 24px;
-      }
-      .nav-pill {
-        align-items: center;
-        border: 1px solid transparent;
-        border-radius: var(--nimbus-radius-sm);
-        color: var(--nimbus-text-primary);
-        display: inline-flex;
-        gap: 5px;
+      .enterprise-logo {
+        color: #1a73e8;
+        font-size: 20px;
         line-height: 1;
-        padding: 5px 7px;
       }
-      .nav-pill:hover {
-        background: var(--nimbus-surface-subtle);
-        border-color: var(--nimbus-border);
-      }
-      .nav-pill .material-symbols-outlined:last-child {
-        margin-left: 4px;
-        margin-right: 0;
-      }
-      .nav-icon-btn {
-        align-items: center;
-        border-radius: 50%;
-        color: var(--nimbus-text-secondary);
-        display: inline-flex;
-        height: 36px;
-        justify-content: center;
-        text-decoration: none;
-        width: 36px;
-      }
-      .nav-icon-btn:hover {
-        background: var(--nimbus-surface-subtle);
-        color: var(--nimbus-text-primary);
-      }
-      .console-link {
-        border: 1px solid var(--nimbus-border);
-        border-radius: var(--nimbus-radius-md);
-        color: var(--nimbus-primary) !important;
-        padding: 5px 8px;
-      }
-      .skill-library {
-        max-width: 1240px;
-        margin: 0 auto;
-        padding: 32px 32px 64px;
-      }
-      .library-header {
-        background: var(--nimbus-surface-elevated);
-        border: 1px solid var(--nimbus-border);
-        border-radius: var(--nimbus-radius-xl);
-        box-shadow: var(--nimbus-shadow-sm);
-        padding: 24px;
-        margin-bottom: 32px;
-      }
-      .library-header-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
+
+      .container {
         align-items: flex-start;
-        margin-bottom: 16px;
+        box-sizing: border-box;
+        column-gap: 30px;
+        display: grid;
+        grid-template-columns: 230px minmax(0, 957px) 250px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1600px;
+        padding: 20px 24px 48px;
+        row-gap: 24px;
       }
-      .library-title {
-        display: block;
-        font-size: 36px;
-        font-weight: 600;
-        color: var(--nimbus-text-primary);
-        letter-spacing: -0.6px;
-        line-height: 44px;
-        max-width: 580px;
+      .doc-sidebar.skill-filters {
+        background: var(--nimbus-surface);
+        border-radius: 0;
+        border-right: 1px solid var(--nimbus-border);
+        box-shadow: none;
+        flex-shrink: unset;
+        min-height: calc(100vh - 120px);
+        padding: 0 18px 24px 0;
+        position: static;
+        top: auto;
+        width: auto;
       }
-      .library-title .title-icon {
-        color: var(--nimbus-primary);
-        margin-right: 8px;
-        vertical-align: -4px;
-      }
-      .library-title .blue-text {
-        color: var(--nimbus-primary);
-      }
-      .library-subtitle {
+      .filter-row {
+        align-items: center;
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-bottom: 0;
+        border-radius: 2px;
         color: var(--nimbus-text-secondary);
-        font-size: 16px;
-        line-height: 24px;
-        margin-top: 12px;
-        max-width: 460px;
+        display: flex;
+        font-size: 12px;
+        gap: 6px;
+        margin: 0 -18px 12px 0;
+        padding: 9px 12px;
+      }
+      .left-panel {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: 10px;
+        box-shadow: 0 1px 2px rgba(60, 64, 67, 0.08);
+        min-width: 0;
+        padding: 0 38px 48px;
+        position: relative;
+      }
+      .right-panel {
+        height: fit-content;
+        min-width: 0;
+        padding-top: 42px;
+        position: sticky;
+        top: 24px;
+      }
+
+      .doc-header {
+        background: transparent;
+        margin-bottom: 24px;
+        padding-top: 28px;
+      }
+      .doc-header-top {
+        align-items: flex-start;
+        display: flex;
+        gap: 24px;
+        justify-content: flex-end;
+        margin-bottom: 14px;
+      }
+      .doc-feedback {
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        gap: 16px;
+      }
+
+      .step-navigator {
+        background: transparent;
+        border: none;
+        border-left: 3px solid #1a73e8;
+        border-radius: 0;
+        opacity: 1;
+        padding: 0 0 0 14px;
+        pointer-events: auto;
+        visibility: visible;
+      }
+      .nav-title {
+        color: var(--nimbus-text-primary);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 20px;
+        margin-bottom: 10px;
+      }
+      .nav-step-list {
+        list-style: none;
+        padding: 0;
+      }
+      .nav-step-item {
+        border-left: 2px solid transparent;
+        border-radius: 0;
+        color: #3c4043;
+        cursor: default;
+        font-size: 12px;
+        line-height: 16px;
+        margin-bottom: 2px;
+        padding: 3px 0 3px 10px;
+        transition: background var(--nimbus-motion-fast);
+      }
+      .nav-step-item.active {
+        background: transparent;
+        color: var(--nimbus-primary);
+        font-weight: 500;
       }
       .header-actions {
         display: flex;
-        gap: 10px;
         flex-shrink: 0;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
       }
       .btn {
         align-items: center;
@@ -334,30 +336,6 @@
         border-color: var(--nimbus-primary);
         box-shadow: var(--nimbus-focus-ring);
       }
-      .library-layout {
-        display: flex;
-        gap: 32px;
-        align-items: flex-start;
-      }
-      .skill-filters {
-        width: 240px;
-        flex-shrink: 0;
-        position: sticky;
-        top: 32px;
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-radius: var(--nimbus-radius-lg);
-        box-shadow: var(--nimbus-shadow-sm);
-        padding: 16px;
-      }
-      .filters-title {
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--nimbus-text-secondary);
-        letter-spacing: 0.5px;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-      }
       .filter-tabs {
         display: flex;
         border-bottom: 1px solid var(--nimbus-border);
@@ -380,8 +358,8 @@
       }
       .filter-tab--active {
         background: transparent;
-        border-bottom: 2px solid var(--nimbus-primary);
-        color: var(--nimbus-primary);
+        border-bottom: 2px solid #1a73e8;
+        color: #1a73e8;
         font-weight: 600;
       }
       .filter-group {
@@ -454,6 +432,59 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 22px;
+      }
+      .skill-pagination {
+        align-items: center;
+        display: none;
+        flex-wrap: wrap;
+        gap: 4px 4px;
+        justify-content: flex-start;
+        margin-top: 24px;
+        padding: 8px 0 0;
+      }
+      .skill-pagination.is-visible {
+        display: flex;
+      }
+      .pagination-btn,
+      .pagination-num {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3;
+        min-width: auto;
+        padding: 4px 8px;
+        transition: color var(--nimbus-motion-fast);
+      }
+      .pagination-btn:hover:not(:disabled),
+      .pagination-num:hover {
+        color: var(--nimbus-primary);
+      }
+      .pagination-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+      }
+      .pagination-num--active {
+        background: transparent;
+        border: none;
+        color: var(--nimbus-primary);
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+      .pagination-num--active:hover {
+        color: var(--nimbus-primary);
+      }
+      .pagination-btn--edge {
+        min-width: auto;
+        padding: 4px 10px 4px 0;
+      }
+      .pagination-btn--edge:last-child {
+        padding: 4px 0 4px 10px;
       }
       .skill-card {
         background: var(--nimbus-surface);
@@ -534,6 +565,22 @@
         background: var(--nimbus-success-soft);
         color: var(--nimbus-success);
       }
+      .category-monitoring {
+        background: rgba(2, 136, 209, 0.12);
+        color: #0277bd;
+      }
+      .category-security {
+        background: rgba(103, 58, 183, 0.12);
+        color: #5e35b1;
+      }
+      .category-cost {
+        background: rgba(46, 125, 50, 0.12);
+        color: #2e7d32;
+      }
+      .category-migration {
+        background: rgba(245, 124, 0, 0.14);
+        color: #e65100;
+      }
       .category-learning {
         background: var(--nimbus-warning-soft);
         color: var(--nimbus-warning-text);
@@ -613,12 +660,13 @@
       }
       .detail-view,
       .create-view {
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-radius: var(--nimbus-radius-xl);
-        box-shadow: var(--nimbus-shadow-sm);
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
         display: none;
-        padding: 24px;
+        margin-top: 8px;
+        padding: 24px 0 0;
       }
       .back-btn {
         align-items: center;
@@ -1323,13 +1371,6 @@
         line-height: 24px;
       }
       @media (max-width: 1200px) {
-        .library-layout {
-          flex-direction: column;
-        }
-        .skill-filters {
-          position: static;
-          width: 100%;
-        }
         .skill-grid,
         .skeleton-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1342,35 +1383,43 @@
         }
       }
       @media (max-width: 768px) {
-        .skill-library {
-          padding: 16px;
+        .enterprise-brand {
+          font-size: 20px;
         }
-        .cloud-nav {
-          align-items: center;
-          flex-direction: row;
-          gap: 8px;
-          height: auto;
-          min-height: 56px;
-          padding: 8px 16px;
+        .enterprise-topbar-inner {
+          padding: 16px 16px 18px 24px;
         }
-        .cloud-links {
-          display: none;
-        }
-        .cloud-nav-right {
-          gap: 2px;
-        }
-        .cloud-nav-right .nav-pill,
-        .cloud-nav-right .nav-icon-btn:not(:last-of-type) {
-          display: none;
-        }
-        .library-title {
-          font-size: 34px;
-          line-height: 40px;
-        }
-        .library-header-top,
-        .detail-header,
-        .form-header {
+        .container {
+          display: flex;
           flex-direction: column;
+          padding: 24px 16px 40px 24px;
+        }
+        .doc-sidebar.skill-filters {
+          border-bottom: 1px solid var(--nimbus-border);
+          border-right: none;
+          margin-bottom: 0;
+          min-height: 0;
+          padding-bottom: 20px;
+          width: 100%;
+        }
+        .filter-row {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .left-panel {
+          padding: 24px;
+          width: 100%;
+        }
+        .doc-header-top {
+          flex-direction: column;
+        }
+        .doc-feedback {
+          align-items: flex-start;
+          gap: 14px;
+          width: 100%;
+        }
+        .right-panel {
+          display: none;
         }
         .header-actions,
         .detail-actions {
@@ -1419,72 +1468,81 @@
   </head>
   <body>
     <div data-site-header data-home="./home.html"></div>
-    <div class="skill-library">
-      <header class="library-header">
-        <div class="library-header-top">
-          <div>
-            <div class="library-title">
-              <span
-                class="material-symbols-outlined title-icon icon-xl"
-                aria-hidden="true"
-                >library_books</span
-              >Skill Library
-            </div>
-            <div class="library-subtitle">
-              Discover, create, and share guided skills that connect AI-assisted
-              exploration with documentation-backed verification.
-            </div>
-          </div>
-          <div class="header-actions">
-            <button class="btn btn-primary" onclick="showCreateForm()">
-              <span class="material-symbols-outlined icon-sm" aria-hidden="true"
-                >add</span
-              >Create New Skill
-            </button>
-            <button class="btn btn-secondary" onclick="showMySkills()">
-              <span class="material-symbols-outlined icon-sm" aria-hidden="true"
-                >bookmark</span
-              >My Skills
-            </button>
-          </div>
+    <header class="enterprise-topbar" aria-label="Skill Library">
+      <div class="enterprise-topbar-inner">
+        <div class="enterprise-brand">
+          <span class="enterprise-logo" aria-hidden="true">✦</span>
+          <span>Skill Library</span>
         </div>
-      </header>
+        <p class="library-page-intro">
+          Discover, create, and share guided skills that connect AI-assisted
+          exploration with documentation-backed verification.
+        </p>
+      </div>
+    </header>
 
-      <div class="library-layout">
-        <aside class="skill-filters">
-          <div class="filters-title">Filters</div>
-          <div class="filter-tabs">
-            <button
-              class="filter-tab filter-tab--active"
-              data-tab="goals"
-              onclick="switchFilterTab('goals')"
-            >
-              User Goals
-            </button>
-            <button
-              class="filter-tab"
-              data-tab="products"
-              onclick="switchFilterTab('products')"
-            >
-              Products
-            </button>
-            <button
-              class="filter-tab"
-              data-tab="types"
-              onclick="switchFilterTab('types')"
-            >
-              Type
-            </button>
-          </div>
-          <div id="goalsFilter" class="filter-group active"></div>
-          <div id="productsFilter" class="filter-group"></div>
-          <div id="typesFilter" class="filter-group"></div>
-          <button class="clear-filters" onclick="clearFilters()">
-            Clear all filters
+    <div class="container">
+      <aside
+        class="doc-sidebar skill-filters"
+        aria-label="Skill catalog filters"
+      >
+        <div class="filter-row">☰ Filter</div>
+        <div class="filter-tabs">
+          <button
+            class="filter-tab filter-tab--active"
+            data-tab="goals"
+            onclick="switchFilterTab('goals')"
+          >
+            User Goals
           </button>
-        </aside>
+          <button
+            class="filter-tab"
+            data-tab="products"
+            onclick="switchFilterTab('products')"
+          >
+            Products
+          </button>
+          <button
+            class="filter-tab"
+            data-tab="types"
+            onclick="switchFilterTab('types')"
+          >
+            Skill Types
+          </button>
+        </div>
+        <div id="goalsFilter" class="filter-group active"></div>
+        <div id="productsFilter" class="filter-group"></div>
+        <div id="typesFilter" class="filter-group"></div>
+        <button class="clear-filters" onclick="clearFilters()">
+          Clear all filters
+        </button>
+      </aside>
 
-        <main class="main-content">
+      <div class="left-panel">
+        <header class="doc-header">
+          <div class="doc-header-top">
+            <div class="doc-feedback">
+              <div class="header-actions">
+                <button class="btn btn-primary" onclick="showCreateForm()">
+                  <span
+                    class="material-symbols-outlined icon-sm"
+                    aria-hidden="true"
+                    >add</span
+                  >Create New Skill
+                </button>
+                <button class="btn btn-secondary" onclick="showMySkills()">
+                  <span
+                    class="material-symbols-outlined icon-sm"
+                    aria-hidden="true"
+                    >bookmark</span
+                  >My Skills
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="main-content">
           <section id="libraryView">
             <div class="main-toolbar">
               <div class="search-wrap toolbar-search">
@@ -1493,7 +1551,7 @@
                   class="search-input"
                   type="search"
                   placeholder="Search skills by name, keyword, or product..."
-                  oninput="renderSkills()"
+                  oninput="setLibraryBrowseMode(); renderSkills()"
                 />
               </div>
               <div class="toolbar-actions">
@@ -1518,8 +1576,17 @@
               <div class="skeleton-card"></div>
               <div class="skeleton-card"></div>
               <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
             </div>
             <div id="skillGrid" class="skill-grid" style="display: none"></div>
+            <nav
+              id="skillPagination"
+              class="skill-pagination"
+              aria-label="Skill list pages"
+            ></nav>
             <div id="emptyState" class="empty-state">
               <span
                 class="material-symbols-outlined empty-icon"
@@ -1647,7 +1714,19 @@
               </button>
             </div>
           </section>
-        </main>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="step-navigator">
+          <div class="nav-title">On this page</div>
+          <ul class="nav-step-list">
+            <li class="nav-step-item active">Browse catalog</li>
+            <li class="nav-step-item">Search and sort skills</li>
+            <li class="nav-step-item">Filter by goal, product, or type</li>
+            <li class="nav-step-item">Create or save skills</li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -1671,223 +1750,72 @@
     </div>
     <div id="toast" class="toast"></div>
 
+    <script src="./assets/skills_catalog_export.js"></script>
     <script>
-      const skills = [
-        {
-          id: "fix-403-forbidden-access",
-          title: "Fix 403 Forbidden Access",
-          icon: "build",
-          category: "Troubleshooting",
-          goal: "Troubleshooting & Debugging",
-          products: ["Vertex AI / Gemini Enterprise", "IAM & Security"],
-          type: "Quick Fix",
-          steps: 4,
-          time: 5,
-          views: 2840,
-          popularity: 438,
-          previouslyViewed: false,
-          highlight: "Auto-detected",
-          description:
-            "Diagnose and resolve permission errors for Gemini Enterprise endpoint calls",
-          prerequisites: [
-            "Owner or IAM Admin role",
-            "Cloud Shell or gcloud CLI available",
-            "test_endpoint.py script created",
-          ],
-          stepTitles: [
-            "Identify caller identity",
-            "Check current IAM roles",
-            "Grant Vertex AI User role",
-            "Verify access",
-          ],
-          checkpoints: [
-            "gcloud config shows correct account",
-            "IAM policy includes aiplatform.user role",
-            "test_endpoint.py returns success",
-          ],
-        },
-        {
-          id: "deploy-web-app-cloud-run",
-          title: "Deploy Web App to Cloud Run",
-          icon: "rocket_launch",
-          category: "Setup & Configuration",
-          goal: "Setup & Configuration",
-          products: ["Cloud Run"],
-          type: "Tutorial",
-          steps: 6,
-          time: 15,
-          views: 1960,
-          popularity: 312,
-          previouslyViewed: false,
-          highlight: "Zero-config deployment",
-          description:
-            "Deploy containerized applications with automatic scaling and HTTPS",
-          prerequisites: ["Container image available", "Cloud Run API enabled"],
-          stepTitles: [
-            "Choose source",
-            "Build container",
-            "Configure service",
-            "Deploy revision",
-            "Verify HTTPS",
-            "Monitor logs",
-          ],
-          checkpoints: [
-            "Service URL responds",
-            "Latest revision is serving traffic",
-          ],
-        },
-        {
-          id: "optimize-bigquery-query-performance",
-          title: "Optimize BigQuery Query Performance",
-          icon: "speed",
-          category: "Optimization & Best Practices",
-          goal: "Optimization & Best Practices",
-          products: ["BigQuery"],
-          type: "Deep Dive",
-          steps: 8,
-          time: 30,
-          views: 3210,
-          popularity: 527,
-          previouslyViewed: true,
-          highlight: "Cost reduction strategies",
-          description:
-            "Analyze and improve query efficiency to reduce costs and runtime",
-          prerequisites: [
-            "BigQuery job history access",
-            "Sample query available",
-          ],
-          stepTitles: [
-            "Inspect query plan",
-            "Check scanned bytes",
-            "Review joins",
-            "Apply partition filters",
-            "Use clustering",
-            "Materialize repeated work",
-            "Validate runtime",
-            "Compare cost",
-          ],
-          checkpoints: ["Bytes processed reduced", "Runtime improved"],
-        },
-        {
-          id: "vertex-ai-model-monitoring",
-          title: "Set Up Vertex AI Model Monitoring",
-          icon: "monitoring",
-          category: "Setup & Configuration",
-          goal: "Setup & Configuration",
-          products: ["Vertex AI / Gemini Enterprise"],
-          type: "Tutorial",
-          steps: 7,
-          time: 20,
-          views: 1475,
-          popularity: 224,
-          previouslyViewed: false,
-          highlight: "Real-time alerts",
-          description:
-            "Configure monitoring and alerting for deployed ML models",
-          prerequisites: [
-            "Vertex AI endpoint deployed",
-            "Monitoring permissions available",
-          ],
-          stepTitles: [
-            "Select endpoint",
-            "Define baseline",
-            "Configure metrics",
-            "Set thresholds",
-            "Create alert policy",
-            "Test drift event",
-            "Review dashboard",
-          ],
-          checkpoints: ["Monitoring job active", "Alert policy created"],
-        },
-        {
-          id: "troubleshoot-cloud-build-failures",
-          title: "Troubleshoot Cloud Build Failures",
-          icon: "troubleshoot",
-          category: "Troubleshooting",
-          goal: "Troubleshooting & Debugging",
-          products: ["Cloud Build"],
-          type: "Quick Fix",
-          steps: 5,
-          time: 10,
-          views: 2530,
-          popularity: 389,
-          previouslyViewed: true,
-          highlight: "Common fixes included",
-          description:
-            "Diagnose and resolve common Cloud Build pipeline errors",
-          prerequisites: [
-            "Cloud Build logs access",
-            "Build ID or trigger name available",
-          ],
-          stepTitles: [
-            "Open failed build",
-            "Inspect logs",
-            "Check substitutions",
-            "Validate permissions",
-            "Re-run build",
-          ],
-          checkpoints: ["Root cause identified", "Build succeeds after fix"],
-        },
-        {
-          id: "configure-iam-custom-roles",
-          title: "Configure IAM Custom Roles",
-          icon: "admin_panel_settings",
-          category: "Setup & Configuration",
-          goal: "Setup & Configuration",
-          products: ["IAM & Security"],
-          type: "Deep Dive",
-          steps: 9,
-          time: 25,
-          views: 1720,
-          popularity: 246,
-          previouslyViewed: false,
-          highlight: "Least privilege best practices",
-          description:
-            "Create fine-grained custom IAM roles for specific use cases",
-          prerequisites: ["IAM Admin role", "Permission list drafted"],
-          stepTitles: [
-            "Define use case",
-            "List permissions",
-            "Create role draft",
-            "Validate support level",
-            "Assign test principal",
-            "Run access tests",
-            "Remove broad roles",
-            "Document ownership",
-            "Review periodically",
-          ],
-          checkpoints: [
-            "Custom role created",
-            "Principal has only required permissions",
-          ],
-        },
-      ];
-
+      let skills = [];
       const filterData = {
-        goals: [
-          "Setup & Configuration",
-          "Troubleshooting & Debugging",
-          "Optimization & Best Practices",
-          "Learning & Exploration",
-        ],
-        products: [
-          "Cloud Run",
-          "Vertex AI / Gemini Enterprise",
-          "BigQuery",
-          "Cloud Storage",
-          "IAM & Security",
-          "Cloud Functions",
-          "Cloud Build",
-          "All Products",
-        ],
-        types: ["Quick Fix", "Deep Dive", "Tutorial", "Reference"],
+        goals: [],
+        products: [],
+        types: [],
       };
+
+      function normalizeSkillRecord(raw) {
+        const products = Array.isArray(raw.products)
+          ? raw.products
+          : raw.product
+            ? [raw.product]
+            : [];
+        return {
+          ...raw,
+          goal: raw.goal ?? raw.userGoal ?? "",
+          products,
+          type: raw.type ?? raw.skillType ?? "Task Guide",
+          description: raw.description ?? raw.overview ?? "",
+          prerequisites: raw.prerequisites ?? [],
+          stepTitles: raw.stepTitles ?? [],
+          checkpoints: raw.checkpoints ?? [],
+          views: raw.views ?? 0,
+          popularity: raw.popularity ?? 0,
+          highlight: raw.highlight ?? "",
+          previouslyViewed: Boolean(raw.previouslyViewed),
+        };
+      }
+
+      function applyCatalogData(data) {
+        skills = (data.skills || []).map(normalizeSkillRecord);
+        filterData.goals = data.filterOptions?.userGoals ?? [];
+        filterData.products = data.filterOptions?.products ?? [];
+        filterData.types = data.filterOptions?.skillTypes ?? [];
+      }
+
+      async function loadSkillsCatalog() {
+        if (window.__GC_SKILLS_CATALOG__) {
+          applyCatalogData(window.__GC_SKILLS_CATALOG__);
+          return;
+        }
+        const url = new URL("assets/skills_data.json", window.location.href).href;
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(`skills_data.json: ${res.status}`);
+        const data = await res.json();
+        applyCatalogData(data);
+      }
+
       let savedSkills = new Set(
         JSON.parse(localStorage.getItem("savedSkills") || "[]"),
       );
       let currentSkillId = null;
+      const SKILLS_PER_PAGE = 10;
+      let libraryPageIndex = 1;
+      let libraryListingMode = "browse";
 
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          await loadSkillsCatalog();
+        } catch (err) {
+          console.error(err);
+          document.getElementById("resultCount").textContent =
+            "Could not load skills catalog";
+        }
         buildFilters();
         updateMySkillsCount();
         addDynamicItem("prereqList", "Prerequisite");
@@ -1907,7 +1835,7 @@
             .map(
               (value) => `
       <label class="filter-option">
-        <input type="checkbox" value="${value}" data-filter="${key}" onchange="renderSkills()"> ${value}
+        <input type="checkbox" value="${value}" data-filter="${key}" onchange="setLibraryBrowseMode(); renderSkills()"> ${value}
       </label>
     `,
             )
@@ -1934,6 +1862,27 @@
         ].map((input) => input.value);
       }
 
+      function applySkillSort(result) {
+        const sort = document.getElementById("sortSelect").value;
+        const list = [...result];
+        if (sort === "time") list.sort((a, b) => a.time - b.time);
+        if (sort === "steps") list.sort((a, b) => a.steps - b.steps);
+        return list;
+      }
+
+      function setLibraryBrowseMode() {
+        libraryListingMode = "browse";
+      }
+
+      function getListedSkills() {
+        if (libraryListingMode === "saved") {
+          return applySkillSort(
+            skills.filter((skill) => savedSkills.has(skill.id)),
+          );
+        }
+        return getFilteredSkills();
+      }
+
       function getFilteredSkills() {
         const query = document
           .getElementById("searchInput")
@@ -1946,8 +1895,10 @@
           const searchable = [
             skill.title,
             skill.category,
+            skill.goal,
             skill.type,
             skill.description,
+            ...(skill.tags || []),
             ...skill.products,
           ]
             .join(" ")
@@ -1956,15 +1907,12 @@
           const matchesGoal = goals.length === 0 || goals.includes(skill.goal);
           const matchesProduct =
             products.length === 0 ||
-            products.includes("All Products") ||
+            products.includes("All products") ||
             skill.products.some((product) => products.includes(product));
           const matchesType = types.length === 0 || types.includes(skill.type);
           return matchesSearch && matchesGoal && matchesProduct && matchesType;
         });
-        const sort = document.getElementById("sortSelect").value;
-        if (sort === "time") result.sort((a, b) => a.time - b.time);
-        if (sort === "steps") result.sort((a, b) => a.steps - b.steps);
-        return result;
+        return applySkillSort(result);
       }
 
       function formatCount(value) {
@@ -1990,17 +1938,12 @@
           : "";
       }
 
-      function renderSkills() {
-        const grid = document.getElementById("skillGrid");
-        const empty = document.getElementById("emptyState");
-        const result = getFilteredSkills();
-        document.getElementById("resultCount").textContent =
-          `${result.length} skill${result.length === 1 ? "" : "s"} found`;
-        grid.style.opacity = "0";
-        setTimeout(() => {
-          grid.innerHTML = result
-            .map(
-              (skill) => `
+      function renderSkillCardHTML(skill, options = {}) {
+        const savedMode = Boolean(options.savedMode);
+        const highlight = savedMode
+          ? `<div class="skill-highlight"><span class="material-symbols-outlined icon-sm" aria-hidden="true">bookmark</span>Saved</div>`
+          : `<div class="skill-highlight"><span class="material-symbols-outlined icon-sm" aria-hidden="true">task_alt</span>${skill.highlight}</div>`;
+        return `
       <article class="skill-card skill-card--minimal" onclick="viewSkillDetail('${skill.id}')">
         <div class="skill-card-header">
           <span class="material-symbols-outlined skill-icon" aria-hidden="true">${skill.icon}</span>
@@ -2011,23 +1954,97 @@
         </div>
         <div class="category-badge ${categoryClass(skill.category)}">${skill.category}</div>
         <p class="skill-description">${skill.description}</p>
-        <div class="skill-highlight"><span class="material-symbols-outlined icon-sm" aria-hidden="true">task_alt</span>${skill.highlight}</div>
+        ${highlight}
         ${renderPreviouslyViewed(skill)}
         ${renderSkillStats(skill)}
       </article>
-    `,
-            )
+    `;
+      }
+
+      function renderSkillPagination(totalItems) {
+        const nav = document.getElementById("skillPagination");
+        if (!nav) return;
+        const totalPages = Math.max(
+          1,
+          Math.ceil(totalItems / SKILLS_PER_PAGE),
+        );
+        if (totalItems === 0 || totalPages <= 1) {
+          nav.innerHTML = "";
+          nav.classList.remove("is-visible");
+          return;
+        }
+        nav.classList.add("is-visible");
+        let html = `<button type="button" class="pagination-btn pagination-btn--edge"${
+          libraryPageIndex <= 1 ? " disabled" : ""
+        } aria-label="Previous page" onclick="goToSkillPage(${libraryPageIndex - 1})">Previous</button>`;
+        for (let p = 1; p <= totalPages; p++) {
+          const active = p === libraryPageIndex;
+          html += `<button type="button" class="pagination-num${
+            active ? " pagination-num--active" : ""
+          }"${active ? ' aria-current="page"' : ""} onclick="goToSkillPage(${p})">${p}</button>`;
+        }
+        html += `<button type="button" class="pagination-btn pagination-btn--edge"${
+          libraryPageIndex >= totalPages ? " disabled" : ""
+        } aria-label="Next page" onclick="goToSkillPage(${libraryPageIndex + 1})">Next</button>`;
+        nav.innerHTML = html;
+      }
+
+      function goToSkillPage(page) {
+        const listed = getListedSkills();
+        const totalPages = Math.max(
+          1,
+          Math.ceil(listed.length / SKILLS_PER_PAGE),
+        );
+        libraryPageIndex = Math.min(Math.max(1, page), totalPages);
+        renderSkills({ preservePage: true });
+      }
+
+      function renderSkills(options = {}) {
+        const preservePage = options.preservePage === true;
+        if (!preservePage) libraryPageIndex = 1;
+
+        const grid = document.getElementById("skillGrid");
+        const empty = document.getElementById("emptyState");
+        const result = getListedSkills();
+
+        const countLabel =
+          libraryListingMode === "saved"
+            ? `${result.length} saved skill${result.length === 1 ? "" : "s"}`
+            : `${result.length} skill${result.length === 1 ? "" : "s"} found`;
+        document.getElementById("resultCount").textContent = countLabel;
+
+        const totalPages = Math.max(
+          1,
+          Math.ceil(result.length / SKILLS_PER_PAGE),
+        );
+        if (libraryPageIndex > totalPages) libraryPageIndex = totalPages;
+        if (libraryPageIndex < 1) libraryPageIndex = 1;
+
+        const start = (libraryPageIndex - 1) * SKILLS_PER_PAGE;
+        const pageItems = result.slice(start, start + SKILLS_PER_PAGE);
+        const savedMode = libraryListingMode === "saved";
+
+        grid.style.opacity = "0";
+        setTimeout(() => {
+          grid.innerHTML = pageItems
+            .map((skill) => renderSkillCardHTML(skill, { savedMode }))
             .join("");
           empty.style.display = result.length ? "none" : "block";
           grid.style.display = result.length ? "grid" : "none";
           grid.style.opacity = "1";
+          renderSkillPagination(result.length);
         }, 120);
       }
 
       function categoryClass(category) {
+        if (!category) return "category-learning";
         if (category.startsWith("Setup")) return "category-setup";
         if (category === "Troubleshooting") return "category-troubleshooting";
         if (category.startsWith("Optimization")) return "category-optimization";
+        if (category.includes("Monitoring")) return "category-monitoring";
+        if (category.includes("Security")) return "category-security";
+        if (category.includes("Cost")) return "category-cost";
+        if (category.includes("Migration")) return "category-migration";
         return "category-learning";
       }
 
@@ -2036,6 +2053,7 @@
           .querySelectorAll('.skill-filters input[type="checkbox"]')
           .forEach((input) => (input.checked = false));
         document.getElementById("searchInput").value = "";
+        libraryListingMode = "browse";
         renderSkills();
       }
 
@@ -2045,6 +2063,7 @@
         document.getElementById("createView").style.display = "none";
         document.querySelector(".skill-filters").style.display = "block";
         history.replaceState(null, "", "./");
+        renderSkills();
       }
 
       function renderContextStep(skill, step, index) {
@@ -2280,35 +2299,12 @@
       }
 
       function showMySkills() {
-        clearFilters();
-        const grid = document.getElementById("skillGrid");
-        const saved = skills.filter((skill) => savedSkills.has(skill.id));
-        document.getElementById("resultCount").textContent =
-          `${saved.length} saved skill${saved.length === 1 ? "" : "s"}`;
-        grid.innerHTML = saved
-          .map(
-            (skill) => `
-    <article class="skill-card skill-card--minimal" onclick="viewSkillDetail('${skill.id}')">
-      <div class="skill-card-header">
-        <span class="material-symbols-outlined skill-icon" aria-hidden="true">${skill.icon}</span>
-        <div class="skill-card-heading">
-          <div class="skill-card-title">${skill.title}</div>
-          <div class="skill-meta">${skill.steps} steps · ${skill.time} min</div>
-        </div>
-      </div>
-      <div class="category-badge ${categoryClass(skill.category)}">${skill.category}</div>
-      <p class="skill-description">${skill.description}</p>
-      <div class="skill-highlight"><span class="material-symbols-outlined icon-sm" aria-hidden="true">bookmark</span>Saved</div>
-      ${renderPreviouslyViewed(skill)}
-      ${renderSkillStats(skill)}
-    </article>
-  `,
-          )
-          .join("");
-        document.getElementById("emptyState").style.display = saved.length
-          ? "none"
-          : "block";
-        grid.style.display = saved.length ? "grid" : "none";
+        document
+          .querySelectorAll('.skill-filters input[type="checkbox"]')
+          .forEach((input) => (input.checked = false));
+        document.getElementById("searchInput").value = "";
+        libraryListingMode = "saved";
+        renderSkills();
       }
 
       function shareSkill(skillId) {

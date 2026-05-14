@@ -2297,6 +2297,7 @@
 
     <div class="toast" id="toast" aria-live="polite"></div>
 
+    <script src="./assets/skills_catalog_export.js"></script>
     <script>
       let isSaved = false;
       let toastTimer;
@@ -2446,6 +2447,83 @@
         },
       };
 
+      Object.assign(SKILL_DETAIL_DATA, {
+        "deploy-first-cloud-run-service":
+          SKILL_DETAIL_DATA["deploy-web-app-cloud-run"],
+        "optimize-bigquery-queries":
+          SKILL_DETAIL_DATA["optimize-bigquery-query-performance"],
+        "vertex-ai-model-monitoring-setup":
+          SKILL_DETAIL_DATA["vertex-ai-model-monitoring"],
+        "configure-custom-iam-roles":
+          SKILL_DETAIL_DATA["configure-iam-custom-roles"],
+        "repair-cloud-build-pipelines":
+          SKILL_DETAIL_DATA["troubleshoot-cloud-build-failures"],
+      });
+
+      let catalogSkillsById = {};
+
+      async function loadSkillsCatalogForDetail() {
+        try {
+          if (window.__GC_SKILLS_CATALOG__) {
+            catalogSkillsById = Object.fromEntries(
+              (window.__GC_SKILLS_CATALOG__.skills || []).map((row) => [
+                row.id,
+                row,
+              ]),
+            );
+            return;
+          }
+          const res = await fetch(
+            new URL("assets/skills_data.json", window.location.href).href,
+            { cache: "no-store" },
+          );
+          if (!res.ok) return;
+          const data = await res.json();
+          catalogSkillsById = Object.fromEntries(
+            (data.skills || []).map((row) => [row.id, row]),
+          );
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      function synthesizeDetailFromCatalog(skillRow) {
+        const approxRuns = Math.max(
+          120,
+          Math.round(Number(skillRow.views || 0) / 24),
+        );
+        const steps =
+          Array.isArray(skillRow.stepTitles) && skillRow.stepTitles.length > 0
+            ? skillRow.stepTitles
+            : Array.from(
+                { length: Math.max(1, Number(skillRow.steps) || 1) },
+                (_, i) => `Step ${i + 1}`,
+              );
+        const prerequisites =
+          Array.isArray(skillRow.prerequisites) &&
+          skillRow.prerequisites.length > 0
+            ? skillRow.prerequisites
+            : ["Sandbox Google Cloud project with billing enabled"];
+        return {
+          title: `${skillRow.title} Skill`,
+          meta: `${skillRow.category} · ${skillRow.steps} steps · ${skillRow.time} min`,
+          runs: `★ ${approxRuns.toLocaleString()} runs in the last 30 days`,
+          overview:
+            `${skillRow.description || skillRow.overview || ""}`.trim() +
+            " This skill guides you through a documentation-backed workflow with checkpoints.",
+          goal: skillRow.goal || skillRow.title,
+          context: skillRow.overview || skillRow.description || "",
+          installCommand: `claude-skill install ${skillRow.id}`,
+          prerequisites,
+          steps,
+        };
+      }
+
+      async function initSkillDetailPage() {
+        await loadSkillsCatalogForDetail();
+        applySkillFromQuery();
+      }
+
       function escapeHtml(text) {
         return String(text)
           .replaceAll("&", "&amp;")
@@ -2479,8 +2557,11 @@
         const skillId = hashSkillId || querySkillId;
         const shareEl = document.querySelector(".share-url-input");
         if (shareEl) shareEl.value = window.location.href;
-        if (!skillId || !SKILL_DETAIL_DATA[skillId]) return;
-        const detail = SKILL_DETAIL_DATA[skillId];
+        let detail = SKILL_DETAIL_DATA[skillId];
+        if (!detail && catalogSkillsById[skillId]) {
+          detail = synthesizeDetailFromCatalog(catalogSkillsById[skillId]);
+        }
+        if (!skillId || !detail) return;
         document.title = `${detail.title} - Skill Detail`;
         const titleEl = document.getElementById("detailTitle");
         const metaEl = document.getElementById("detailMeta");
@@ -2627,7 +2708,11 @@
         }
       });
 
-      applySkillFromQuery();
+      window.addEventListener("hashchange", () => {
+        applySkillFromQuery();
+      });
+
+      initSkillDetailPage();
     </script>
     <script src="./assets/site-header.js"></script>
   </body>
