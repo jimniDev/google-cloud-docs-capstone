@@ -184,6 +184,79 @@
           0 0 0 3px rgba(255, 255, 255, 0.08);
       }
 
+      @property --nimbus-rainbow-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      .hero-band .search-pill-shell {
+        isolation: isolate;
+      }
+
+      .hero-band .search-pill-shell::before {
+        background: conic-gradient(
+          from var(--nimbus-rainbow-angle),
+          #1a73e8,
+          #8e24aa,
+          #e53935,
+          #fb8c00,
+          #fdd835,
+          #1e8e3e,
+          #1a73e8
+        );
+        border-radius: inherit;
+        content: "";
+        inset: -2px;
+        opacity: 0;
+        padding: 2px;
+        pointer-events: none;
+        position: absolute;
+        z-index: 2;
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+
+      .hero-band .search-pill-shell.is-rainbow-active::before {
+        animation:
+          nimbus-rainbow-spin 1.25s linear 4,
+          nimbus-rainbow-fade 5s ease forwards;
+      }
+
+      @keyframes nimbus-rainbow-spin {
+        to {
+          --nimbus-rainbow-angle: 360deg;
+        }
+      }
+
+      @keyframes nimbus-rainbow-fade {
+        0% {
+          opacity: 0;
+        }
+        8% {
+          opacity: 1;
+        }
+        88% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-band .search-pill-shell.is-rainbow-active::before {
+          animation: none;
+          opacity: 0;
+        }
+      }
+
       .hero-band .search-pill__input-row {
         width: 100%;
       }
@@ -277,7 +350,10 @@
           0 8px 32px rgba(0, 0, 0, 0.1);
       }
 
-      .hero-band .search-wrap.is-docked .search-pill-shell .search-pill:focus-within {
+      .hero-band
+        .search-wrap.is-docked
+        .search-pill-shell
+        .search-pill:focus-within {
         border-color: rgba(255, 255, 255, 0.75);
         box-shadow:
           inset 0 1px 0 rgba(255, 255, 255, 0.9),
@@ -465,6 +541,131 @@
       .is-open {
         display: block;
       }
+
+      .slash-menu {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: 12px;
+        box-shadow: var(--nimbus-shadow-lg);
+        display: none;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        z-index: 20;
+      }
+      .slash-menu.is-open {
+        display: block;
+      }
+      .slash-menu__header {
+        border-bottom: 1px solid var(--nimbus-border);
+        padding: 14px 16px 10px;
+      }
+      .slash-menu__title {
+        color: var(--nimbus-text-primary);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .slash-menu__subtitle {
+        color: var(--nimbus-text-secondary);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+      .slash-menu__list {
+        display: flex;
+        flex-direction: column;
+        padding: 6px 0;
+      }
+      .slash-menu__item {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        display: flex;
+        gap: 12px;
+        padding: 10px 16px;
+        text-align: left;
+        width: 100%;
+      }
+      .slash-menu__item:hover,
+      .slash-menu__item.is-active {
+        background: var(--nimbus-surface-subtle);
+      }
+      .slash-menu__item-icon {
+        align-items: center;
+        background: color-mix(in srgb, var(--nimbus-primary) 12%, white);
+        border-radius: 8px;
+        color: var(--nimbus-primary);
+        display: inline-flex;
+        flex-shrink: 0;
+        font-size: 20px;
+        height: 32px;
+        justify-content: center;
+        width: 32px;
+      }
+      .slash-menu__item-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .slash-menu__item-title {
+        color: var(--nimbus-text-primary);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .slash-menu__item-highlight {
+        color: var(--nimbus-text-secondary);
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .slash-menu__item-meta {
+        color: var(--nimbus-text-secondary);
+        flex-shrink: 0;
+        font-size: 11px;
+      }
+      .slash-menu__empty {
+        color: var(--nimbus-text-secondary);
+        font-size: 13px;
+        padding: 16px;
+        text-align: center;
+      }
+      .slash-menu__footer {
+        align-items: center;
+        border-top: 1px solid var(--nimbus-border);
+        color: var(--nimbus-primary);
+        display: flex;
+        font-size: 13px;
+        font-weight: 500;
+        gap: 6px;
+        justify-content: center;
+        padding: 12px 16px;
+        text-decoration: none;
+      }
+      .slash-menu__footer:hover {
+        background: var(--nimbus-surface-subtle);
+      }
+      .slash-menu__footer .material-symbols-outlined {
+        font-size: 18px;
+      }
+      .hero-band .search-wrap.is-docked .slash-menu {
+        bottom: calc(
+          var(--docked-search-height, 120px) + var(--nimbus-space-8) +
+            var(--nimbus-space-4) + env(safe-area-inset-bottom, 0px)
+        );
+        left: 50%;
+        max-width: none;
+        position: fixed;
+        right: auto;
+        top: auto;
+        transform: translateX(-50%);
+        width: min(720px, calc(100vw - 32px));
+        z-index: 182;
+      }
+
       .menu-section {
         padding: 6px 16px;
       }
@@ -612,7 +813,11 @@
           box-shadow 180ms ease;
       }
       .task-card:hover {
-        border-color: color-mix(in srgb, var(--nimbus-border) 72%, var(--nimbus-text-secondary));
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-border) 72%,
+          var(--nimbus-text-secondary)
+        );
         box-shadow: var(--nimbus-shadow-md);
       }
       .task-icon {
@@ -1197,7 +1402,11 @@
           box-shadow 160ms ease;
       }
       .product-card:hover {
-        border-color: color-mix(in srgb, var(--nimbus-border) 72%, var(--nimbus-text-secondary));
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-border) 72%,
+          var(--nimbus-text-secondary)
+        );
         box-shadow: var(--nimbus-shadow-sm);
       }
       .product-icon {
@@ -1861,7 +2070,10 @@
     <div data-site-header data-home="./home.html"></div>
     <main class="page">
       <section class="hero-band" aria-labelledby="homeTitle">
-        <div class="hero-band__accent hero-band__accent--left" aria-hidden="true">
+        <div
+          class="hero-band__accent hero-band__accent--left"
+          aria-hidden="true"
+        >
           <img
             src="./assets/hero-band-accent.png"
             alt=""
@@ -1869,7 +2081,10 @@
             height="826"
           />
         </div>
-        <div class="hero-band__accent hero-band__accent--right" aria-hidden="true">
+        <div
+          class="hero-band__accent hero-band__accent--right"
+          aria-hidden="true"
+        >
           <img
             src="./assets/hero-band-accent-right.png"
             alt=""
@@ -1889,11 +2104,16 @@
             />
             <h1 id="homeTitle">Google Cloud Agentic Documentation</h1>
             <p>
-              Use Documentation Skills to build, scale, and optimize AI apps and agents.
+              Use Documentation Skills to build, scale, and optimize AI apps and
+              agents.
             </p>
           </section>
 
-          <section class="search-wrap" id="heroSearchWrap" aria-label="Ask Docs AI">
+          <section
+            class="search-wrap"
+            id="heroSearchWrap"
+            aria-label="Ask Docs AI"
+          >
             <div class="search-pill-shell">
               <div class="search-pill" id="heroSearch">
                 <div class="search-pill__input-row">
@@ -1913,7 +2133,9 @@
                       <span class="search-placeholder-line"
                         >Ask Gemini to build, test, or deploy...</span
                       >
-                      <span class="search-placeholder-line">Type / for skills</span>
+                      <span class="search-placeholder-line"
+                        >Type / for skills</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -1926,7 +2148,11 @@
                   >
                     <span class="material-symbols-outlined">add</span>
                   </button>
-                  <button class="icon-btn" type="button" aria-label="Speech input">
+                  <button
+                    class="icon-btn"
+                    type="button"
+                    aria-label="Speech input"
+                  >
                     <span class="material-symbols-outlined">graphic_eq</span>
                   </button>
                 </div>
@@ -1934,130 +2160,162 @@
             </div>
 
             <div class="plus-menu" id="plusMenu">
-            <div class="menu-section">
-              <div class="menu-heading">Add recent tabs</div>
-              <button class="menu-item" type="button">
-                <span>Vertex AI documentation overview</span
-                ><span class="material-symbols-outlined">add</span>
-              </button>
-              <button class="menu-item" type="button">
-                <span>Gemini API in Vertex AI</span
-                ><span class="material-symbols-outlined">add</span>
-              </button>
-              <button class="menu-item" type="button">
-                <span>IAM roles for Vertex AI</span
-                ><span class="material-symbols-outlined">add</span>
-              </button>
-            </div>
-            <div class="menu-divider"></div>
-            <div class="menu-section">
-              <button class="menu-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">image</span> Add
-                  images</span
-                >
-              </button>
-              <button class="menu-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">attach_file</span>
-                  Add files</span
-                >
-              </button>
-            </div>
-            <div class="menu-divider"></div>
-            <div class="menu-section">
-              <div class="menu-heading">Tools</div>
-              <button class="menu-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">travel_explore</span>
-                  Deep Search</span
-                >
-              </button>
-              <button class="menu-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">monitor</span>
-                  Canvas</span
-                >
-              </button>
-              <button class="menu-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">auto_awesome</span>
-                  Create images</span
-                >
-              </button>
-            </div>
-            <div class="menu-divider"></div>
-            <div class="menu-section">
-              <div class="menu-heading">Gemini models</div>
-              <button class="model-item selected" type="button">
-                <span
-                  ><span class="material-symbols-outlined">sync</span>
-                  Auto</span
-                >
-              </button>
-              <button class="model-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">auto_awesome</span>
-                  Pro</span
-                >
-              </button>
-              <button class="model-item" type="button">
-                <span
-                  ><span class="material-symbols-outlined">timer</span>
-                  Flash</span
-                >
-              </button>
-            </div>
-          </div>
-
-          <div class="suggestion-panel" id="suggestionPanel">
-            <div class="suggestion-list">
-              <a class="suggestion-card suggestion-doc-hit" href="./skill-on-doc.html">
-                <span class="suggestion-hit-title">
-                  Agent Platform access control with IAM
-                  <span class="suggestion-hit-doc-suffix">| Google Cloud Documentation</span>
-                </span>
-                <div class="suggestion-hit-breadcrumb">
-                  Google Cloud Documentation &gt; gemini-enterprise-agent-platform &gt;
-                  machine-learning &gt; general &gt; access-control
-                </div>
-                <p class="suggestion-hit-snippet">
-                  <strong>Agent Platform</strong> uses <strong>IAM</strong> to manage
-                  <strong>access</strong> to your resources. Plan
-                  <strong>access control</strong> at the project level or resource
-                  level — roles and permissions aligned with Gemini Enterprise workloads.
-                </p>
-                <div class="suggestion-meta">
+              <div class="menu-section">
+                <div class="menu-heading">Add recent tabs</div>
+                <button class="menu-item" type="button">
+                  <span>Vertex AI documentation overview</span
+                  ><span class="material-symbols-outlined">add</span>
+                </button>
+                <button class="menu-item" type="button">
+                  <span>Gemini API in Vertex AI</span
+                  ><span class="material-symbols-outlined">add</span>
+                </button>
+                <button class="menu-item" type="button">
+                  <span>IAM roles for Vertex AI</span
+                  ><span class="material-symbols-outlined">add</span>
+                </button>
+              </div>
+              <div class="menu-divider"></div>
+              <div class="menu-section">
+                <button class="menu-item" type="button">
                   <span
-                    ><span class="material-symbols-outlined" style="font-size: 12px"
-                      >description</span>
-                    Skill on Doc prototype</span>
-                  <span>Open Skill on Doc →</span>
-                </div>
-              </a>
-              <a class="suggestion-card" href="./skill-detail-screen.html">
-                <div class="suggestion-meta" style="margin-bottom: 8px">
-                  <span
-                    style="
-                      color: var(--nimbus-primary);
-                      font-weight: 700;
-                      letter-spacing: 0.06em;
-                    "
-                    >TROUBLESHOOTING SKILL</span
+                    ><span class="material-symbols-outlined">image</span> Add
+                    images</span
                   >
-                  <span class="recommended">RECOMMENDED</span>
+                </button>
+                <button class="menu-item" type="button">
+                  <span
+                    ><span class="material-symbols-outlined">attach_file</span>
+                    Add files</span
+                  >
+                </button>
+              </div>
+              <div class="menu-divider"></div>
+              <div class="menu-section">
+                <div class="menu-heading">Tools</div>
+                <button class="menu-item" type="button">
+                  <span
+                    ><span class="material-symbols-outlined"
+                      >travel_explore</span
+                    >
+                    Deep Search</span
+                  >
+                </button>
+                <button class="menu-item" type="button">
+                  <span
+                    ><span class="material-symbols-outlined">monitor</span>
+                    Canvas</span
+                  >
+                </button>
+                <button class="menu-item" type="button">
+                  <span
+                    ><span class="material-symbols-outlined">auto_awesome</span>
+                    Create images</span
+                  >
+                </button>
+              </div>
+              <div class="menu-divider"></div>
+              <div class="menu-section">
+                <div class="menu-heading">Gemini models</div>
+                <button class="model-item selected" type="button">
+                  <span
+                    ><span class="material-symbols-outlined">sync</span>
+                    Auto</span
+                  >
+                </button>
+                <button class="model-item" type="button">
+                  <span
+                    ><span class="material-symbols-outlined">auto_awesome</span>
+                    Pro</span
+                  >
+                </button>
+                <button class="model-item" type="button">
+                  <span
+                    ><span class="material-symbols-outlined">timer</span>
+                    Flash</span
+                  >
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="slash-menu"
+              id="slashMenu"
+              role="listbox"
+              aria-label="Documentation Skills"
+            >
+              <div class="slash-menu__header">
+                <div class="slash-menu__title">Documentation Skills</div>
+                <div class="slash-menu__subtitle">
+                  Discover skills you can install in your agent or CLI
                 </div>
-                <strong>Fix 403 Error Message Skill</strong>
-                <p>
-                  Automatically diagnose and resolve permission errors with
-                  guided troubleshooting.
-                </p>
+              </div>
+              <div class="slash-menu__list" id="slashMenuList"></div>
+              <a class="slash-menu__footer" href="./skill-library.html">
+                Browse all skills
+                <span class="material-symbols-outlined">arrow_forward</span>
               </a>
             </div>
-          </div>
-        </section>
-      </div>
-    </section>
+
+            <div class="suggestion-panel" id="suggestionPanel">
+              <div class="suggestion-list">
+                <a
+                  class="suggestion-card suggestion-doc-hit"
+                  href="./skill-on-doc.html"
+                >
+                  <span class="suggestion-hit-title">
+                    Agent Platform access control with IAM
+                    <span class="suggestion-hit-doc-suffix"
+                      >| Google Cloud Documentation</span
+                    >
+                  </span>
+                  <div class="suggestion-hit-breadcrumb">
+                    Google Cloud Documentation &gt;
+                    gemini-enterprise-agent-platform &gt; machine-learning &gt;
+                    general &gt; access-control
+                  </div>
+                  <p class="suggestion-hit-snippet">
+                    <strong>Agent Platform</strong> uses <strong>IAM</strong> to
+                    manage <strong>access</strong> to your resources. Plan
+                    <strong>access control</strong> at the project level or
+                    resource level — roles and permissions aligned with Gemini
+                    Enterprise workloads.
+                  </p>
+                  <div class="suggestion-meta">
+                    <span
+                      ><span
+                        class="material-symbols-outlined"
+                        style="font-size: 12px"
+                        >description</span
+                      >
+                      Skill on Doc prototype</span
+                    >
+                    <span>Open Skill on Doc →</span>
+                  </div>
+                </a>
+                <a class="suggestion-card" href="./skill-detail-screen.html">
+                  <div class="suggestion-meta" style="margin-bottom: 8px">
+                    <span
+                      style="
+                        color: var(--nimbus-primary);
+                        font-weight: 700;
+                        letter-spacing: 0.06em;
+                      "
+                      >TROUBLESHOOTING SKILL</span
+                    >
+                    <span class="recommended">RECOMMENDED</span>
+                  </div>
+                  <strong>Fix 403 Error Message Skill</strong>
+                  <p>
+                    Automatically diagnose and resolve permission errors with
+                    guided troubleshooting.
+                  </p>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
 
       <div class="shell">
         <section class="featured-section" aria-labelledby="coreFeaturesTitle">
@@ -2072,8 +2330,8 @@
                   <h2 class="featured-card__title">Documentation Skills</h2>
                   <p class="featured-card__desc">
                     Google cloud documentation is Think of skills as packaged,
-                    reusable units of knowledge + action that an AI agent (or even
-                    a human workflow) can execute.
+                    reusable units of knowledge + action that an AI agent (or
+                    even a human workflow) can execute.
                   </p>
                 </div>
                 <img
@@ -2097,11 +2355,13 @@
               <div class="featured-card__body">
                 <div class="featured-card__content">
                   <div class="featured-card__label">Featured</div>
-                  <h2 class="featured-card__title">Get started with Google Cloud</h2>
+                  <h2 class="featured-card__title">
+                    Get started with Google Cloud
+                  </h2>
                   <p class="featured-card__desc">
                     Get hands-on experience with
-                    <u>free usage of 20+ products</u>, including popular products
-                    like AI APIs, Compute Engine, BigQuery, and more.
+                    <u>free usage of 20+ products</u>, including popular
+                    products like AI APIs, Compute Engine, BigQuery, and more.
                   </p>
                 </div>
                 <img
@@ -2123,7 +2383,10 @@
           </div>
         </section>
 
-        <section class="developer-stories" aria-labelledby="developerStoriesTitle">
+        <section
+          class="developer-stories"
+          aria-labelledby="developerStoriesTitle"
+        >
           <div class="developer-stories__inner">
             <div class="developer-stories__header">
               <h2 id="developerStoriesTitle">Developer Stories</h2>
@@ -2147,16 +2410,17 @@
                   >
                 </span>
                 <h3>
-                  How Lena cut her team's deployment time by 80% using Documentation
-                  Skills
+                  How Lena cut her team's deployment time by 80% using
+                  Documentation Skills
                 </h3>
                 <p class="developer-stories__date">Tuesday, May 20, 2026</p>
                 <p class="developer-stories__desc">
-                  Lena Müller, a backend engineer at a Berlin-based fintech startup,
-                  was spending over four hours each week navigating Cloud Run and IAM
-                  documentation to onboard new teammates. After discovering
-                  Documentation Skills, her team resolved permission errors in under
-                  five minutes and shipped three new services in a single sprint.
+                  Lena Müller, a backend engineer at a Berlin-based fintech
+                  startup, was spending over four hours each week navigating
+                  Cloud Run and IAM documentation to onboard new teammates.
+                  After discovering Documentation Skills, her team resolved
+                  permission errors in under five minutes and shipped three new
+                  services in a single sprint.
                 </p>
               </div>
               <div class="developer-stories__featured-media">
@@ -2179,10 +2443,12 @@
                     height="575"
                   />
                 </a>
-                <div class="developer-story-card__label">YouTube · AI &amp; ML</div>
+                <div class="developer-story-card__label">
+                  YouTube · AI &amp; ML
+                </div>
                 <h3 class="developer-story-card__title">
-                  From prompt to production: multi-agent systems with Gemini Enterprise
-                  Agent Platform
+                  From prompt to production: multi-agent systems with Gemini
+                  Enterprise Agent Platform
                 </h3>
                 <p class="developer-story-card__meta">Updated May 19, 2026</p>
               </article>
@@ -2196,10 +2462,12 @@
                     height="517"
                   />
                 </a>
-                <div class="developer-story-card__label">YouTube · Data Analytics</div>
+                <div class="developer-story-card__label">
+                  YouTube · Data Analytics
+                </div>
                 <h3 class="developer-story-card__title">
-                  How Marcus built a real-time retail analytics pipeline using BigQuery
-                  and Looker Studio
+                  How Marcus built a real-time retail analytics pipeline using
+                  BigQuery and Looker Studio
                 </h3>
                 <p class="developer-story-card__meta">Updated May 14, 2026</p>
               </article>
@@ -2217,9 +2485,9 @@
                   Google for Startups Accelerator
                 </div>
                 <h3 class="developer-story-card__title">
-                  See how Korean startup BlueSignum uses AI to provide personalized
-                  digital mental health services with a little help from Google for
-                  Startups Accelerator.
+                  See how Korean startup BlueSignum uses AI to provide
+                  personalized digital mental health services with a little help
+                  from Google for Startups Accelerator.
                 </h3>
                 <p class="developer-story-card__meta">Updated April 29, 2026</p>
               </article>
@@ -2227,7 +2495,10 @@
           </div>
         </section>
 
-        <section class="product-list-section" aria-labelledby="documentationTitle">
+        <section
+          class="product-list-section"
+          aria-labelledby="documentationTitle"
+        >
           <header class="product-list-section__header">
             <h2 id="documentationTitle">Documentation</h2>
           </header>
@@ -2398,7 +2669,10 @@
           </div>
         </section>
 
-        <section class="skills-get-started" aria-labelledby="skillsGetStartedTitle">
+        <section
+          class="skills-get-started"
+          aria-labelledby="skillsGetStartedTitle"
+        >
           <div class="skills-get-started__inner">
             <header class="skills-get-started__header">
               <h2 id="skillsGetStartedTitle">
@@ -2467,7 +2741,6 @@
             </div>
           </div>
         </section>
-
 
         <section class="whats-new" aria-labelledby="whatsNewTitle">
           <h2 id="whatsNewTitle">What's new in Google Cloud</h2>
@@ -2545,51 +2818,60 @@
               <ul class="lang-tools__col">
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>gcloud CLI
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >gcloud CLI
                   </a>
                 </li>
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>JavaScript and Node.js
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >JavaScript and Node.js
                   </a>
                 </li>
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Ruby
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Ruby
                   </a>
                 </li>
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Prometheus
-                  </a>
-                </li>
-              </ul>
-              <ul class="lang-tools__col">
-                <li class="lang-tools__item">
-                  <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Python
-                  </a>
-                </li>
-                <li class="lang-tools__item">
-                  <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>C# and .NET
-                  </a>
-                </li>
-                <li class="lang-tools__item">
-                  <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Rust
-                  </a>
-                </li>
-                <li class="lang-tools__item">
-                  <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Kubernetes
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Prometheus
                   </a>
                 </li>
               </ul>
               <ul class="lang-tools__col">
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Java
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Python
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>C#
+                    and .NET
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Rust
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Kubernetes
+                  </a>
+                </li>
+              </ul>
+              <ul class="lang-tools__col">
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Java
                   </a>
                 </li>
                 <li class="lang-tools__item">
@@ -2599,7 +2881,8 @@
                 </li>
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Spring
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Spring
                   </a>
                 </li>
               </ul>
@@ -2616,7 +2899,8 @@
                 </li>
                 <li class="lang-tools__item">
                   <a href="#">
-                    <span class="lang-tools__icon" aria-hidden="true"></span>Terraform
+                    <span class="lang-tools__icon" aria-hidden="true"></span
+                    >Terraform
                   </a>
                 </li>
               </ul>
@@ -2718,6 +3002,7 @@
       </footer>
     </main>
 
+    <script src="./assets/skills_catalog_export.js"></script>
     <script>
       const plusButton = document.getElementById("plusButton");
       const plusMenu = document.getElementById("plusMenu");
@@ -2729,6 +3014,16 @@
       const heroSearch = document.getElementById("heroSearch");
       const heroSearchWrap = document.getElementById("heroSearchWrap");
       const heroBand = document.querySelector(".hero-band");
+
+      const searchPillShell = heroSearch.closest(".search-pill-shell");
+      if (searchPillShell) {
+        requestAnimationFrame(() => {
+          searchPillShell.classList.add("is-rainbow-active");
+          window.setTimeout(() => {
+            searchPillShell.classList.remove("is-rainbow-active");
+          }, 5000);
+        });
+      }
 
       plusButton.addEventListener("click", (event) => {
         event.stopPropagation();
@@ -2759,22 +3054,21 @@
       }
 
       function refreshSuggestionsOpen() {
+        if (isSlashMode()) {
+          suggestionPanel.classList.remove("is-open");
+          updateSuggestionDockMode();
+          return;
+        }
         const rich = searchInput.value.trim().length > 2;
         const fieldFocused = document.activeElement === searchInput;
-        suggestionPanel.classList.toggle(
-          "is-open",
-          rich && fieldFocused,
-        );
+        suggestionPanel.classList.toggle("is-open", rich && fieldFocused);
         updateSuggestionDockMode();
       }
 
       function scheduleSuggestionClose() {
         window.setTimeout(() => {
           const ae = document.activeElement;
-          if (
-            ae === searchInput ||
-            suggestionPanel.contains(ae)
-          ) {
+          if (ae === searchInput || suggestionPanel.contains(ae)) {
             updateSuggestionDockMode();
             return;
           }
@@ -2808,7 +3102,7 @@
         if (document.activeElement === searchInput) return;
         placeholderAlt = !placeholderAlt;
         searchPlaceholderMarquee.classList.toggle("is-alt", placeholderAlt);
-      }, 4500);
+      }, 2500);
       syncPlaceholderMarquee();
 
       document.querySelectorAll(".model-item").forEach((button) => {
@@ -2819,6 +3113,205 @@
           button.classList.add("selected");
           plusMenu.classList.remove("is-open");
         });
+      });
+
+      const slashMenu = document.getElementById("slashMenu");
+      const slashMenuList = document.getElementById("slashMenuList");
+      const slashCatalog =
+        (window.__GC_SKILLS_CATALOG__ && window.__GC_SKILLS_CATALOG__.skills) ||
+        [];
+      const popularSkills = [...slashCatalog].sort(
+        (a, b) => (b.popularity || 0) - (a.popularity || 0),
+      );
+      let slashActiveIndex = 0;
+      let slashCurrentRows = [];
+
+      function isSlashMode() {
+        return searchInput.value.startsWith("/");
+      }
+
+      function getSlashQuery() {
+        return searchInput.value.slice(1).trim().toLowerCase();
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function filterSkills(q) {
+        const starts = [];
+        const contains = [];
+        const tagMatch = [];
+        for (const s of slashCatalog) {
+          const title = (s.title || "").toLowerCase();
+          if (title.startsWith(q)) {
+            starts.push(s);
+          } else if (title.includes(q)) {
+            contains.push(s);
+          } else {
+            const tagHit = (s.tags || []).some((tag) =>
+              tag.toLowerCase().includes(q),
+            );
+            const categoryHit = (s.category || "").toLowerCase().includes(q);
+            const highlightHit = (s.highlight || "").toLowerCase().includes(q);
+            if (tagHit || categoryHit || highlightHit) {
+              tagMatch.push(s);
+            }
+          }
+        }
+        return [...starts, ...contains, ...tagMatch];
+      }
+
+      function renderSlashRow(skill, isActive) {
+        const icon = escapeHtml(skill.icon || "auto_awesome");
+        const title = escapeHtml(skill.title || "Untitled skill");
+        const highlight = escapeHtml(
+          skill.highlight || skill.category || "Documentation Skill",
+        );
+        const typeLabel = skill.type ? escapeHtml(skill.type) : "";
+        const timeLabel =
+          typeof skill.time === "number" ? `${skill.time}m` : "";
+        const meta = [typeLabel, timeLabel].filter(Boolean).join(" \u00B7 ");
+        return `
+          <button
+            class="slash-menu__item${isActive ? " is-active" : ""}"
+            type="button"
+            role="option"
+            data-skill-id="${escapeHtml(skill.id)}"
+          >
+            <span class="material-symbols-outlined slash-menu__item-icon">${icon}</span>
+            <span class="slash-menu__item-body">
+              <span class="slash-menu__item-title">${title}</span>
+              <span class="slash-menu__item-highlight">${highlight}</span>
+            </span>
+            ${meta ? `<span class="slash-menu__item-meta">${meta}</span>` : ""}
+          </button>
+        `;
+      }
+
+      const SLASH_MENU_MAX_ROWS = 3;
+
+      function renderSlashMenu() {
+        const q = getSlashQuery();
+        let rows = q ? filterSkills(q) : popularSkills;
+        rows = rows.slice(0, SLASH_MENU_MAX_ROWS);
+        slashCurrentRows = rows;
+        slashActiveIndex = 0;
+        if (rows.length === 0) {
+          slashMenuList.innerHTML =
+            '<div class="slash-menu__empty">No skills match. Try a different keyword.</div>';
+        } else {
+          slashMenuList.innerHTML = rows
+            .map((skill, i) => renderSlashRow(skill, i === 0))
+            .join("");
+        }
+      }
+
+      function openSlashMenu() {
+        renderSlashMenu();
+        slashMenu.classList.add("is-open");
+        suggestionPanel.classList.remove("is-open");
+        plusMenu.classList.remove("is-open");
+      }
+
+      function closeSlashMenu() {
+        slashMenu.classList.remove("is-open");
+      }
+
+      function moveSlashActive(delta) {
+        if (slashCurrentRows.length === 0) return;
+        slashActiveIndex =
+          (slashActiveIndex + delta + slashCurrentRows.length) %
+          slashCurrentRows.length;
+        const items = slashMenuList.querySelectorAll(".slash-menu__item");
+        items.forEach((el, i) =>
+          el.classList.toggle("is-active", i === slashActiveIndex),
+        );
+        const active = items[slashActiveIndex];
+        if (active && typeof active.scrollIntoView === "function") {
+          active.scrollIntoView({ block: "nearest" });
+        }
+      }
+
+      function navigateToSkill(skillId) {
+        if (!skillId) return;
+        window.location.href = `./skill-detail-screen.html#skills/${encodeURIComponent(skillId)}`;
+      }
+
+      function selectSlashActive() {
+        const skill = slashCurrentRows[slashActiveIndex];
+        if (skill) navigateToSkill(skill.id);
+      }
+
+      searchInput.addEventListener("input", () => {
+        if (isSlashMode()) {
+          openSlashMenu();
+        } else {
+          closeSlashMenu();
+        }
+      });
+
+      searchInput.addEventListener("focus", () => {
+        if (isSlashMode()) openSlashMenu();
+      });
+
+      searchInput.addEventListener("keydown", (event) => {
+        if (!slashMenu.classList.contains("is-open")) return;
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          moveSlashActive(1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          moveSlashActive(-1);
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          selectSlashActive();
+        } else if (event.key === "Escape") {
+          event.preventDefault();
+          closeSlashMenu();
+        }
+      });
+
+      slashMenuList.addEventListener("mousedown", (event) => {
+        event.preventDefault();
+      });
+
+      slashMenuList.addEventListener("click", (event) => {
+        const btn = event.target.closest(".slash-menu__item");
+        if (!btn) return;
+        navigateToSkill(btn.dataset.skillId);
+      });
+
+      slashMenuList.addEventListener("mouseover", (event) => {
+        const btn = event.target.closest(".slash-menu__item");
+        if (!btn) return;
+        const items = Array.from(
+          slashMenuList.querySelectorAll(".slash-menu__item"),
+        );
+        const idx = items.indexOf(btn);
+        if (idx >= 0) {
+          slashActiveIndex = idx;
+          items.forEach((el, i) => el.classList.toggle("is-active", i === idx));
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (slashMenu.contains(event.target) || event.target === searchInput)
+          return;
+        closeSlashMenu();
+      });
+
+      searchInput.addEventListener("blur", () => {
+        window.setTimeout(() => {
+          const ae = document.activeElement;
+          if (slashMenu.contains(ae)) return;
+          closeSlashMenu();
+        }, 200);
       });
 
       function updateDockedSearchHeight() {
@@ -2846,25 +3339,18 @@
         updateSuggestionDockMode();
       }
 
-      window.addEventListener(
-        "scroll",
-        updateFloatingSearchVisibility,
-        true,
-      );
+      window.addEventListener("scroll", updateFloatingSearchVisibility, true);
       document
         .querySelector(".page")
-        ?.addEventListener(
-          "scroll",
-          updateFloatingSearchVisibility,
-          { passive: true },
-        );
+        ?.addEventListener("scroll", updateFloatingSearchVisibility, {
+          passive: true,
+        });
       window.addEventListener("resize", () => {
         updateDockedSearchHeight();
         updateFloatingSearchVisibility();
       });
       updateDockedSearchHeight();
       updateFloatingSearchVisibility();
-
     </script>
     <script src="./assets/site-header.js"></script>
   </body>
