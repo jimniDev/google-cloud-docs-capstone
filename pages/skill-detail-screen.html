@@ -511,9 +511,11 @@
       .toc-title {
         margin: 0 0 var(--nimbus-space-2);
         color: var(--text);
-        font-size: 12px;
+        font-size: var(--nimbus-label-size);
         font-weight: 600;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.1em;
+        line-height: var(--nimbus-label-lh);
+        text-transform: uppercase;
       }
 
       .toc a {
@@ -539,6 +541,21 @@
         padding-left: var(--nimbus-space-3);
         font-size: 11px;
         line-height: 1.3;
+      }
+
+      .toc-group a.is-sub {
+        font-size: 10px;
+        line-height: 1.25;
+        padding-left: var(--nimbus-space-2);
+      }
+
+      .toc-group {
+        border-left: 1px solid var(--nimbus-border);
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-1);
+        margin: 0 0 var(--nimbus-space-1);
+        padding-left: var(--nimbus-space-3);
       }
 
       .toc-links {
@@ -915,7 +932,32 @@
         padding: 0;
       }
 
-      .agent-install-panel + .skill-md-toolbar {
+      .skill-md-block {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-4);
+      }
+
+      .skill-md-block .section-title {
+        margin-bottom: 0;
+      }
+
+      .skill-md-panel {
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-lg);
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-4);
+        padding: var(--nimbus-space-4) var(--nimbus-space-5)
+          var(--nimbus-space-5);
+      }
+
+      .skill-md-panel .skill-md-preview,
+      .skill-md-panel .skill-md-code {
+        padding-top: 0;
+      }
+
+      .agent-install-panel + .skill-md-block {
         margin-top: calc(
           var(--detail-section-gap) - var(--detail-quick-stack-gap)
         );
@@ -2636,7 +2678,7 @@
                   Skills are AI-powered workflows that automate multi-step
                   troubleshooting tasks.
                 </p>
-                <a class="skill-info-banner__link" href="./skill-library.html"
+                <a class="skill-info-banner__link" href="./skills.html"
                   >Learn more about Skills -&gt;</a
                 >
               </div>
@@ -2965,7 +3007,16 @@
                 </div>
               </div>
 
-              <div class="skill-md-toolbar">
+              <div
+                class="skill-md-block"
+                role="region"
+                aria-labelledby="what-this-skill-does"
+              >
+                <h2 class="section-title" id="what-this-skill-does">
+                  What this skill does
+                </h2>
+                <div class="skill-md-panel">
+                <div class="skill-md-toolbar">
                   <div
                     class="skill-md-view-toggle skill-md-segmented-group"
                     role="tablist"
@@ -3047,6 +3098,8 @@
                     aria-label="SKILL.md table of contents"
                   ></nav>
                 </div>
+                </div>
+              </div>
             </section>
 
             <section class="content-card" id="documentation-sources">
@@ -3133,8 +3186,8 @@
           </article>
           </div>
 
-          <aside class="toc" aria-label="Sections" id="sectionsToc">
-            <p class="toc-title">Sections</p>
+          <aside class="toc" aria-label="On this page" id="sectionsToc">
+            <p class="toc-title">On this page</p>
             <div class="toc-links" id="sectionsTocLinks"></div>
           </aside>
         </div>
@@ -3943,12 +3996,8 @@ Cloud onboarding process:
           previewEl.textContent = previewSource || skillMdRawText;
         }
 
-        previewEl.querySelectorAll("h2, h3").forEach((heading, index) => {
-          heading.id = `skill-md-heading-${index}`;
-        });
-
-        buildSkillMdToc();
         initSectionsToc();
+        buildSkillMdToc();
         setSkillMdView(skillMdActiveView);
       }
 
@@ -4134,6 +4183,21 @@ Cloud onboarding process:
 
       function closeSkillInfoBanner() {
         document.getElementById("skillInfoBanner")?.classList.add("is-hidden");
+        requestAnimationFrame(syncTocWithOverviewOffset);
+      }
+
+      function syncTocWithOverviewOffset() {
+        const toc = document.getElementById("sectionsToc");
+        const overview = document.getElementById("overview");
+        const container = document.querySelector(".container");
+        if (!toc || !overview || !container) return;
+
+        const offset = Math.max(
+          0,
+          overview.getBoundingClientRect().top -
+            container.getBoundingClientRect().top,
+        );
+        toc.style.marginTop = `${Math.round(offset)}px`;
       }
 
       function showToast(message) {
@@ -4397,26 +4461,24 @@ Cloud onboarding process:
         return candidate;
       }
 
-      function buildSectionsToc() {
-        const linksEl = document.getElementById("sectionsTocLinks");
-        const docEl = document.querySelector(".doc-content");
-        if (!linksEl || !docEl) return [];
+      function collectSkillMdHeadings(usedIds) {
+        const previewEl = document.getElementById("skillMdPreview");
+        if (!previewEl) return [];
+        return Array.from(previewEl.querySelectorAll("h2, h3")).map(
+          (heading, index) => {
+            ensureHeadingId(heading, index, usedIds);
+            return heading;
+          },
+        );
+      }
 
-        const headings = Array.from(docEl.querySelectorAll("h2, h3"));
-        const usedIds = new Set();
+      function renderSectionsTocLink(heading, isSub) {
+        const subClass = isSub ? ' class="is-sub"' : "";
+        const label = heading.textContent.trim();
+        return `<a href="#${heading.id}" data-section-link="${heading.id}"${subClass}>${label}</a>`;
+      }
 
-        headings.forEach((heading, index) => {
-          ensureHeadingId(heading, index, usedIds);
-        });
-
-        linksEl.innerHTML = headings
-          .map((heading) => {
-            const isSub = heading.tagName === "H3";
-            const subClass = isSub ? ' class="is-sub"' : "";
-            return `<a href="#${heading.id}" data-section-link="${heading.id}"${subClass}>${heading.textContent.trim()}</a>`;
-          })
-          .join("");
-
+      function bindSectionsTocLinks(linksEl) {
         linksEl.querySelectorAll("a[data-section-link]").forEach((link) => {
           link.addEventListener("click", (event) => {
             event.preventDefault();
@@ -4430,8 +4492,48 @@ Cloud onboarding process:
             setActiveSectionLink(id);
           });
         });
+      }
 
-        return headings;
+      function buildSectionsToc() {
+        const linksEl = document.getElementById("sectionsTocLinks");
+        const docEl = document.querySelector(".doc-content");
+        if (!linksEl || !docEl) return [];
+
+        const usedIds = new Set();
+        const flatHeadings = [];
+        const parts = [];
+
+        docEl
+          .querySelectorAll("section.content-card h2.section-title")
+          .forEach((heading, index) => {
+            if (heading.closest("#skillMdPreview")) return;
+
+            ensureHeadingId(heading, index, usedIds);
+            parts.push(renderSectionsTocLink(heading, false));
+            flatHeadings.push(heading);
+
+            if (heading.id !== "what-this-skill-does") return;
+
+            const skillHeadings = collectSkillMdHeadings(usedIds);
+            if (skillHeadings.length === 0) return;
+
+            parts.push('<div class="toc-group">');
+            skillHeadings.forEach((skillHeading) => {
+              parts.push(
+                renderSectionsTocLink(
+                  skillHeading,
+                  skillHeading.tagName === "H3",
+                ),
+              );
+              flatHeadings.push(skillHeading);
+            });
+            parts.push("</div>");
+          });
+
+        linksEl.innerHTML = parts.join("");
+        bindSectionsTocLinks(linksEl);
+
+        return flatHeadings;
       }
 
       function setActiveSectionLink(id) {
@@ -4478,12 +4580,14 @@ Cloud onboarding process:
       function initSectionsToc() {
         const headings = buildSectionsToc();
         initSectionsScrollSpy(headings);
+        requestAnimationFrame(syncTocWithOverviewOffset);
       }
 
       (async () => {
         await initSkillDetailPage();
         initSkillMdViewer();
         initSectionsToc();
+        window.addEventListener("resize", syncTocWithOverviewOffset);
       })();
     </script>
     <script src="./assets/site-header.js"></script>
