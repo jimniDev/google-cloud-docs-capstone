@@ -159,35 +159,40 @@
         row-gap: 24px;
       }
       .doc-sidebar.skill-filters {
+        align-self: start;
         background: var(--nimbus-surface);
-        border-radius: 0;
-        border-right: 1px solid var(--nimbus-border);
-        box-shadow: none;
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow: var(--nimbus-shadow-sm);
         flex-shrink: unset;
-        min-height: calc(100vh - 120px);
-        padding: 0 18px 24px 0;
-        position: static;
-        top: auto;
+        max-height: calc(100vh - 48px);
+        min-height: 0;
+        overflow-y: auto;
+        padding: var(--nimbus-space-4) var(--nimbus-space-4)
+          var(--nimbus-space-6);
+        position: sticky;
+        top: 24px;
         width: auto;
       }
       .filter-row {
         align-items: center;
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-bottom: 0;
-        border-radius: 2px;
-        color: var(--nimbus-text-secondary);
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--nimbus-border);
+        border-radius: 0;
+        color: var(--nimbus-text-primary);
         display: flex;
-        font-size: 12px;
-        gap: 6px;
-        margin: 0 -18px 12px 0;
-        padding: 9px 12px;
+        font-size: var(--nimbus-label-size);
+        font-weight: 600;
+        gap: var(--nimbus-space-2);
+        margin: 0 0 var(--nimbus-space-4);
+        padding: 0 0 var(--nimbus-space-3);
       }
       .left-panel {
         background: var(--nimbus-surface);
         border: 1px solid var(--nimbus-border);
-        border-radius: 10px;
-        box-shadow: 0 1px 2px rgba(60, 64, 67, 0.08);
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow: var(--nimbus-shadow-sm);
         min-width: 0;
         padding: 0 38px 48px;
         position: relative;
@@ -337,30 +342,40 @@
         box-shadow: var(--nimbus-focus-ring);
       }
       .filter-tabs {
-        display: flex;
         border-bottom: 1px solid var(--nimbus-border);
-        margin-bottom: 16px;
+        display: flex;
+        gap: 0;
+        margin-bottom: var(--nimbus-space-4);
       }
       .filter-tab {
         background: transparent;
         border: none;
+        border-bottom: 2px solid transparent;
         color: var(--nimbus-text-secondary);
         cursor: pointer;
         flex: 1;
-        font-size: 12px;
-        padding: 8px 4px;
+        font-size: var(--nimbus-label-size);
+        font-weight: 500;
+        line-height: 1.35;
+        margin-bottom: -1px;
+        min-width: 0;
+        padding: var(--nimbus-space-2) var(--nimbus-space-1);
+        text-align: center;
         transition:
-          background var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast),
           color var(--nimbus-motion-fast);
       }
-      .filter-tab:hover {
-        background: var(--nimbus-surface-subtle);
+      .filter-tab:hover:not(.filter-tab--active) {
+        color: var(--nimbus-text-primary);
       }
       .filter-tab--active {
-        background: transparent;
-        border-bottom: 2px solid #1a73e8;
-        color: #1a73e8;
+        border-bottom-color: var(--nimbus-primary);
+        color: var(--nimbus-primary);
         font-weight: 600;
+      }
+      .filter-tab:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
       }
       .filter-group {
         display: none;
@@ -1395,16 +1410,10 @@
           padding: 24px 16px 40px 24px;
         }
         .doc-sidebar.skill-filters {
-          border-bottom: 1px solid var(--nimbus-border);
-          border-right: none;
-          margin-bottom: 0;
-          min-height: 0;
-          padding-bottom: 20px;
+          margin-bottom: var(--nimbus-space-4);
+          max-height: none;
+          position: static;
           width: 100%;
-        }
-        .filter-row {
-          margin-left: 0;
-          margin-right: 0;
         }
         .left-panel {
           padding: 24px;
@@ -1487,16 +1496,26 @@
         aria-label="Skill catalog filters"
       >
         <div class="filter-row">☰ Filter</div>
-        <div class="filter-tabs">
+        <div
+          class="filter-tabs"
+          role="tablist"
+          aria-label="Filter by category"
+        >
           <button
             class="filter-tab filter-tab--active"
+            type="button"
+            role="tab"
+            aria-selected="true"
             data-tab="goals"
             onclick="switchFilterTab('goals')"
           >
-            User Goals
+            Goals
           </button>
           <button
             class="filter-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
             data-tab="products"
             onclick="switchFilterTab('products')"
           >
@@ -1504,10 +1523,13 @@
           </button>
           <button
             class="filter-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
             data-tab="types"
             onclick="switchFilterTab('types')"
           >
-            Skill Types
+            Types
           </button>
         </div>
         <div id="goalsFilter" class="filter-group active"></div>
@@ -1845,10 +1867,9 @@
 
       function switchFilterTab(tab) {
         document.querySelectorAll(".filter-tab").forEach((button) => {
-          button.classList.toggle(
-            "filter-tab--active",
-            button.dataset.tab === tab,
-          );
+          const isActive = button.dataset.tab === tab;
+          button.classList.toggle("filter-tab--active", isActive);
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
         });
         document
           .querySelectorAll(".filter-group")
