@@ -79,29 +79,105 @@
         box-shadow: none;
       }
 
-      .page-header-nav {
+      .doc-main {
+        min-width: 0;
         display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-4);
+      }
+
+      .skill-info-banner {
+        display: flex;
+        align-items: flex-start;
         justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        padding: 0 40px 28px;
-        border-bottom: 0;
-        background: transparent;
+        gap: var(--nimbus-space-4);
+        padding: var(--nimbus-space-4) var(--nimbus-space-5);
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 12%,
+          var(--nimbus-surface)
+        );
+        border: 1px solid var(--nimbus-border);
+        border-left: 4px solid var(--nimbus-primary);
+        border-radius: var(--nimbus-radius-lg);
       }
 
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--blue);
+      .skill-info-banner.is-hidden {
+        display: none;
+      }
+
+      .skill-info-banner__content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .skill-info-banner__title {
+        margin: 0 0 var(--nimbus-space-2);
+        color: var(--nimbus-text-primary);
+        font-family: Inter, system-ui, sans-serif;
+        font-size: var(--nimbus-title-m-size);
+        font-weight: 600;
+        line-height: var(--nimbus-title-m-lh);
+      }
+
+      .skill-info-banner__text {
+        margin: 0 0 var(--nimbus-space-2);
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+      }
+
+      .skill-info-banner__link {
+        color: var(--nimbus-primary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 500;
+        line-height: var(--nimbus-label-lh);
         text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s;
       }
 
-      .back-link:hover {
-        color: var(--blue-hover);
+      .skill-info-banner__link:hover {
+        color: var(--nimbus-primary-hover);
         text-decoration: underline;
+      }
+
+      .skill-info-banner__link:focus-visible,
+      .skill-info-banner__close:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+        border-radius: var(--nimbus-radius-sm);
+      }
+
+      .skill-info-banner__close {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        margin: calc(-1 * var(--nimbus-space-1))
+          calc(-1 * var(--nimbus-space-1)) 0 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        transition:
+          background var(--nimbus-motion-fast),
+          color var(--nimbus-motion-fast);
+      }
+
+      .skill-info-banner__close:hover {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 12%,
+          transparent
+        );
+        color: var(--nimbus-text-primary);
+      }
+
+      .skill-info-banner__close .material-symbols-outlined {
+        font-size: 20px;
       }
 
       .nav-right {
@@ -150,7 +226,7 @@
 
       .doc-content {
         min-width: 0;
-        padding: 52px 40px 76px;
+        padding: var(--nimbus-space-6) 40px 76px;
         background: var(--surface);
         border: 1px solid var(--line);
         border-radius: 12px;
@@ -160,58 +236,262 @@
       .page-tools {
         display: flex;
         justify-content: flex-end;
-        margin: -4px 0 32px;
+        flex-shrink: 0;
+        margin: 0;
       }
 
-      .feedback {
+      .page-title-toolbar {
+        align-items: flex-start;
         display: flex;
-        align-items: center;
-        gap: 12px;
-        color: var(--muted);
-        font-size: 13px;
+        gap: var(--nimbus-space-4);
+        justify-content: space-between;
+        margin-bottom: var(--nimbus-space-4);
       }
 
-      .btn-feedback {
-        background: var(--surface);
-        border: 1px solid var(--soft-line);
-        border-radius: 4px;
-        color: var(--blue);
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 500;
-        padding: 8px 22px;
+      .page-title-header {
+        align-items: center;
+        display: flex;
+        gap: var(--nimbus-space-4);
+        justify-content: space-between;
+        margin-bottom: var(--nimbus-space-3);
       }
 
-      .feedback .btn-feedback {
+      .page-title-header .page-helpful__send-btn {
+        flex-shrink: 0;
+      }
+
+      .page-title-main {
         align-items: center;
-        justify-content: center;
+        display: flex;
+        flex: 1;
+        flex-wrap: nowrap;
+        gap: 0;
+        min-width: 0;
+      }
+
+      .page-title-main h1 {
+        align-items: center;
         display: inline-flex;
-        gap: 8px;
-        min-width: 96px;
-        height: 36px;
-        padding: 0 14px;
-        border-radius: 6px;
-        border: 1px solid #cfd4dc;
-        background: #f8f9fa;
-        color: var(--nimbus-primary);
-        font-size: 14px;
+        flex: 0 1 auto;
+        gap: var(--nimbus-space-2);
+        margin: 0;
+        color: var(--text);
+        font-family: "Google Sans", Arial, sans-serif;
+        font-size: clamp(34px, 4.6vw, 44px);
         font-weight: 500;
-        letter-spacing: 0;
+        line-height: 1.12;
+        letter-spacing: -1px;
       }
 
-      .feedback .btn-feedback .feedback-icon {
+      .skill-title-icon {
+        align-items: center;
+        color: var(--nimbus-text-primary);
+        display: inline-flex;
+        flex-shrink: 0;
+      }
+
+      .skill-title-icon svg {
+        display: block;
+        fill: currentColor;
+        height: 48px;
+        width: 48px;
+      }
+
+      .page-title-actions {
+        align-items: center;
+        display: inline-flex;
+        flex: 0 0 auto;
+        flex-shrink: 0;
+        gap: var(--nimbus-space-2);
+        margin-left: var(--nimbus-space-2);
+      }
+
+      .docs-split-btn {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-sm);
+        display: inline-flex;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .docs-split-btn--save,
+      .docs-split-btn--copy {
+        overflow: visible;
+      }
+
+      .save-menu,
+      .copy-menu {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-lg);
+        box-shadow: var(--nimbus-shadow-lg);
+        min-width: 220px;
+        padding: var(--nimbus-space-2) 0;
+        position: absolute;
+        top: calc(100% + var(--nimbus-space-1));
+        z-index: 30;
+      }
+
+      .save-menu {
+        left: 0;
+      }
+
+      .copy-menu {
+        left: auto;
+        min-width: 180px;
+        right: 0;
+      }
+
+      .save-menu[hidden],
+      .copy-menu[hidden] {
+        display: none;
+      }
+
+      .save-menu__item,
+      .copy-menu__item {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        color: var(--nimbus-text-primary);
+        cursor: pointer;
+        display: flex;
+        font-size: var(--nimbus-body-m-size);
+        gap: var(--nimbus-space-3);
+        line-height: var(--nimbus-body-m-lh);
+        padding: var(--nimbus-space-3) var(--nimbus-space-4);
+        text-align: left;
+        width: 100%;
+      }
+
+      .save-menu__item:hover,
+      .copy-menu__item:hover {
+        background: var(--nimbus-surface-subtle);
+      }
+
+      .save-menu__item:focus-visible,
+      .copy-menu__item:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: -2px;
+      }
+
+      .save-menu__item .material-symbols-outlined {
+        color: var(--nimbus-text-secondary);
+        flex-shrink: 0;
+        font-size: 20px;
+      }
+
+      .save-menu__divider {
+        background: var(--nimbus-border);
+        height: 1px;
+        margin: var(--nimbus-space-1) 0;
+      }
+
+      .docs-split-btn__main,
+      .docs-split-btn__menu {
+        align-items: center;
+        background: var(--nimbus-surface);
+        border: 0;
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        display: inline-flex;
+        height: 32px;
+        justify-content: center;
+        padding: 0;
+        transition:
+          background var(--nimbus-motion-fast),
+          color var(--nimbus-motion-fast);
+      }
+
+      .docs-split-btn__main {
+        width: 36px;
+      }
+
+      .docs-split-btn__main .material-symbols-outlined {
         font-size: 18px;
       }
 
-      .btn-feedback:hover {
-        background: var(--subtle);
-        border-color: var(--line);
+      .docs-split-btn__main.saved {
+        color: var(--nimbus-primary);
       }
 
-      .feedback .btn-feedback:hover {
-        background: #f1f3f4;
-        border-color: #c3c9d1;
-        color: #185abc;
+      .docs-split-btn__menu {
+        border-left: 1px solid var(--nimbus-border);
+        width: 28px;
+      }
+
+      .docs-split-btn__menu .material-symbols-outlined {
+        font-size: 22px;
+      }
+
+      .docs-split-btn__main:hover,
+      .docs-split-btn__menu:hover,
+      .page-helpful__icon-btn:hover {
+        background: var(--nimbus-surface-subtle);
+        color: var(--nimbus-text-primary);
+      }
+
+      .docs-split-btn__main:focus-visible,
+      .docs-split-btn__menu:focus-visible,
+      .page-helpful__icon-btn:focus-visible,
+      .page-helpful__send-btn:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .page-helpful {
+        align-items: center;
+        color: var(--nimbus-text-secondary);
+        display: inline-flex;
+        flex-shrink: 0;
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+      }
+
+      .page-helpful__row {
+        align-items: center;
+        display: inline-flex;
+        gap: var(--nimbus-space-1);
+        white-space: nowrap;
+      }
+
+      .page-helpful__label {
+        margin-right: var(--nimbus-space-1);
+      }
+
+      .page-helpful__icon-btn {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        display: inline-flex;
+        height: 32px;
+        justify-content: center;
+        width: 32px;
+      }
+
+      .page-helpful__icon-btn .material-symbols-outlined {
+        font-size: 18px;
+      }
+
+      .page-helpful__send-btn {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-primary);
+        cursor: pointer;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        height: 32px;
+        line-height: var(--nimbus-body-m-lh);
+        margin-left: 0;
+        padding: 0 var(--nimbus-space-4);
+      }
+
+      .page-helpful__send-btn:hover {
+        background: var(--nimbus-surface-subtle);
       }
 
       .toc {
@@ -247,7 +527,7 @@
       }
 
       .page-title-section {
-        padding: 20px 0 0;
+        padding: 0;
         margin-bottom: 36px;
       }
 
@@ -255,7 +535,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        margin: 0 0 42px;
+        margin: 0;
         color: var(--muted);
         font-size: 15px;
         line-height: 22px;
@@ -278,31 +558,93 @@
         line-height: 1;
       }
 
-      .page-title-section h1 {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 0 0 12px;
-        color: var(--text);
-        font-family: "Google Sans", Arial, sans-serif;
-        font-size: clamp(34px, 4.6vw, 44px);
-        font-weight: 500;
-        line-height: 1.12;
-        letter-spacing: -1px;
-      }
-
-      .page-meta {
-        margin: 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-
       .page-meta-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 16px;
         margin: 0;
+      }
+
+      .category-chip {
+        align-items: center;
+        background: var(--nimbus-surface-subtle);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-text-secondary);
+        display: inline-flex;
+        font-size: var(--nimbus-label-size);
+        font-weight: 500;
+        line-height: var(--nimbus-label-lh);
+        padding: var(--nimbus-space-1) var(--nimbus-space-2);
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .category-chip.category-setup {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-info) 10%,
+          var(--nimbus-surface)
+        );
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-info) 18%,
+          var(--nimbus-border)
+        );
+        color: var(--nimbus-info);
+      }
+
+      .category-chip.category-troubleshooting {
+        border-radius: 9999px;
+        background: color-mix(
+          in srgb,
+          var(--nimbus-error) 10%,
+          var(--nimbus-surface)
+        );
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-error) 18%,
+          var(--nimbus-border)
+        );
+        color: var(--nimbus-error);
+      }
+
+      .category-chip.category-optimization {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-success) 10%,
+          var(--nimbus-surface)
+        );
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-success) 18%,
+          var(--nimbus-border)
+        );
+        color: var(--nimbus-success);
+      }
+
+      .category-chip.category-monitoring {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-info) 12%,
+          var(--nimbus-surface)
+        );
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-info) 20%,
+          var(--nimbus-border)
+        );
+        color: var(--nimbus-info);
+      }
+
+      .category-chip.category-security,
+      .category-chip.category-learning,
+      .category-chip.category-cost,
+      .category-chip.category-migration {
+        background: var(--nimbus-surface-subtle);
+        border-color: var(--nimbus-border);
+        color: var(--nimbus-text-secondary);
       }
 
       .run-count {
@@ -335,6 +677,36 @@
         letter-spacing: -0.4px;
         line-height: 34px;
         text-transform: none;
+      }
+
+      .section-header-row {
+        align-items: center;
+        display: flex;
+        gap: var(--nimbus-space-4);
+        justify-content: space-between;
+        margin-bottom: var(--detail-heading-space);
+      }
+
+      .section-header-row .section-title {
+        margin-bottom: 0;
+      }
+
+      .section-more-link {
+        align-items: center;
+        color: var(--nimbus-primary);
+        display: inline-flex;
+        flex-shrink: 0;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        gap: var(--nimbus-space-1);
+        line-height: var(--nimbus-body-m-lh);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .section-more-link:hover {
+        color: var(--nimbus-primary-hover);
+        text-decoration: underline;
       }
 
       .content-card p {
@@ -401,6 +773,391 @@
         color: var(--muted);
         font-size: 12px;
         font-weight: 500;
+      }
+
+      .agent-install-panel {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-lg);
+        overflow: hidden;
+      }
+
+      .agent-tabs {
+        display: flex;
+        gap: var(--nimbus-space-6);
+        overflow-x: auto;
+        padding: 0 var(--nimbus-space-4);
+        border-bottom: 1px solid var(--nimbus-border);
+        scrollbar-width: none;
+      }
+
+      .agent-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .agent-tab {
+        background: transparent;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        flex-shrink: 0;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        line-height: 20px;
+        margin-bottom: -1px;
+        padding: var(--nimbus-space-4) var(--nimbus-space-1);
+        transition:
+          color var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast);
+        white-space: nowrap;
+      }
+
+      .agent-tab:hover {
+        color: var(--nimbus-text-primary);
+      }
+
+      .agent-tab:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .agent-tab.is-active {
+        border-bottom-color: var(--nimbus-primary);
+        color: var(--nimbus-primary);
+      }
+
+      .agent-command-panel {
+        align-items: center;
+        background: var(--nimbus-surface-subtle);
+        display: flex;
+        gap: var(--nimbus-space-4);
+        justify-content: space-between;
+        min-height: 56px;
+        padding: var(--nimbus-space-3) var(--nimbus-space-4);
+      }
+
+      .agent-command-panel code {
+        color: var(--nimbus-text-primary);
+        flex: 1;
+        font-family: "Roboto Mono", monospace;
+        font-size: var(--nimbus-body-m-size);
+        line-height: 20px;
+        overflow-wrap: anywhere;
+      }
+
+      .agent-command-actions {
+        align-items: center;
+        display: flex;
+        flex-shrink: 0;
+        gap: var(--nimbus-space-1);
+      }
+
+      .agent-command-action {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: var(--nimbus-radius-md);
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        display: inline-flex;
+        height: 32px;
+        justify-content: center;
+        width: 32px;
+      }
+
+      .agent-command-action:hover {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-text-primary) 6%,
+          var(--nimbus-surface-subtle)
+        );
+        color: var(--nimbus-text-primary);
+      }
+
+      .agent-command-action:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .agent-command-action .material-symbols-outlined {
+        font-size: 18px;
+      }
+
+      .skill-md-toolbar {
+        align-items: center;
+        background: transparent;
+        display: flex;
+        gap: var(--nimbus-space-4);
+        justify-content: space-between;
+        margin-top: 0;
+        padding: 0;
+      }
+
+      .agent-install-panel + .skill-md-toolbar {
+        margin-top: calc(
+          var(--detail-section-gap) - var(--detail-quick-stack-gap)
+        );
+      }
+
+      .skill-md-segmented-group {
+        align-items: center;
+        display: inline-flex;
+        gap: 0;
+      }
+
+      .skill-md-segmented-btn {
+        align-items: center;
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        color: var(--nimbus-text-secondary);
+        cursor: pointer;
+        display: inline-flex;
+        height: 32px;
+        justify-content: center;
+        margin-left: -1px;
+        transition:
+          background var(--nimbus-motion-fast),
+          color var(--nimbus-motion-fast);
+      }
+
+      .skill-md-segmented-btn:first-child {
+        border-radius: var(--nimbus-radius-md) 0 0 var(--nimbus-radius-md);
+        margin-left: 0;
+      }
+
+      .skill-md-segmented-btn:last-child {
+        border-radius: 0 var(--nimbus-radius-md) var(--nimbus-radius-md) 0;
+      }
+
+      .skill-md-view-toggle.skill-md-segmented-group {
+        align-items: stretch;
+        box-sizing: border-box;
+        height: 32px;
+        padding: 0;
+        background: color-mix(
+          in srgb,
+          var(--nimbus-text-primary) 4%,
+          var(--nimbus-surface-subtle)
+        );
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-md);
+        overflow: hidden;
+      }
+
+      .skill-md-view-toggle .skill-md-segmented-btn {
+        border: 0;
+        margin-left: 0;
+        height: auto;
+        align-self: stretch;
+        border-radius: 0;
+        background: transparent;
+      }
+
+      .skill-md-view-toggle .skill-md-segmented-btn:first-child,
+      .skill-md-view-toggle .skill-md-segmented-btn:last-child {
+        margin-left: 0;
+      }
+
+      .skill-md-view-toggle .skill-md-segmented-btn:first-child.is-active {
+        border-radius: 0;
+        border-top-left-radius: calc(var(--nimbus-radius-md) - 1px);
+        border-bottom-left-radius: calc(var(--nimbus-radius-md) - 1px);
+      }
+
+      .skill-md-view-toggle .skill-md-segmented-btn:last-child.is-active {
+        border-radius: 0;
+        border-top-right-radius: calc(var(--nimbus-radius-md) - 1px);
+        border-bottom-right-radius: calc(var(--nimbus-radius-md) - 1px);
+      }
+
+      .skill-md-view-toggle .skill-md-segmented-btn.is-active {
+        background: var(--nimbus-surface);
+        box-shadow: none;
+        color: var(--nimbus-text-primary);
+        font-weight: 600;
+        z-index: 1;
+      }
+
+      .skill-md-view-toggle .skill-md-segmented-btn:hover:not(.is-active) {
+        background: transparent;
+        color: var(--nimbus-text-primary);
+      }
+
+      .skill-md-toolbar-actions .skill-md-segmented-btn:hover,
+      .skill-md-toolbar-actions .skill-md-segmented-btn.is-active {
+        background: var(--nimbus-surface-subtle);
+        color: var(--nimbus-text-primary);
+        z-index: 1;
+      }
+
+      .skill-md-segmented-btn:hover,
+      .skill-md-segmented-btn.is-active {
+        background: var(--nimbus-surface-subtle);
+        color: var(--nimbus-text-primary);
+        z-index: 1;
+      }
+
+      .skill-md-segmented-btn:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+        z-index: 2;
+      }
+
+      .skill-md-view-btn {
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        line-height: 1;
+        min-width: 68px;
+        padding: 0 var(--nimbus-space-3);
+      }
+
+      .skill-md-toolbar-actions {
+        align-items: center;
+        display: inline-flex;
+        gap: 0;
+      }
+
+      .skill-md-toolbar-btn {
+        width: 36px;
+      }
+
+      .skill-md-toolbar-btn .material-symbols-outlined {
+        font-size: 18px;
+      }
+
+      .skill-md-body {
+        position: relative;
+      }
+
+      .skill-md-preview,
+      .skill-md-code {
+        background: transparent;
+        border: 0;
+        margin: 0;
+        max-height: none;
+        overflow: visible;
+        padding: var(--nimbus-space-5) 0 0;
+      }
+
+      .skill-md-preview.is-hidden,
+      .skill-md-code.is-hidden,
+      .skill-md-toc.is-hidden {
+        display: none;
+      }
+
+      .skill-md-preview h1,
+      .skill-md-preview h2,
+      .skill-md-preview h3 {
+        color: var(--nimbus-text-primary);
+        font-weight: 600;
+        line-height: 1.3;
+        margin: var(--nimbus-space-6) 0 var(--nimbus-space-3);
+      }
+
+      .skill-md-preview h1 {
+        font-size: var(--nimbus-headline-m-size);
+        margin-top: 0;
+      }
+
+      .skill-md-preview h2 {
+        font-size: var(--nimbus-title-l-size);
+      }
+
+      .skill-md-preview h3 {
+        font-size: var(--nimbus-title-m-size);
+      }
+
+      .skill-md-preview p,
+      .skill-md-preview li {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-l-lh);
+      }
+
+      .skill-md-preview p {
+        margin: 0 0 var(--nimbus-space-4);
+      }
+
+      .skill-md-preview ul,
+      .skill-md-preview ol {
+        margin: 0 0 var(--nimbus-space-4);
+        padding-left: var(--nimbus-space-6);
+      }
+
+      .skill-md-preview a {
+        color: var(--nimbus-primary);
+        text-decoration: none;
+      }
+
+      .skill-md-preview a:hover {
+        text-decoration: underline;
+      }
+
+      .skill-md-preview pre {
+        background: var(--nimbus-surface-subtle);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-md);
+        margin: 0 0 var(--nimbus-space-4);
+        overflow: auto;
+        padding: var(--nimbus-space-4);
+      }
+
+      .skill-md-preview code {
+        font-family: "Roboto Mono", monospace;
+        font-size: 13px;
+      }
+
+      .skill-md-code {
+        background: transparent;
+        border: 0;
+        color: var(--nimbus-text-primary);
+        font-family: "Roboto Mono", monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .skill-md-toc {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-md);
+        box-shadow: var(--nimbus-shadow-md);
+        max-height: 280px;
+        max-width: 280px;
+        overflow: auto;
+        padding: var(--nimbus-space-3);
+        position: absolute;
+        right: var(--nimbus-space-3);
+        top: var(--nimbus-space-3);
+        z-index: 5;
+      }
+
+      .skill-md-toc-title {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        margin: 0 0 var(--nimbus-space-2);
+        text-transform: uppercase;
+      }
+
+      .skill-md-toc a {
+        color: var(--nimbus-text-primary);
+        display: block;
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        padding: var(--nimbus-space-2) var(--nimbus-space-1);
+        text-decoration: none;
+      }
+
+      .skill-md-toc a:hover {
+        color: var(--nimbus-primary);
+      }
+
+      .skill-md-toc a.is-sub {
+        padding-left: var(--nimbus-space-4);
       }
 
       .command-block {
@@ -670,18 +1427,19 @@
       }
 
       .btn-primary-action {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: fit-content;
-        margin-left: auto;
-        margin-top: 20px;
-        padding: 12px 24px;
+        margin: 0;
+        padding: var(--nimbus-space-3) var(--nimbus-space-8);
         background: var(--blue);
         color: #ffffff;
         border: none;
-        border-radius: 4px;
+        border-radius: 9999px;
         font-family: "Google Sans", Arial, sans-serif;
-        font-size: 15px;
-        font-weight: 500;
+        font-size: var(--nimbus-title-m-size);
+        font-weight: 600;
       }
 
       .btn-primary-action:hover {
@@ -689,46 +1447,173 @@
       }
 
       .execution-control {
-        position: relative;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
+        margin-bottom: var(--nimbus-space-4);
       }
 
-      .execution-inline {
-        display: none;
-        position: absolute;
-        top: calc(100% + 8px);
-        right: 0;
-        z-index: 20;
-        width: min(320px, calc(100vw - 64px));
-        padding: 8px;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        box-shadow: 0 8px 24px rgba(60, 64, 67, 0.22);
+      .execution-modal {
+        width: min(560px, calc(100vw - var(--nimbus-space-8)));
+        max-width: 560px;
+        border-radius: var(--nimbus-radius-xl);
+        overflow: visible;
       }
 
-      .execution-inline.is-open {
-        display: block;
+      .execution-modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--nimbus-space-4);
+        padding: var(--nimbus-space-6) var(--nimbus-space-6) var(--nimbus-space-4);
       }
 
-      .execution-inline .exec-grid {
+      .execution-modal-header h3 {
+        margin: 0;
+        flex: 1;
+        color: var(--nimbus-text-primary);
+        font-family: Inter, system-ui, sans-serif;
+        font-size: var(--nimbus-headline-m-size);
+        font-weight: 600;
+        line-height: 1.25;
+      }
+
+      .exec-skip-prompt {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--nimbus-space-2);
+        margin-top: var(--nimbus-space-1);
+        color: var(--nimbus-primary);
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .exec-skip-prompt input {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        accent-color: var(--nimbus-primary);
+        cursor: pointer;
+      }
+
+      .execution-modal-body {
+        padding: 0 var(--nimbus-space-6) var(--nimbus-space-6);
+      }
+
+      .execution-modal-lead {
+        margin: 0 0 var(--nimbus-space-5);
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-l-size);
+        line-height: var(--nimbus-body-l-lh);
+      }
+
+      .exec-env-list {
         display: flex;
         flex-direction: column;
-        gap: 4px;
-      }
-
-      .execution-inline .exec-option {
+        gap: var(--nimbus-space-5);
+        margin: 0;
+        padding: 0;
         border: 0;
-        border-radius: 8px;
-        padding: 12px 14px;
       }
 
-      .execution-inline .exec-option:hover {
-        background: var(--blue-tint);
-        border-color: transparent;
-        box-shadow: none;
-        transform: none;
+      .exec-env-option {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--nimbus-space-3);
+        cursor: pointer;
+      }
+
+      .exec-env-option input[type="radio"] {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin-top: 3px;
+        accent-color: var(--nimbus-text-primary);
+        cursor: pointer;
+      }
+
+      .exec-env-option-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-1);
+      }
+
+      .exec-env-option-content strong {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-l-size);
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      .exec-env-badge {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-l-size);
+        font-weight: 600;
+      }
+
+      .exec-env-desc {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+      }
+
+      .execution-modal-footer {
+        justify-content: flex-end;
+        gap: var(--nimbus-space-4);
+        padding: var(--nimbus-space-4) var(--nimbus-space-6) var(--nimbus-space-6);
+        border-top: 0;
+      }
+
+      .btn-run-env {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: var(--nimbus-space-3) var(--nimbus-space-6);
+        background: var(--nimbus-primary);
+        color: var(--nimbus-surface);
+        border: 0;
+        border-radius: 9999px;
+        font-family: Inter, system-ui, sans-serif;
+        font-size: var(--nimbus-body-l-size);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background var(--nimbus-motion-fast);
+      }
+
+      .btn-run-env:hover {
+        background: var(--nimbus-primary-hover);
+      }
+
+      .btn-run-env:focus-visible,
+      .execution-modal .btn-cancel:focus-visible,
+      .exec-skip-prompt input:focus-visible,
+      .exec-env-option input:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .exec-env-legend {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .execution-modal .btn-cancel {
+        min-height: 44px;
+        padding: var(--nimbus-space-3) var(--nimbus-space-6);
+        border-radius: 9999px;
+        font-size: var(--nimbus-body-l-size);
+        font-weight: 500;
+        cursor: pointer;
       }
 
       .steps-container {
@@ -1216,26 +2101,32 @@
 
       .toast {
         position: fixed;
-        right: 24px;
-        bottom: 24px;
+        top: calc(48px + var(--nimbus-space-4));
+        left: 50%;
+        right: auto;
+        bottom: auto;
         z-index: 1100;
-        padding: 12px 16px;
-        background: #323232;
-        color: #ffffff;
-        border-radius: 4px;
-        font-size: 14px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
+        max-width: min(480px, calc(100vw - var(--nimbus-space-8)));
+        padding: var(--nimbus-space-3) var(--nimbus-space-5);
+        background: var(--nimbus-text-primary);
+        color: var(--nimbus-surface);
+        border-radius: var(--nimbus-radius-md);
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        line-height: var(--nimbus-body-m-lh);
+        text-align: center;
+        box-shadow: var(--nimbus-shadow-lg);
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateX(-50%) translateY(calc(-1 * var(--nimbus-space-3)));
         pointer-events: none;
         transition:
-          opacity 0.2s,
-          transform 0.2s;
+          opacity var(--nimbus-motion-medium),
+          transform var(--nimbus-motion-medium);
       }
 
       .toast.show {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(-50%) translateY(0);
       }
 
       /* Nimbus DS overrides */
@@ -1272,22 +2163,18 @@
       }
 
       .page {
-        max-width: 1008px;
+        max-width: calc(1008px * 1.35);
         margin: 0 auto;
       }
 
-      .page-header-nav {
-        padding: 0 0 28px;
-      }
-
       .container {
-        grid-template-columns: minmax(0, 760px) 200px;
+        grid-template-columns: minmax(0, calc(760px * 1.35)) 200px;
         gap: 40px;
         justify-content: center;
       }
 
       .doc-content {
-        padding: 44px 40px 80px;
+        padding: var(--nimbus-space-6) 40px 80px;
         border-color: var(--nimbus-border);
         border-radius: var(--nimbus-radius-xl);
         box-shadow: var(--nimbus-shadow-sm);
@@ -1302,7 +2189,7 @@
       .toc-title,
       .toc a,
       .breadcrumb,
-      .page-meta,
+      .category-chip,
       .feedback,
       .modal-subtitle,
       .share-subtitle,
@@ -1311,7 +2198,7 @@
         color: var(--nimbus-text-secondary);
       }
 
-      .page-title-section h1,
+      .page-title-main h1,
       .section-title,
       .step-title,
       .modal-header h3,
@@ -1322,7 +2209,7 @@
         font-weight: 600;
       }
 
-      .page-title-section h1 {
+      .page-title-main h1 {
         font-size: clamp(32px, 4vw, 40px);
         line-height: 48px;
         letter-spacing: -0.8px;
@@ -1430,16 +2317,29 @@
         color: var(--nimbus-primary);
       }
 
-      .btn-primary-action,
-      .btn-execute,
-      .btn-copy-url {
-        min-width: 96px;
-        height: 36px;
-        padding: 0 16px;
+      .btn-primary-action {
+        min-width: 112px;
+        min-height: 44px;
+        padding: var(--nimbus-space-3) var(--nimbus-space-8);
         background: var(--nimbus-primary);
         color: var(--nimbus-surface);
         border: 0;
-        border-radius: var(--nimbus-radius-sm);
+        border-radius: 9999px;
+        font-family: Inter, system-ui, sans-serif;
+        font-size: var(--nimbus-title-m-size);
+        font-weight: 600;
+        box-shadow: none;
+      }
+
+      .btn-execute,
+      .btn-copy-url {
+        min-width: 112px;
+        min-height: 44px;
+        padding: var(--nimbus-space-3) var(--nimbus-space-8);
+        background: var(--nimbus-primary);
+        color: var(--nimbus-surface);
+        border: 0;
+        border-radius: var(--nimbus-radius-md);
         font-family: Inter, system-ui, sans-serif;
         font-size: 14px;
         font-weight: 500;
@@ -1568,16 +2468,6 @@
         line-height: 16px;
       }
 
-      .toast {
-        background: var(--nimbus-text-primary);
-        color: var(--nimbus-surface);
-        border-radius: var(--nimbus-radius-sm);
-        box-shadow: var(--nimbus-shadow-lg);
-        transition:
-          opacity var(--nimbus-motion-medium),
-          transform var(--nimbus-motion-medium);
-      }
-
       @media (max-width: 768px) {
         .screen-shell {
           padding: 0;
@@ -1600,6 +2490,13 @@
           padding: 36px 20px 72px;
         }
 
+        .skill-info-banner {
+          border: 0;
+          border-left: 4px solid var(--nimbus-primary);
+          border-radius: 0;
+          padding: var(--nimbus-space-4) 20px;
+        }
+
         .toc {
           display: none;
         }
@@ -1611,7 +2508,40 @@
         }
 
         .page-title-section {
-          padding: 16px 0 0;
+          padding: 0;
+        }
+
+        .page-title-toolbar {
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: var(--nimbus-space-3);
+        }
+
+        .page-title-header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .page-title-header .page-helpful__send-btn {
+          align-self: flex-end;
+        }
+
+        .page-helpful {
+          align-self: flex-end;
+          margin-left: auto;
+        }
+
+        .agent-tabs {
+          gap: var(--nimbus-space-4);
+        }
+
+        .agent-command-panel {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .agent-command-actions {
+          align-self: flex-end;
         }
 
         .command-block,
@@ -1639,11 +2569,6 @@
       }
 
       @media (max-width: 560px) {
-        .page-header-nav {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
         .nav-right {
           width: 100%;
         }
@@ -1676,52 +2601,37 @@
     <div data-site-header data-home="./home.html"></div>
     <div class="screen-shell">
       <main class="page">
-        <header class="page-header-nav">
-          <div class="nav-left">
-            <a
-              href="./skill-library.html"
-              class="back-link"
-              aria-label="Back to library"
-            >
-              Back to Library
-            </a>
-          </div>
-        </header>
-
         <div class="container">
-          <article class="doc-content">
-            <div class="page-tools">
-              <div class="feedback">
-                <button
-                  id="saveBtn"
-                  class="btn-feedback"
-                  type="button"
-                  onclick="toggleSave()"
+          <div class="doc-main">
+            <section
+              class="skill-info-banner"
+              id="skillInfoBanner"
+              aria-label="About Skills"
+            >
+              <div class="skill-info-banner__content">
+                <h2 class="skill-info-banner__title">What is a Skill?</h2>
+                <p class="skill-info-banner__text">
+                  Skills are AI-powered workflows that automate multi-step
+                  troubleshooting tasks.
+                </p>
+                <a class="skill-info-banner__link" href="./skill-library.html"
+                  >Learn more about Skills -&gt;</a
                 >
-                  <span
-                    class="material-symbols-outlined feedback-icon"
-                    aria-hidden="true"
-                    id="saveIcon"
-                    >bookmark_add</span
-                  >
-                  <span class="button-label">Save</span>
-                </button>
-                <button
-                  class="btn-feedback"
-                  type="button"
-                  onclick="openShareModal()"
-                >
-                  <span
-                    class="material-symbols-outlined feedback-icon"
-                    aria-hidden="true"
-                    >share</span
-                  >
-                  <span class="button-label">Share</span>
-                </button>
               </div>
-            </div>
+              <button
+                class="skill-info-banner__close"
+                type="button"
+                aria-label="Dismiss banner"
+                onclick="closeSkillInfoBanner()"
+              >
+                <span class="material-symbols-outlined" aria-hidden="true"
+                  >close</span
+                >
+              </button>
+            </section>
 
-            <div class="page-title-section">
+            <article class="doc-content">
+            <div class="page-title-toolbar">
               <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="./home.html">Home</a>
                 <span class="breadcrumb-separator">›</span>
@@ -1729,11 +2639,175 @@
                 <span class="breadcrumb-separator">›</span>
                 <span>Skill</span>
               </nav>
-              <h1 id="detailTitle">Fix 403 Forbidden Access Skill</h1>
+              <div class="page-helpful">
+                <div class="page-helpful__row">
+                  <span class="page-helpful__label">Was this helpful?</span>
+                  <button
+                    class="page-helpful__icon-btn"
+                    type="button"
+                    aria-label="Yes, helpful"
+                    onclick="showToast('Thanks for your feedback')"
+                  >
+                    <span class="material-symbols-outlined" aria-hidden="true"
+                      >thumb_up</span
+                    >
+                  </button>
+                  <button
+                    class="page-helpful__icon-btn"
+                    type="button"
+                    aria-label="No, not helpful"
+                    onclick="showToast('Thanks for your feedback')"
+                  >
+                    <span class="material-symbols-outlined" aria-hidden="true"
+                      >thumb_down</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="page-title-header">
+              <div class="page-title-main">
+                <h1 id="detailTitle">
+                  <span class="skill-title-text"
+                    >Fix 403 Forbidden Access</span
+                  >
+                  <span class="skill-title-icon" aria-hidden="true">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="48"
+                      viewBox="0 -960 960 960"
+                      width="48"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 320h240L400-80h-80Zm151-390Z"
+                      />
+                    </svg>
+                  </span>
+                </h1>
+                <div class="page-title-actions">
+                  <div class="docs-split-btn docs-split-btn--save">
+                    <button
+                      id="saveBtn"
+                      class="docs-split-btn__main"
+                      type="button"
+                      aria-label="Save"
+                      onclick="toggleSave()"
+                    >
+                      <span
+                        class="material-symbols-outlined"
+                        aria-hidden="true"
+                        id="saveIcon"
+                        >bookmark</span
+                      >
+                    </button>
+                    <button
+                      id="saveMenuBtn"
+                      class="docs-split-btn__menu"
+                      type="button"
+                      aria-label="Save options"
+                      aria-haspopup="menu"
+                      aria-expanded="false"
+                      aria-controls="saveMenu"
+                      onclick="toggleSaveMenu(event)"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >arrow_drop_down</span
+                      >
+                    </button>
+                    <div
+                      id="saveMenu"
+                      class="save-menu"
+                      role="menu"
+                      aria-label="Save options"
+                      hidden
+                    >
+                      <button
+                        class="save-menu__item"
+                        type="button"
+                        role="menuitem"
+                        onclick="openSavedPages(event)"
+                      >
+                        <span class="material-symbols-outlined" aria-hidden="true"
+                          >check_box_outline_blank</span
+                        >
+                        My saved pages
+                      </button>
+                      <div class="save-menu__divider" role="separator"></div>
+                      <button
+                        class="save-menu__item"
+                        type="button"
+                        role="menuitem"
+                        onclick="openNewCollection(event)"
+                      >
+                        <span class="material-symbols-outlined" aria-hidden="true"
+                          >add</span
+                        >
+                        New Collection
+                      </button>
+                    </div>
+                  </div>
+                  <div class="docs-split-btn docs-split-btn--copy">
+                    <button
+                      class="docs-split-btn__main"
+                      type="button"
+                      aria-label="Copy link"
+                      onclick="copyPageLink()"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >content_copy</span
+                      >
+                    </button>
+                    <button
+                      id="copyMenuBtn"
+                      class="docs-split-btn__menu"
+                      type="button"
+                      aria-label="Copy options"
+                      aria-haspopup="menu"
+                      aria-expanded="false"
+                      aria-controls="copyMenu"
+                      onclick="toggleCopyMenu(event)"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >arrow_drop_down</span
+                      >
+                    </button>
+                    <div
+                      id="copyMenu"
+                      class="copy-menu"
+                      role="menu"
+                      aria-label="Copy options"
+                      hidden
+                    >
+                      <button
+                        class="copy-menu__item"
+                        type="button"
+                        role="menuitem"
+                        onclick="viewAsMarkdown(event)"
+                      >
+                        View as Markdown
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="page-helpful__send-btn"
+                type="button"
+                onclick="showToast('Feedback form opened')"
+              >
+                Send feedback
+              </button>
+            </div>
+
+            <div class="page-title-section">
               <div class="page-meta-row">
-                <p class="page-meta" id="detailMeta">
-                  Troubleshooting · 4 steps · 5 min
-                </p>
+                <span
+                  class="category-chip category-troubleshooting"
+                  id="detailMeta"
+                  >Troubleshooting</span
+                >
                 <p class="run-count" id="detailRuns">
                   ★ 12,400 runs in the last 30 days
                 </p>
@@ -1744,328 +2818,213 @@
             <section class="content-card" id="overview">
               <h2 class="section-title">Overview</h2>
               <p id="overviewText">
-                Diagnose and resolve permission errors for Gemini Enterprise
-                endpoint calls in GCP. This skill guides you through identifying
-                the caller identity, checking IAM roles, and granting necessary
-                permissions.
+                This skill provides a structured troubleshooting path for
+                resolving a 403 Forbidden error when calling a Vertex AI or
+                Gemini Enterprise endpoint. It covers identity detection, IAM
+                policy inspection, and role binding to restore access.
               </p>
             </section>
 
             <section class="content-card quick-start-card" id="quick-start">
-              <h2 class="section-title">Quick Guide</h2>
+              <div class="execution-control">
+                <button
+                  class="btn-primary-action"
+                  type="button"
+                  onclick="handleExecuteClick()"
+                >
+                  Execute
+                </button>
+              </div>
 
-              <div class="input-group">
-                <div class="command-block">
-                  <code id="installCommand"
-                    >gcloud skills enable iam-permission-troubleshooter</code
+              <div class="agent-install-panel">
+                <div
+                  class="agent-tabs"
+                  role="tablist"
+                  aria-label="Agent install commands"
+                  id="agentTabs"
+                >
+                  <button
+                    class="agent-tab"
+                    type="button"
+                    role="tab"
+                    data-agent="antigravity"
+                    aria-selected="false"
+                    aria-controls="installCommand"
                   >
-                  <div class="button-group-split">
+                    Antigravity
+                  </button>
+                  <button
+                    class="agent-tab"
+                    type="button"
+                    role="tab"
+                    data-agent="claude"
+                    aria-selected="false"
+                    aria-controls="installCommand"
+                  >
+                    Claude Code
+                  </button>
+                  <button
+                    class="agent-tab"
+                    type="button"
+                    role="tab"
+                    data-agent="codex"
+                    aria-selected="false"
+                    aria-controls="installCommand"
+                  >
+                    Codex
+                  </button>
+                  <button
+                    class="agent-tab"
+                    type="button"
+                    role="tab"
+                    data-agent="cursor"
+                    aria-selected="false"
+                    aria-controls="installCommand"
+                  >
+                    Cursor
+                  </button>
+                  <button
+                    class="agent-tab"
+                    type="button"
+                    role="tab"
+                    data-agent="gemini"
+                    aria-selected="false"
+                    aria-controls="installCommand"
+                  >
+                    Gemini CLI
+                  </button>
+                  <button
+                    class="agent-tab is-active"
+                    type="button"
+                    role="tab"
+                    data-agent="other"
+                    aria-selected="true"
+                    aria-controls="installCommand"
+                  >
+                    Other agents
+                  </button>
+                </div>
+                <div class="agent-command-panel">
+                  <code id="installCommand"
+                    >gcloud skills run fix-403-error skill</code
+                  >
+                  <div class="agent-command-actions">
                     <button
-                      class="btn-copy"
+                      class="agent-command-action"
                       type="button"
+                      aria-label="Enhance command"
+                      onclick="showToast('Command enhancement coming soon')"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >auto_awesome</span
+                      >
+                    </button>
+                    <button
+                      class="agent-command-action"
+                      type="button"
+                      aria-label="Toggle command contrast"
+                      onclick="showToast('Command contrast toggled')"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >contrast</span
+                      >
+                    </button>
+                    <button
+                      class="agent-command-action"
+                      type="button"
+                      aria-label="Copy command"
                       onclick="copyCommand()"
                     >
-                      Copy
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >content_copy</span
+                      >
                     </button>
                   </div>
                 </div>
               </div>
 
-              <details class="skill-file-section" id="prerequisites">
-                <summary class="skill-file-toggle">Prerequisites</summary>
-                <div class="skill-file-content">
-                  <ul class="checklist" id="prereqList">
-                    <li>Owner or IAM Admin role on project</li>
-                    <li>Cloud Shell or gcloud CLI available</li>
-                    <li><code>test_endpoint.py</code> script created</li>
-                  </ul>
-                </div>
-              </details>
-
-              <details class="skill-file-section">
-                <summary class="skill-file-toggle">Skill.md</summary>
-                <div class="skill-file-content">
-                  <p>
-                    <strong>Goal:</strong>
-                    <span id="skillGoalText"
-                      >Fix 403 permission error on Gemini Enterprise endpoint</span
+              <div class="skill-md-toolbar">
+                  <div
+                    class="skill-md-view-toggle skill-md-segmented-group"
+                    role="tablist"
+                    aria-label="Skill file view"
+                    id="skillMdViewToggle"
+                  >
+                    <button
+                      class="skill-md-view-btn skill-md-segmented-btn is-active"
+                      type="button"
+                      role="tab"
+                      data-view="preview"
+                      aria-selected="true"
+                      aria-controls="skillMdPreview"
                     >
-                  </p>
-                  <p>
-                    <strong>Context:</strong>
-                    <span id="skillContextText"
-                      >When aiplatform.endpoints.predict permission is denied</span
+                      Preview
+                    </button>
+                    <button
+                      class="skill-md-view-btn skill-md-segmented-btn"
+                      type="button"
+                      role="tab"
+                      data-view="code"
+                      aria-selected="false"
+                      aria-controls="skillMdCode"
                     >
-                  </p>
-                  <p><strong>Project:</strong> recipe-assistant-test-p06</p>
-
-                  <p><strong>Automated actions:</strong></p>
-                  <ul>
-                    <li>Detect active service account or user identity</li>
-                    <li>Query IAM policy for existing roles</li>
-                    <li>Generate gcloud command or Console steps</li>
-                  </ul>
-
-                  <p><strong>Manual confirmations:</strong></p>
-                  <ul>
-                    <li>
-                      User confirms which identity to grant permissions to
-                    </li>
-                    <li>User executes role binding (CLI or Console)</li>
-                    <li>User runs: python3 test_endpoint.py to verify fix</li>
-                  </ul>
-
-                  <p>
-                    <strong>Expected output:</strong> "Endpoint access
-                    successful!"
-                  </p>
-                </div>
-              </details>
-
-              <details class="config-section">
-                <summary class="config-toggle">Configuration</summary>
-                <div class="config-content">
-                  <div class="config-param">
-                    <div class="param-header">
-                      <span class="param-label">Project ID</span>
-                      <span class="param-status">Auto-detected</span>
-                    </div>
-                    <div class="param-value-row">
-                      <input
-                        type="text"
-                        class="param-input"
-                        value="recipe-assistant-test-p06"
-                        readonly
-                        id="projectId"
-                      />
-                      <button
-                        class="btn-edit"
-                        type="button"
-                        onclick="editParam('projectId')"
-                        aria-label="Edit project ID"
-                      ></button>
-                    </div>
+                      Code
+                    </button>
                   </div>
-
-                  <div class="config-param">
-                    <div class="param-header">
-                      <span class="param-label">Region</span>
-                      <span class="param-status">Auto-detected</span>
-                    </div>
-                    <div class="param-value-row">
-                      <input
-                        type="text"
-                        class="param-input"
-                        value="us-central1"
-                        readonly
-                        id="region"
-                      />
-                      <button
-                        class="btn-edit"
-                        type="button"
-                        onclick="editParam('region')"
-                        aria-label="Edit region"
-                      ></button>
-                    </div>
-                  </div>
-
-                  <div class="config-param">
-                    <div class="param-header">
-                      <span class="param-label">Service Account</span>
-                      <span class="param-status">Auto-detected</span>
-                    </div>
-                    <div class="param-value-row">
-                      <input
-                        type="text"
-                        class="param-input"
-                        value="your-sa@recipe-assistant-test-p06.iam.gserviceaccount.com"
-                        readonly
-                        id="serviceAccount"
-                      />
-                      <button
-                        class="btn-edit"
-                        type="button"
-                        onclick="editParam('serviceAccount')"
-                        aria-label="Edit service account"
-                      ></button>
-                    </div>
+                  <div class="skill-md-toolbar-actions skill-md-segmented-group">
+                    <button
+                      class="skill-md-toolbar-btn skill-md-segmented-btn"
+                      type="button"
+                      aria-label="Copy SKILL.md"
+                      onclick="copySkillMd()"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >content_copy</span
+                      >
+                    </button>
+                    <button
+                      class="skill-md-toolbar-btn skill-md-segmented-btn"
+                      type="button"
+                      aria-label="Download SKILL.md"
+                      onclick="downloadSkillMd()"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >download</span
+                      >
+                    </button>
+                    <button
+                      class="skill-md-toolbar-btn skill-md-segmented-btn"
+                      type="button"
+                      id="skillMdListBtn"
+                      aria-label="Show table of contents"
+                      aria-expanded="false"
+                      aria-controls="skillMdToc"
+                      onclick="toggleSkillMdToc()"
+                    >
+                      <span class="material-symbols-outlined" aria-hidden="true"
+                        >list</span
+                      >
+                    </button>
                   </div>
                 </div>
-              </details>
-
-              <div class="execution-control">
-                <button
-                  class="btn-primary-action"
-                  type="button"
-                  onclick="toggleExecutionInline()"
-                  aria-expanded="false"
-                  aria-controls="executionInline"
-                >
-                  Execute
-                </button>
-                <div class="execution-inline" id="executionInline">
-                  <div class="exec-grid">
-                    <div class="exec-option" onclick="executeIn('Cloud Shell')">
-                      <div class="exec-text">
-                        <strong>Run in cloud shell</strong>
-                        <span>Execute this skill in Google Cloud Shell</span>
-                      </div>
-                    </div>
-
-                    <div class="exec-option" onclick="executeIn('Claude')">
-                      <div class="exec-text">
-                        <strong>Open in Claude</strong>
-                        <span>Ask questions about this skill</span>
-                      </div>
-                    </div>
-
-                    <div class="exec-option" onclick="executeIn('Gemini')">
-                      <div class="exec-text">
-                        <strong>Open in Gemini</strong>
-                        <span>Ask questions about this skill</span>
-                      </div>
-                    </div>
-
-                    <div class="exec-option" onclick="executeIn('MCP Server')">
-                      <div class="exec-text">
-                        <strong>Copy MCP Server</strong>
-                        <span>Copy MCP Server URL to clipboard</span>
-                      </div>
-                    </div>
-
-                    <div class="exec-option" onclick="executeIn('Cursor')">
-                      <div class="exec-text">
-                        <strong>Connect to Cursor</strong>
-                        <span>Install MCP Server on Cursor</span>
-                      </div>
-                    </div>
-
-                    <div class="exec-option" onclick="executeIn('VS Code')">
-                      <div class="exec-text">
-                        <strong>Connect to VS Code</strong>
-                        <span>Install MCP Server on VS Code</span>
-                      </div>
-                    </div>
-                  </div>
+                <div class="skill-md-body">
+                  <div
+                    id="skillMdPreview"
+                    class="skill-md-preview"
+                    aria-label="SKILL.md preview"
+                  ></div>
+                  <pre
+                    id="skillMdCode"
+                    class="skill-md-code is-hidden"
+                    aria-hidden="true"
+                    aria-label="SKILL.md source"
+                  ><code id="skillMdCodeContent"></code></pre>
+                  <nav
+                    id="skillMdToc"
+                    class="skill-md-toc is-hidden"
+                    aria-label="SKILL.md table of contents"
+                  ></nav>
                 </div>
-              </div>
-            </section>
-
-            <section class="content-card" id="step-by-step-guide">
-              <h2 class="section-title">Step-by-step Guide</h2>
-              <div class="steps-container" id="stepsContainer">
-                <details class="step-item">
-                  <summary class="step-summary">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Identify caller identity</h3>
-                  </summary>
-                  <div class="step-content">
-                    <p>
-                      First, determine which identity is being used to call the
-                      endpoint. Confirm whether the request is coming from your
-                      user account, a service account, Cloud Run, or another
-                      automation context.
-                    </p>
-                  </div>
-                </details>
-
-                <details class="step-item">
-                  <summary class="step-summary">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Check current IAM roles</h3>
-                  </summary>
-                  <div class="step-content">
-                    <p>
-                      Once you know the identity, verify which IAM roles it has
-                      on the project.
-                    </p>
-                    <p>
-                      For project <strong>recipe-assistant-test-p06</strong>:
-                    </p>
-                    <div class="code-block">
-                      <div class="code-header">
-                        <span>Bash</span>
-                        <button
-                          class="copy-code"
-                          type="button"
-                          aria-label="Copy code"
-                          onclick="copyCode(this)"
-                        >
-                          Copy
-                        </button>
-                      </div>
-                      <pre><code>gcloud projects get-iam-policy recipe-assistant-test-p06 \
-  --flatten="bindings[].members" \
-  --filter="bindings.members:YOUR_EMAIL" \
-  --format="table(bindings.role)"</code></pre>
-                    </div>
-                    <p>
-                      Look for <code>roles/aiplatform.user</code> in the output
-                      before changing IAM policy.
-                    </p>
-                  </div>
-                </details>
-
-                <details class="step-item">
-                  <summary class="step-summary">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Grant Vertex AI User role</h3>
-                  </summary>
-                  <div class="step-content">
-                    <p>
-                      The <code>roles/aiplatform.user</code> role includes the
-                      required permissions for endpoint calls. Grant it to the
-                      caller identity only after confirming the target
-                      principal.
-                    </p>
-                  </div>
-                </details>
-
-                <details class="step-item">
-                  <summary class="step-summary">
-                    <div class="step-number">4</div>
-                    <h3 class="step-title">Verify access</h3>
-                  </summary>
-                  <div class="step-content">
-                    <p>
-                      After granting the role, test that the endpoint is now
-                      accessible. Re-run your endpoint request and confirm the
-                      403 error is resolved.
-                    </p>
-                  </div>
-                </details>
-              </div>
-            </section>
-
-            <section class="content-card" id="source-metadata">
-              <h2 class="section-title">Source &amp; Metadata</h2>
-              <details class="skill-file-section">
-                <summary class="skill-file-toggle">
-                  Source &amp; Metadata
-                </summary>
-                <div class="skill-file-content">
-                  <p><strong>SOURCE</strong></p>
-                  <p>
-                    <strong>Documentation:</strong>
-                    cloud.google.com/iam/docs/troubleshooting-access
-                  </p>
-
-                  <p><strong>VERSION</strong></p>
-                  <p><strong>Current:</strong> 2024.10.15</p>
-                  <p><strong>Last verified:</strong> Oct 15, 2024</p>
-                  <p><strong>Skill API:</strong> skills.cloud.google.com/v1</p>
-                  <p>
-                    <strong>Pin a version:</strong> gcloud skills
-                    /iam/diagnose-403-error@2024.10.15
-                  </p>
-
-                  <p><strong>USED BY</strong></p>
-                  <p>★ 12,400 runs in the last 30 days</p>
-                  <p>
-                    ✓ Verified: works on projects, folders, and organizations
-                  </p>
-                </div>
-              </details>
             </section>
 
             <section class="content-card" id="documentation-sources">
@@ -2110,7 +3069,12 @@
             </section>
 
             <section class="content-card" id="related-skills">
-              <h2 class="section-title">Related Skills</h2>
+              <div class="section-header-row">
+                <h2 class="section-title">Related Skills</h2>
+                <a class="section-more-link" href="./skill-library.html"
+                  >More Skills <span aria-hidden="true">→</span></a
+                >
+              </div>
               <div class="related-grid">
                 <a href="#" class="skill-mini-card">
                   <span class="related-icon" aria-hidden="true">
@@ -2145,14 +3109,11 @@
               </div>
             </section>
           </article>
+          </div>
 
           <aside class="toc" aria-label="Sections">
             <p class="toc-title">Sections</p>
             <a href="#overview">Overview</a>
-            <a href="#prerequisites">Prerequisites</a>
-            <a href="#quick-start">Quick Start</a>
-            <a href="#step-by-step-guide">Step-by-step Guide</a>
-            <a href="#source-metadata">Source &amp; Metadata</a>
             <a href="#documentation-sources">Documentation Sources</a>
             <a href="#related-skills">Related Skills</a>
           </aside>
@@ -2168,66 +3129,68 @@
       aria-labelledby="executionTitle"
     >
       <div class="modal-backdrop" onclick="closeExecutionModal()"></div>
-      <div class="modal-container">
-        <div class="modal-header">
-          <h3 id="executionTitle">Execute Skill</h3>
-          <button
-            class="close-btn"
-            type="button"
-            aria-label="Close"
-            onclick="closeExecutionModal()"
-          >
-            Close
-          </button>
+      <div class="modal-container execution-modal">
+        <div class="execution-modal-header">
+          <h3 id="executionTitle">Select where to run this skill</h3>
+          <label class="exec-skip-prompt" for="execSkipPrompt">
+            <input type="checkbox" id="execSkipPrompt" />
+            <span>Don't ask me again!</span>
+          </label>
         </div>
 
-        <div class="modal-body">
-          <p class="modal-subtitle">Choose where to run this skill:</p>
-          <div class="exec-grid">
-            <div class="exec-option" onclick="executeIn('Claude')">
-              <div class="exec-text">
-                <strong>Open in Claude</strong>
-                <span>Ask questions about this skill</span>
-              </div>
-            </div>
-
-            <div class="exec-option" onclick="executeIn('Gemini')">
-              <div class="exec-text">
-                <strong>Open in Gemini</strong>
-                <span>Ask questions about this skill</span>
-              </div>
-            </div>
-
-            <div class="exec-option" onclick="executeIn('MCP Server')">
-              <div class="exec-text">
-                <strong>Copy MCP Server</strong>
-                <span>Copy MCP Server URL to clipboard</span>
-              </div>
-            </div>
-
-            <div class="exec-option" onclick="executeIn('Cursor')">
-              <div class="exec-text">
-                <strong>Connect to Cursor</strong>
-                <span>Install MCP Server on Cursor</span>
-              </div>
-            </div>
-
-            <div class="exec-option" onclick="executeIn('VS Code')">
-              <div class="exec-text">
-                <strong>Connect to VS Code</strong>
-                <span>Install MCP Server on VS Code</span>
-              </div>
-            </div>
-          </div>
+        <div class="modal-body execution-modal-body">
+          <p class="execution-modal-lead">
+            Here are the execution environments detected on your device.
+          </p>
+          <fieldset class="exec-env-list">
+            <legend class="exec-env-legend">Execution environment</legend>
+            <label class="exec-env-option">
+              <input
+                type="radio"
+                name="execEnvironment"
+                value="Google Cloud CLI MCP"
+                checked
+              />
+              <span class="exec-env-option-content">
+                <strong>
+                  Google Cloud CLI MCP
+                  <span class="exec-env-badge">(Recommended)</span>
+                </strong>
+                <span class="exec-env-desc">
+                  Sends commands directly to your currently open terminal.
+                </span>
+              </span>
+            </label>
+            <label class="exec-env-option">
+              <input
+                type="radio"
+                name="execEnvironment"
+                value="Cursor IDE Agent"
+              />
+              <span class="exec-env-option-content">
+                <strong>Cursor IDE Agent</strong>
+                <span class="exec-env-desc">
+                  Sends the skill context to your active editor's AI agent.
+                </span>
+              </span>
+            </label>
+          </fieldset>
         </div>
 
-        <div class="modal-footer">
+        <div class="modal-footer execution-modal-footer">
           <button
             class="btn-cancel"
             type="button"
             onclick="closeExecutionModal()"
           >
             Cancel
+          </button>
+          <button
+            class="btn-run-env"
+            type="button"
+            onclick="runInSelectedEnvironment()"
+          >
+            Run in Selected Environment
           </button>
         </div>
       </div>
@@ -2297,17 +3260,325 @@
 
     <div class="toast" id="toast" aria-live="polite"></div>
 
+
+    <script type="text/plain" id="skillMdSourceFix403">
+---
+name: google-cloud-fix-403-forbidden-access
+description: Diagnose and resolve a 403 permission error when calling a Gemini Enterprise endpoint on Vertex AI, including identity detection, IAM role inspection, and role binding.
+---
+
+## Clarifying Questions
+
+Before proceeding, the agent should clarify the user's current context:
+
+1.  Is the error occurring when calling the endpoint from **user credentials**
+    (e.g., a local script authenticated via `gcloud auth login`) or from a
+    **service account** (e.g., a Cloud Run service or a Compute Engine VM)?
+2.  What is the **Project ID** where the Vertex AI endpoint is deployed?
+3.  What is the **region** of the endpoint (e.g., `us-central1`)?
+4.  Are you running the call from **Cloud Shell**, a **local terminal**, or from
+    within a deployed service?
+5.  Do you have access to the
+    [IAM & Admin](https://console.cloud.google.com/iam-admin) console, or do
+    you need to use the `gcloud` CLI only?
+
+## Prerequisites
+
+-   **Owner** or **IAM Admin** role
+    ([`roles/iam.securityAdmin`](https://docs.cloud.google.com/iam/docs/understanding-roles#iam.securityAdmin)
+    or higher) on the project.
+-   [Google Cloud CLI](https://docs.cloud.google.com/sdk/docs/install-sdk)
+    installed and authenticated, or access to
+    [Cloud Shell](https://cloud.google.com/shell/docs).
+-   A script or command that reproduces the error (e.g., `test_endpoint.py`).
+
+## Steps
+
+### 1. Identify Which Identity Is Calling the Endpoint
+
+Before changing any permissions, confirm which identity is actually making the
+request. A 403 error is tied to a specific principal, and granting the role to
+the wrong identity will not resolve the issue.
+
+Run the following to check the currently active identity in your environment:
+
+```bash
+gcloud config list account
+```
+
+For a **service account** running on Cloud Run or Compute Engine, retrieve the
+attached service account instead:
+
+```bash
+gcloud run services describe SERVICE_NAME \
+  --region=REGION \
+  --format="value(spec.template.spec.serviceAccountName)"
+```
+
+Note the **email address** of the identity shown. This is the principal that
+needs the role binding in the next step.
+
+### 2. Check Current IAM Roles on the Project
+
+Inspect the existing [IAM
+policy](https://docs.cloud.google.com/iam/docs/policies) for the project to
+confirm whether the identity from Step 1 already has a relevant binding.
+
+```bash
+gcloud projects get-iam-policy PROJECT_ID \
+  --flatten="bindings[].members" \
+  --filter="bindings.members:PRINCIPAL_EMAIL" \
+  --format="table(bindings.role)"
+```
+
+Replace `PROJECT_ID` with your project ID and `PRINCIPAL_EMAIL` with the
+identity email from Step 1.
+
+If the output is **empty**, or does not include `roles/aiplatform.user` or a
+broader role such as `roles/aiplatform.admin`, the identity lacks permission to
+call Vertex AI endpoints. Proceed to Step 3.
+
+If a relevant role is already present, the error may have a different cause —
+for example, a
+[VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/overview)
+restriction or an
+[Organization Policy](https://cloud.google.com/resource-manager/docs/organization-policy/overview).
+Contact your platform team before proceeding.
+
+### 3. Grant Vertex AI User Role to the Identity
+
+Grant the
+[`roles/aiplatform.user`](https://docs.cloud.google.com/vertex-ai/docs/general/access-control#aiplatform.user)
+role to the principal identified in Step 1. This role provides the minimum
+permissions required to call prediction endpoints.
+
+For a **user account**:
+
+```bash
+gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member="user:USER_EMAIL" \
+  --role="roles/aiplatform.user"
+```
+
+For a **service account**:
+
+```bash
+gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member="serviceAccount:SA_EMAIL" \
+  --role="roles/aiplatform.user"
+```
+
+IAM policy changes propagate within **60 seconds** in most cases, though
+occasionally up to 7 minutes. Wait at least one minute before proceeding to
+Step 4.
+
+Note: If your organization enforces
+[least privilege](https://docs.cloud.google.com/iam/docs/using-iam-securely#least_privilege),
+consider creating a
+[custom IAM role](https://docs.cloud.google.com/iam/docs/creating-custom-roles)
+scoped to only `aiplatform.endpoints.predict` instead of granting the full
+`aiplatform.user` role.
+
+### 4. Re-run test_endpoint.py to Verify Access
+
+Re-run your test script or the command that originally triggered the error to
+confirm that the permission change has taken effect.
+
+```bash
+python3 test_endpoint.py
+```
+
+**Expected output:**
+
+```
+Endpoint access successful!
+{'predictions': [...]}
+```
+
+If the error persists after waiting 2–3 minutes, re-verify the identity with:
+
+```bash
+gcloud config list
+```
+
+Confirm the `account` and `project` fields match the principal and project where
+the role was granted. If they do not match, re-authenticate with:
+
+```bash
+gcloud auth login
+gcloud config set project PROJECT_ID
+```
+
+Then re-run the test script.
+
+## Validation Logic
+
+Use this logic to determine if the 403 error has been successfully resolved:
+
+-   **Correct identity confirmed:** Does `gcloud config list` show the account
+    and project that match the endpoint's project?
+-   **Role binding present:** Does `gcloud projects get-iam-policy PROJECT_ID`
+    include `roles/aiplatform.user` (or higher) for the calling principal?
+-   **Endpoint access restored:** Does `test_endpoint.py` (or equivalent) return
+    a successful prediction response without a `PERMISSION_DENIED` error?
+    </script>
+    <script type="text/plain" id="skillMdSourceOnboarding">
+---
+name: google-cloud-recipe-onboarding
+description: Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.
+---
+
+## Clarifying Questions
+
+Before proceeding, the agent should clarify the user's current status:
+
+1.  Do you already have a [Google Account](https://accounts.google.com/) (Gmail
+    or [Google Workspace](https://workspace.google.com/))?
+2.  Are you looking to set up a personal account for learning/experimentation,
+    or are you part of an organization with existing infrastructure?
+3.  Are you an IT admin within a larger enterprise, setting up Google Cloud for
+    your organization?
+4.  What is the first type of resource or application you are interested in
+    building (e.g., a website, a data pipeline, a virtual machine)?
+5.  Do you prefer to use the command line (CLI), an IDE (e.g. VSCode,
+    Antigravity), or do you prefer using the web-based [Google Cloud
+    console](https://console.cloud.google.com/)?
+
+## Prerequisites
+
+-   A [Google Account](https://accounts.google.com/) (e.g., @gmail.com).
+-   A valid payment method (credit card or bank account) for billing
+    verification (even for the free trial).
+
+## Steps
+
+### 1. Sign Up and Activate Free Credit
+
+1.  Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2.  Sign in with your Google Account. This will "Activate" [your $300 free
+    credit](https://docs.cloud.google.com/free/docs/free-cloud-features#free-trial).
+
+### 2. Create Your First Google Cloud Project
+
+Google Cloud resources are organized into
+**[Projects](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy#projects)**.
+
+1.  In the Google Cloud console, click the project picker dropdown at the top of
+    the page.
+2.  Click **New Project**.
+3.  Enter a **Project Name** (e.g., `my-first-gcp-project`).
+4.  Note the generated **Project ID**; you will use this for CLI and API
+    interactions.
+5.  Click **Create**.
+
+### 3. Set Up Billing
+
+Ensure your project is linked to your Free Trial [Cloud
+Billing](https://docs.cloud.google.com/billing/docs/how-to/manage-billing-account)
+account.
+
+1.  Go to the **Billing** section in the console.
+2.  Confirm that your new project is listed under "Projects linked to this
+    billing account."
+
+### 4. Install and Initialize the Google Cloud CLI
+
+The **[Google Cloud CLI](https://docs.cloud.google.com/sdk/docs/install-sdk)**
+(`gcloud` CLI) is the primary tool for interacting with Google Cloud from your
+local machine.
+
+1.  [Download and install the Google Cloud
+    CLI](https://cloud.google.com/sdk/docs/install).
+2.  Open your terminal and run: `gcloud init`
+3.  Follow the prompts to log in and select your project.
+
+### 5. Enable Necessary APIs
+
+Most services require their specific
+[API](https://docs.cloud.google.com/apis/docs/overview) to be enabled before
+use. For example, to use [Cloud
+Run](https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run), run:
+`gcloud services enable run.googleapis.com`
+
+Note that [some Google Cloud APIs, including Cloud Logging, are enabled by
+default](https://docs.cloud.google.com/service-usage/docs/enabled-service#default).
+
+### 6. Deploy Your First Resource
+
+Choose a simple entry point based on your needs:
+- **[Cloud Run](https://docs.cloud.google.com/run/docs) (Recommended for Apps):**
+Deploy a containerized "Hello World" app.
+- **[Compute Engine](https://docs.cloud.google.com/compute/docs):** Create a
+small Linux VM (e.g., `e2-micro` which is part of the Always Free tier in
+certain regions).
+- **[Cloud Storage](https://docs.cloud.google.com/storage/docs):** Create a
+bucket to store files.
+
+Example (Cloud Run):
+
+```bash
+    gcloud run deploy hello-world \
+    --image=gcr.io/cloudrun/hello \ --platform=managed \ --region=us-central1 \
+    --allow-unauthenticated --quiet
+```
+
+This command will output a public URL, that you can reach in a web browser.
+Congrats - you just deployed your first Google Cloud resource!
+
+### 7. Next Steps
+
+-   Explore the [Google Cloud Free Program](https://cloud.google.com/free) to
+    see what else you can do with your free credit.
+-   Read the [Google Cloud Overview](https://cloud.google.com/docs/overview)
+-   See the [full list of 150+ Google Cloud products](https://cloud.google.com/products)
+-   Explore the [Enterprise Setup Guide](https://docs.cloud.google.com/docs/enterprise/cloud-setup)
+    for information on setting up Google Cloud for a team or organization.
+-   Compare [AWS and Azure products to Google Cloud](https://docs.cloud.google.com/docs/get-started/aws-azure-gcp-service-comparison)
+
+## Validation Logic
+
+Use this logic to determine if the user has successfully completed the Google
+Cloud onboarding process:
+
+-   **Project Created:** Does the user have a Project ID?
+-   **Billing Linked:** Is the project associated with a billing account (check
+    via `gcloud beta billing projects describe PROJECT_ID`)?
+-   **CLI Authenticated:** Does `gcloud config list` show the correct account
+    and project?
+-   **Resource Verified:** Can the user access the URL or IP of the deployed
+    resource?
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.6/marked.min.js"></script>
     <script src="./assets/skills_catalog_export.js"></script>
     <script>
       let isSaved = false;
       let toastTimer;
+      let activeAgentTab = "other";
+      const SKILL_RUN_SLUGS = {
+        "fix-403-forbidden-access": "fix-403-error",
+        "google-cloud-recipe-onboarding": "google-cloud-recipe-onboarding",
+      };
+      const AGENT_INSTALL_TEMPLATES = {
+        antigravity: (slug) => `antigravity skills run ${slug}`,
+        claude: (slug) => `claude skills run ${slug}`,
+        codex: (slug) => `codex skills run ${slug}`,
+        cursor: (slug) => `cursor skills run ${slug}`,
+        gemini: (slug) => `gemini skills run ${slug}`,
+        other: (slug) => `gcloud skills run ${slug} skill`,
+      };
+
+      function getSkillRunSlug(skillId) {
+        return SKILL_RUN_SLUGS[skillId] || skillId;
+      }
+      const DEFAULT_SKILL_ID = "fix-403-forbidden-access";
       const SKILL_DETAIL_DATA = {
         "fix-403-forbidden-access": {
           title: "Fix 403 Forbidden Access Skill",
-          meta: "Troubleshooting · 4 steps · 5 min",
+          meta: "Troubleshooting",
           runs: "★ 12,400 runs in the last 30 days",
           overview:
-            "Diagnose and resolve permission errors for Gemini Enterprise endpoint calls in GCP. This skill guides you through identifying the caller identity, checking IAM roles, and granting necessary permissions.",
+            "This skill provides a structured troubleshooting path for resolving a 403 Forbidden error when calling a Vertex AI or Gemini Enterprise endpoint. It covers identity detection, IAM policy inspection, and role binding to restore access.",
           goal: "Fix 403 permission error on Gemini Enterprise endpoint",
           context: "When aiplatform.endpoints.predict permission is denied",
           installCommand: "claude-skill install fix-403-forbidden-access",
@@ -2323,9 +3594,33 @@
             "Verify access",
           ],
         },
+        "google-cloud-recipe-onboarding": {
+          title: "Onboarding to Google Cloud Skill",
+          meta: "Setup & Configuration",
+          runs: "★ 8,650 runs in the last 30 days",
+          overview:
+            "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
+          goal: "Complete first-time Google Cloud onboarding",
+          context:
+            "From account setup and billing to deploying a first cloud resource",
+          installCommand: "claude-skill install google-cloud-recipe-onboarding",
+          prerequisites: [
+            "Google Account (e.g., @gmail.com)",
+            "Valid payment method for billing verification",
+          ],
+          steps: [
+            "Sign up and activate free credit",
+            "Create your first Google Cloud project",
+            "Set up billing",
+            "Install and initialize the Google Cloud CLI",
+            "Enable necessary APIs",
+            "Deploy your first resource",
+            "Validate onboarding completion",
+          ],
+        },
         "deploy-web-app-cloud-run": {
           title: "Deploy Web App to Cloud Run",
-          meta: "Setup & Configuration · 6 steps · 15 min",
+          meta: "Setup & Configuration",
           runs: "★ 4,820 runs in the last 30 days",
           overview:
             "Deploy containerized applications to Cloud Run with a guided setup flow, from image selection through rollout verification.",
@@ -2348,7 +3643,7 @@
         },
         "optimize-bigquery-query-performance": {
           title: "Optimize BigQuery Query Performance",
-          meta: "Optimization & Best Practices · 8 steps · 30 min",
+          meta: "Optimization & Best Practices",
           runs: "★ 3,210 runs in the last 30 days",
           overview:
             "Analyze query plans and runtime metrics to reduce scanned bytes, improve execution speed, and lower BigQuery costs.",
@@ -2374,7 +3669,7 @@
         },
         "vertex-ai-model-monitoring": {
           title: "Set Up Vertex AI Model Monitoring",
-          meta: "Setup & Configuration · 7 steps · 20 min",
+          meta: "Setup & Configuration",
           runs: "★ 1,475 runs in the last 30 days",
           overview:
             "Configure model monitoring and alerting for deployed Vertex AI endpoints, including drift thresholds and verification checks.",
@@ -2398,7 +3693,7 @@
         },
         "troubleshoot-cloud-build-failures": {
           title: "Troubleshoot Cloud Build Failures",
-          meta: "Troubleshooting & Debugging · 5 steps · 10 min",
+          meta: "Troubleshooting & Debugging",
           runs: "★ 2,530 runs in the last 30 days",
           overview:
             "Identify root causes for failed Cloud Build pipelines, validate fixes, and confirm successful reruns.",
@@ -2421,7 +3716,7 @@
         },
         "configure-iam-custom-roles": {
           title: "Configure IAM Custom Roles",
-          meta: "Setup & Configuration · 9 steps · 25 min",
+          meta: "Setup & Configuration",
           runs: "★ 1,720 runs in the last 30 days",
           overview:
             "Design and apply least-privilege IAM custom roles with validation steps to ensure secure and precise access control.",
@@ -2506,7 +3801,7 @@
             : ["Sandbox Google Cloud project with billing enabled"];
         return {
           title: `${skillRow.title} Skill`,
-          meta: `${skillRow.category} · ${skillRow.steps} steps · ${skillRow.time} min`,
+          meta: skillRow.category,
           runs: `★ ${approxRuns.toLocaleString()} runs in the last 30 days`,
           overview:
             `${skillRow.description || skillRow.overview || ""}`.trim() +
@@ -2519,78 +3814,310 @@
         };
       }
 
+      function getAgentInstallCommand(skillId, agent = activeAgentTab) {
+        const slug = getSkillRunSlug(skillId);
+        const template =
+          AGENT_INSTALL_TEMPLATES[agent] || AGENT_INSTALL_TEMPLATES.other;
+        return template(slug);
+      }
+
+      function setActiveAgentTab(agent) {
+        activeAgentTab = agent;
+        document.querySelectorAll(".agent-tab").forEach((tab) => {
+          const isActive = tab.dataset.agent === agent;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+      }
+
+      function updateInstallCommand(skillId, agent = activeAgentTab) {
+        const installEl = document.getElementById("installCommand");
+        if (installEl) {
+          installEl.textContent = getAgentInstallCommand(skillId, agent);
+        }
+      }
+
+      function initAgentInstallTabs(skillId) {
+        const tabsEl = document.getElementById("agentTabs");
+        if (!tabsEl) return;
+
+        if (tabsEl.dataset.bound !== "true") {
+          tabsEl.dataset.bound = "true";
+          tabsEl.addEventListener("click", (event) => {
+            const tab = event.target.closest(".agent-tab");
+            if (!tab) return;
+            setActiveAgentTab(tab.dataset.agent);
+            updateInstallCommand(
+              window.__activeSkillId || DEFAULT_SKILL_ID,
+              tab.dataset.agent,
+            );
+          });
+        }
+
+        window.__activeSkillId = skillId;
+        setActiveAgentTab(activeAgentTab);
+        updateInstallCommand(skillId, activeAgentTab);
+      }
+
+      function categoryClass(category) {
+        if (!category) return "category-learning";
+        if (category.startsWith("Setup")) return "category-setup";
+        if (category.includes("Troubleshooting")) return "category-troubleshooting";
+        if (category.startsWith("Optimization")) return "category-optimization";
+        if (category.includes("Monitoring")) return "category-monitoring";
+        if (category.includes("Security")) return "category-security";
+        if (category.includes("Cost")) return "category-cost";
+        if (category.includes("Migration")) return "category-migration";
+        return "category-learning";
+      }
+
+      function updateDetailMetaChip(category) {
+        const metaEl = document.getElementById("detailMeta");
+        if (!metaEl) return;
+        metaEl.textContent = category;
+        metaEl.className = `category-chip ${categoryClass(category)}`;
+      }
+
+      let skillMdRawText = "";
+      let skillMdActiveView = "preview";
+
+      function stripSkillMdFrontmatter(text) {
+        return text.replace(/^---[\s\S]*?---\s*/, "");
+      }
+
+      const SKILL_MD_SOURCE_IDS = {
+        "fix-403-forbidden-access": "skillMdSourceFix403",
+        "google-cloud-recipe-onboarding": "skillMdSourceOnboarding",
+      };
+
+      function getSkillMdRawText() {
+        const skillId = window.__activeSkillId || DEFAULT_SKILL_ID;
+        const sourceId =
+          SKILL_MD_SOURCE_IDS[skillId] ||
+          SKILL_MD_SOURCE_IDS[DEFAULT_SKILL_ID];
+        return (
+          document.getElementById(sourceId)?.textContent.trim() || ""
+        );
+      }
+
+      function resolveSkillIdFromLocation() {
+        const hashMatch = window.location.hash.match(/^#skills\/(.+)$/);
+        const hashSkillId = hashMatch ? decodeURIComponent(hashMatch[1]) : "";
+        const querySkillId =
+          new URLSearchParams(window.location.search).get("skill") || "";
+        return hashSkillId || querySkillId || DEFAULT_SKILL_ID;
+      }
+
+      function renderSkillMdContent() {
+        const previewEl = document.getElementById("skillMdPreview");
+        const codeEl = document.getElementById("skillMdCodeContent");
+        if (!previewEl || !codeEl) return;
+
+        skillMdRawText = getSkillMdRawText();
+        codeEl.textContent = skillMdRawText;
+
+        const previewSource = stripSkillMdFrontmatter(skillMdRawText);
+        if (typeof marked !== "undefined" && previewSource) {
+          previewEl.innerHTML = marked.parse(previewSource);
+        } else {
+          previewEl.textContent = previewSource || skillMdRawText;
+        }
+
+        previewEl.querySelectorAll("h2, h3").forEach((heading, index) => {
+          heading.id = `skill-md-heading-${index}`;
+        });
+
+        buildSkillMdToc();
+        setSkillMdView(skillMdActiveView);
+      }
+
+      function initSkillMdViewer() {
+        const toggleEl = document.getElementById("skillMdViewToggle");
+        if (!toggleEl) return;
+
+        renderSkillMdContent();
+
+        if (toggleEl.dataset.bound !== "true") {
+          toggleEl.dataset.bound = "true";
+          toggleEl.addEventListener("click", (event) => {
+            const button = event.target.closest(".skill-md-view-btn");
+            if (!button) return;
+            setSkillMdView(button.dataset.view);
+            showToast(
+              button.dataset.view === "code"
+                ? "Showing SKILL.md code"
+                : "Showing SKILL.md preview",
+            );
+          });
+        }
+      }
+
+      function setSkillMdView(view) {
+        skillMdActiveView = view === "code" ? "code" : "preview";
+        const previewEl = document.getElementById("skillMdPreview");
+        const codeEl = document.getElementById("skillMdCode");
+        document.querySelectorAll(".skill-md-view-btn").forEach((button) => {
+          const isActive = button.dataset.view === skillMdActiveView;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        if (previewEl) {
+          previewEl.classList.toggle("is-hidden", skillMdActiveView !== "preview");
+          previewEl.setAttribute(
+            "aria-hidden",
+            skillMdActiveView !== "preview" ? "true" : "false",
+          );
+        }
+
+        if (codeEl) {
+          codeEl.classList.toggle("is-hidden", skillMdActiveView !== "code");
+          codeEl.setAttribute(
+            "aria-hidden",
+            skillMdActiveView !== "code" ? "true" : "false",
+          );
+        }
+
+        closeSkillMdToc();
+      }
+
+      function buildSkillMdToc() {
+        const tocEl = document.getElementById("skillMdToc");
+        const previewEl = document.getElementById("skillMdPreview");
+        if (!tocEl || !previewEl) return;
+
+        const headings = previewEl.querySelectorAll("h2, h3");
+        if (headings.length === 0) {
+          tocEl.innerHTML = "";
+          return;
+        }
+
+        tocEl.innerHTML =
+          `<p class="skill-md-toc-title">On this page</p>` +
+          Array.from(headings)
+            .map((heading) => {
+              const isSub = heading.tagName === "H3";
+              return `<a href="#${heading.id}" class="${isSub ? "is-sub" : ""}">${heading.textContent}</a>`;
+            })
+            .join("");
+
+        tocEl.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            const target = document.getElementById(
+              link.getAttribute("href").slice(1),
+            );
+            target?.scrollIntoView({ behavior: "smooth", block: "start" });
+            closeSkillMdToc();
+          });
+        });
+      }
+
+      function toggleSkillMdToc() {
+        const tocEl = document.getElementById("skillMdToc");
+        const listBtn = document.getElementById("skillMdListBtn");
+        if (!tocEl || !listBtn) return;
+        const isOpen = !tocEl.classList.contains("is-hidden");
+        if (isOpen) {
+          closeSkillMdToc();
+          showToast("Section list closed");
+          return;
+        }
+        tocEl.classList.remove("is-hidden");
+        listBtn.setAttribute("aria-expanded", "true");
+        showToast("Showing section list");
+      }
+
+      function closeSkillMdToc() {
+        const tocEl = document.getElementById("skillMdToc");
+        const listBtn = document.getElementById("skillMdListBtn");
+        tocEl?.classList.add("is-hidden");
+        listBtn?.setAttribute("aria-expanded", "false");
+      }
+
+      function copySkillMd() {
+        if (!skillMdRawText) return;
+        writeClipboard(skillMdRawText, "SKILL.md copied to clipboard");
+      }
+
+      function downloadSkillMd() {
+        if (!skillMdRawText) return;
+        const blob = new Blob([skillMdRawText], {
+          type: "text/markdown;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "SKILL.md";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast("SKILL.md downloaded");
+      }
+
       async function initSkillDetailPage() {
         await loadSkillsCatalogForDetail();
         applySkillFromQuery();
       }
 
-      function escapeHtml(text) {
-        return String(text)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;");
+      function stripSkillTitleSuffix(title) {
+        return String(title || "").replace(/\s+Skill$/i, "");
       }
 
-      function renderSteps(stepTitles, skillTitle) {
-        return stepTitles
-          .map(
-            (stepTitle, index) => `
-        <details class="step-item">
-          <summary class="step-summary">
-            <div class="step-number">${index + 1}</div>
-            <h3 class="step-title">${escapeHtml(stepTitle)}</h3>
-          </summary>
-          <div class="step-content">
-            <p>Complete this step for ${escapeHtml(skillTitle)} and record the outcome before proceeding.</p>
-          </div>
-        </details>
-      `,
-          )
-          .join("");
+      function renderDetailTitle(title) {
+        const titleEl = document.getElementById("detailTitle");
+        if (!titleEl) return;
+
+        let textEl = titleEl.querySelector(".skill-title-text");
+        if (!textEl) {
+          titleEl.textContent = "";
+
+          textEl = document.createElement("span");
+          textEl.className = "skill-title-text";
+          titleEl.appendChild(textEl);
+
+          const iconEl = document.createElement("span");
+          iconEl.className = "skill-title-icon";
+          iconEl.setAttribute("aria-hidden", "true");
+          iconEl.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" aria-hidden="true"><path d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 320h240L400-80h-80Zm151-390Z"/></svg>';
+          titleEl.appendChild(iconEl);
+        }
+
+        textEl.textContent = stripSkillTitleSuffix(title);
       }
 
       function applySkillFromQuery() {
-        const hashMatch = window.location.hash.match(/^#skills\/(.+)$/);
-        const hashSkillId = hashMatch ? decodeURIComponent(hashMatch[1]) : "";
-        const querySkillId =
-          new URLSearchParams(window.location.search).get("skill") || "";
-        const skillId = hashSkillId || querySkillId;
+        const skillId = resolveSkillIdFromLocation();
+        window.__activeSkillId = skillId;
         const shareEl = document.querySelector(".share-url-input");
         if (shareEl) shareEl.value = window.location.href;
         let detail = SKILL_DETAIL_DATA[skillId];
         if (!detail && catalogSkillsById[skillId]) {
           detail = synthesizeDetailFromCatalog(catalogSkillsById[skillId]);
         }
-        if (!skillId || !detail) return;
+        if (!detail) return;
         document.title = `${detail.title} - Skill Detail`;
         const titleEl = document.getElementById("detailTitle");
-        const metaEl = document.getElementById("detailMeta");
         const runsEl = document.getElementById("detailRuns");
         const overviewEl = document.getElementById("overviewText");
-        const installEl = document.getElementById("installCommand");
-        const goalEl = document.getElementById("skillGoalText");
-        const contextEl = document.getElementById("skillContextText");
-        const prereqListEl = document.getElementById("prereqList");
-        const stepsContainerEl = document.getElementById("stepsContainer");
-        if (titleEl) titleEl.textContent = detail.title;
-        if (metaEl) metaEl.textContent = detail.meta;
+        if (titleEl) renderDetailTitle(detail.title);
+        updateDetailMetaChip(detail.meta);
         if (runsEl) runsEl.textContent = detail.runs;
         if (overviewEl) overviewEl.textContent = detail.overview;
-        if (installEl) installEl.textContent = detail.installCommand;
-        if (goalEl) goalEl.textContent = detail.goal;
-        if (contextEl) contextEl.textContent = detail.context;
-        if (prereqListEl) {
-          prereqListEl.innerHTML = detail.prerequisites
-            .map((item) => `<li>${escapeHtml(item)}</li>`)
-            .join("");
-        }
-        if (stepsContainerEl) {
-          stepsContainerEl.innerHTML = renderSteps(detail.steps, detail.title);
-        }
+        updateInstallCommand(skillId, activeAgentTab);
+        initAgentInstallTabs(skillId);
+        renderSkillMdContent();
+      }
+
+      function closeSkillInfoBanner() {
+        document.getElementById("skillInfoBanner")?.classList.add("is-hidden");
       }
 
       function showToast(message) {
         const toast = document.getElementById("toast");
+        if (!toast || !message) return;
         toast.textContent = message;
         toast.classList.add("show");
         clearTimeout(toastTimer);
@@ -2620,39 +4147,115 @@
       function toggleSave() {
         isSaved = !isSaved;
         const btn = document.getElementById("saveBtn");
-        const label = btn?.querySelector(".button-label");
         const icon = document.getElementById("saveIcon");
-        if (label) label.textContent = isSaved ? "Saved" : "Save";
-        if (icon) icon.textContent = isSaved ? "bookmark_added" : "bookmark_add";
+        if (icon) icon.textContent = isSaved ? "bookmark_added" : "bookmark";
         if (btn) btn.classList.toggle("saved", isSaved);
         showToast(isSaved ? "Skill saved" : "Skill removed from saved");
+      }
+
+      function closeSaveMenu() {
+        const menu = document.getElementById("saveMenu");
+        const menuBtn = document.getElementById("saveMenuBtn");
+        if (menu) menu.hidden = true;
+        if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+      }
+
+      function toggleSaveMenu(event) {
+        event.stopPropagation();
+        const menu = document.getElementById("saveMenu");
+        const menuBtn = document.getElementById("saveMenuBtn");
+        if (!menu || !menuBtn) return;
+
+        const willOpen = menu.hidden;
+        closeSaveMenu();
+        closeCopyMenu();
+        if (willOpen) {
+          menu.hidden = false;
+          menuBtn.setAttribute("aria-expanded", "true");
+        }
+      }
+
+      function closeCopyMenu() {
+        const menu = document.getElementById("copyMenu");
+        const menuBtn = document.getElementById("copyMenuBtn");
+        if (menu) menu.hidden = true;
+        if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+      }
+
+      function toggleCopyMenu(event) {
+        event.stopPropagation();
+        const menu = document.getElementById("copyMenu");
+        const menuBtn = document.getElementById("copyMenuBtn");
+        if (!menu || !menuBtn) return;
+
+        const willOpen = menu.hidden;
+        closeCopyMenu();
+        closeSaveMenu();
+        if (willOpen) {
+          menu.hidden = false;
+          menuBtn.setAttribute("aria-expanded", "true");
+        }
+      }
+
+      function viewAsMarkdown(event) {
+        event.stopPropagation();
+        closeCopyMenu();
+        setSkillMdView("code");
+        document
+          .getElementById("skillMdViewToggle")
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function openSavedPages(event) {
+        event.stopPropagation();
+        closeSaveMenu();
+        showToast("Opening saved pages");
+      }
+
+      function openNewCollection(event) {
+        event.stopPropagation();
+        closeSaveMenu();
+        showToast("New Collection");
+      }
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".docs-split-btn--save")) {
+          closeSaveMenu();
+        }
+        if (!event.target.closest(".docs-split-btn--copy")) {
+          closeCopyMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeSaveMenu();
+          closeCopyMenu();
+        }
+      });
+
+      function copyPageLink() {
+        writeClipboard(window.location.href, "Link copied to clipboard");
       }
 
       function copyCommand() {
         const installCommand =
           document.getElementById("installCommand")?.textContent.trim() ||
-          "claude-skill install fix-403-forbidden-access";
+          getAgentInstallCommand(window.__activeSkillId || DEFAULT_SKILL_ID);
         writeClipboard(
           installCommand,
           "Command copied to clipboard",
         );
       }
+      let skipExecPrompt = false;
+      let savedExecEnvironment = "Google Cloud CLI MCP";
 
-      function editParam(id) {
-        const input = document.getElementById(id);
-        input.readOnly = false;
-        input.focus();
-        input.select();
-        showToast("Field is editable");
-      }
-
-      function copyCode(btn) {
-        const codeBlock = btn.closest(".code-block").querySelector("code");
-        writeClipboard(codeBlock.textContent, "Code copied to clipboard");
-        btn.textContent = "Copied";
-        setTimeout(() => {
-          btn.textContent = "Copy";
-        }, 2000);
+      function handleExecuteClick() {
+        if (skipExecPrompt) {
+          executeIn(savedExecEnvironment);
+          return;
+        }
+        openExecutionModal();
       }
 
       function openExecutionModal() {
@@ -2663,21 +4266,30 @@
         document.getElementById("executionModal").style.display = "none";
       }
 
-      function toggleExecutionInline() {
-        const panel = document.getElementById("executionInline");
-        const button = document.querySelector(
-          "[aria-controls='executionInline']",
+      function runInSelectedEnvironment() {
+        const selected = document.querySelector(
+          'input[name="execEnvironment"]:checked',
         );
-        const isOpen = panel.classList.toggle("is-open");
-        button.setAttribute("aria-expanded", isOpen);
+        const environment = selected?.value || "Google Cloud CLI MCP";
+        const skipPrompt = document.getElementById("execSkipPrompt")?.checked;
+
+        if (skipPrompt) {
+          skipExecPrompt = true;
+          savedExecEnvironment = environment;
+        }
+
+        closeExecutionModal();
+        executeIn(environment);
       }
 
-      function executeIn(environment) {
-        showToast("Executing in: " + environment);
-      }
+      function executeIn(_environment) {}
+
+      localStorage.removeItem("skillDetailExecSkipPrompt");
+      localStorage.removeItem("skillDetailExecEnvironment");
 
       function openShareModal() {
         document.getElementById("shareModal").style.display = "flex";
+        showToast("Share this skill");
       }
 
       function closeShareModal() {
@@ -2705,6 +4317,20 @@
         if (event.key === "Escape") {
           closeExecutionModal();
           closeShareModal();
+          closeSkillMdToc();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        const tocEl = document.getElementById("skillMdToc");
+        const listBtn = document.getElementById("skillMdListBtn");
+        if (
+          tocEl &&
+          !tocEl.classList.contains("is-hidden") &&
+          !tocEl.contains(event.target) &&
+          !listBtn?.contains(event.target)
+        ) {
+          closeSkillMdToc();
         }
       });
 
@@ -2712,7 +4338,10 @@
         applySkillFromQuery();
       });
 
-      initSkillDetailPage();
+      (async () => {
+        await initSkillDetailPage();
+        initSkillMdViewer();
+      })();
     </script>
     <script src="./assets/site-header.js"></script>
   </body>
