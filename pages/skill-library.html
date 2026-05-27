@@ -1582,18 +1582,6 @@
                 <div class="doc-feedback">
                   <div class="header-actions">
                     <button
-                      id="createSkillBtn"
-                      class="btn btn-primary"
-                      type="button"
-                      onclick="showCreateForm()"
-                    >
-                      <span
-                        class="material-symbols-outlined icon-sm"
-                        aria-hidden="true"
-                        >add</span
-                      >Create New Skill
-                    </button>
-                    <button
                       class="btn btn-secondary"
                       type="button"
                       onclick="showMySkills()"
@@ -1875,24 +1863,7 @@
         }
         buildFilters();
         updateMySkillsCount();
-        addDynamicItem("prereqList", "Prerequisite");
-        addDynamicItem("stepListForm", "Step title");
-        addDynamicItem("checkpointList", "Checkpoint");
-        document
-          .getElementById("createSkillBtn")
-          ?.addEventListener("click", showCreateForm);
-        window.addEventListener("hashchange", () => {
-          if (location.hash === "#create") {
-            showCreateForm();
-          } else {
-            showLibrary();
-          }
-        });
-        if (location.hash === "#create") {
-          showCreateForm();
-        } else {
-          showLibrary();
-        }
+        showLibrary();
         setTimeout(() => {
           document.getElementById("skeletonGrid").style.display = "none";
           document.getElementById("skillGrid").style.display = "grid";
