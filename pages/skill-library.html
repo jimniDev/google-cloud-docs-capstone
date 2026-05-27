@@ -190,6 +190,12 @@
         padding: 0;
         row-gap: 24px;
       }
+      .container.is-create-mode {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .container.is-create-mode .skill-filters {
+        display: none;
+      }
 
       @media (min-width: 1024px) {
         .library-shell {
@@ -289,10 +295,16 @@
         border-color: var(--nimbus-primary);
         color: var(--nimbus-surface);
       }
-      .btn-primary:hover {
+      .btn-primary:hover:not(:disabled) {
         background: var(--nimbus-primary-hover);
         border-color: var(--nimbus-primary-hover);
         box-shadow: var(--nimbus-shadow-sm);
+      }
+      .btn:disabled,
+      .btn[aria-disabled="true"] {
+        cursor: not-allowed;
+        opacity: 0.4;
+        pointer-events: none;
       }
       .btn-blue {
         background: var(--nimbus-primary);
@@ -667,15 +679,34 @@
         font-weight: 600;
         margin-bottom: 6px;
       }
+      .main-content {
+        min-width: 0;
+      }
       .detail-view,
       .create-view {
         background: transparent;
         border: none;
         border-radius: 0;
         box-shadow: none;
-        display: none;
-        margin-top: 8px;
-        padding: 24px 0 0;
+        margin-top: 0;
+        padding: 0;
+      }
+      .create-view[hidden],
+      .detail-view[hidden],
+      #libraryView[hidden] {
+        display: none !important;
+      }
+      .create-view:not([hidden]) {
+        padding-top: var(--nimbus-space-8);
+      }
+      .create-view:not([hidden]) .form-header {
+        margin-top: var(--nimbus-space-4);
+      }
+      .create-view .header-actions:last-of-type {
+        border-top: 1px solid var(--nimbus-border);
+        justify-content: flex-end;
+        margin-top: var(--nimbus-space-6);
+        padding-top: var(--nimbus-space-6);
       }
       .back-btn {
         align-items: center;
@@ -1497,7 +1528,7 @@
         </p>
       </header>
 
-      <div class="container">
+      <div class="container" id="libraryContainer">
       <aside
         class="doc-sidebar skill-filters"
         aria-label="Skill catalog filters"
@@ -1544,31 +1575,39 @@
       </aside>
 
       <div class="left-panel">
-        <header class="doc-header">
-          <div class="doc-header-top">
-            <div class="doc-feedback">
-              <div class="header-actions">
-                <button class="btn btn-primary" onclick="showCreateForm()">
-                  <span
-                    class="material-symbols-outlined icon-sm"
-                    aria-hidden="true"
-                    >add</span
-                  >Create New Skill
-                </button>
-                <button class="btn btn-secondary" onclick="showMySkills()">
-                  <span
-                    class="material-symbols-outlined icon-sm"
-                    aria-hidden="true"
-                    >bookmark</span
-                  >My Skills
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
         <div class="main-content">
           <section id="libraryView">
+            <header class="doc-header">
+              <div class="doc-header-top">
+                <div class="doc-feedback">
+                  <div class="header-actions">
+                    <button
+                      id="createSkillBtn"
+                      class="btn btn-primary"
+                      type="button"
+                      onclick="showCreateForm()"
+                    >
+                      <span
+                        class="material-symbols-outlined icon-sm"
+                        aria-hidden="true"
+                        >add</span
+                      >Create New Skill
+                    </button>
+                    <button
+                      class="btn btn-secondary"
+                      type="button"
+                      onclick="showMySkills()"
+                    >
+                      <span
+                        class="material-symbols-outlined icon-sm"
+                        aria-hidden="true"
+                        >bookmark</span
+                      >My Skills
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </header>
             <div class="main-toolbar">
               <div class="search-wrap toolbar-search">
                 <input
@@ -1626,8 +1665,8 @@
             </div>
           </section>
 
-          <section id="detailView" class="detail-view"></section>
-          <section id="createView" class="create-view">
+          <section id="detailView" class="detail-view" hidden></section>
+          <section id="createView" class="create-view" hidden aria-hidden="true">
             <div class="form-header">
               <div class="form-title">Create New Skill</div>
               <div class="header-actions">
@@ -1839,6 +1878,21 @@
         addDynamicItem("prereqList", "Prerequisite");
         addDynamicItem("stepListForm", "Step title");
         addDynamicItem("checkpointList", "Checkpoint");
+        document
+          .getElementById("createSkillBtn")
+          ?.addEventListener("click", showCreateForm);
+        window.addEventListener("hashchange", () => {
+          if (location.hash === "#create") {
+            showCreateForm();
+          } else {
+            showLibrary();
+          }
+        });
+        if (location.hash === "#create") {
+          showCreateForm();
+        } else {
+          showLibrary();
+        }
         setTimeout(() => {
           document.getElementById("skeletonGrid").style.display = "none";
           document.getElementById("skillGrid").style.display = "grid";
@@ -2071,12 +2125,40 @@
         renderSkills();
       }
 
+      function setLibraryPanel(mode) {
+        const libraryView = document.getElementById("libraryView");
+        const createView = document.getElementById("createView");
+        const detailView = document.getElementById("detailView");
+        const container = document.getElementById("libraryContainer");
+        const isCreate = mode === "create";
+
+        libraryView.hidden = isCreate;
+        createView.hidden = !isCreate;
+        detailView.hidden = true;
+
+        if (isCreate) {
+          createView.removeAttribute("aria-hidden");
+          createView.removeAttribute("inert");
+          libraryView.setAttribute("inert", "");
+          container.classList.add("is-create-mode");
+          document.getElementById("skillName")?.focus();
+        } else {
+          createView.setAttribute("aria-hidden", "true");
+          createView.setAttribute("inert", "");
+          libraryView.removeAttribute("inert");
+          container.classList.remove("is-create-mode");
+        }
+      }
+
       function showLibrary() {
-        document.getElementById("libraryView").style.display = "block";
-        document.getElementById("detailView").style.display = "none";
-        document.getElementById("createView").style.display = "none";
-        document.querySelector(".skill-filters").style.display = "block";
-        history.replaceState(null, "", "./");
+        setLibraryPanel("library");
+        const url = new URL(window.location.href);
+        url.hash = "";
+        history.replaceState(
+          null,
+          "",
+          url.pathname + url.search || "./skill-library.html",
+        );
         renderSkills();
       }
 
@@ -2339,10 +2421,8 @@
       }
 
       function showCreateForm() {
-        document.getElementById("libraryView").style.display = "none";
-        document.getElementById("detailView").style.display = "none";
-        document.getElementById("createView").style.display = "block";
-        document.querySelector(".skill-filters").style.display = "none";
+        setLibraryPanel("create");
+        history.replaceState(null, "", "./skill-library.html#create");
       }
 
       function addDynamicItem(listId, placeholder) {

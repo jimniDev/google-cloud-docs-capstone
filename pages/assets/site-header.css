@@ -248,22 +248,23 @@
 }
 
 .gcloud-avatar {
-  margin-left: 2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
   background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
   color: #ffffff;
   border: 1px solid #dadce0;
   cursor: pointer;
+  flex-shrink: 0;
   overflow: hidden;
+  padding: 0;
 }
 
 .gcloud-avatar .material-symbols-outlined {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .material-symbols-outlined {
