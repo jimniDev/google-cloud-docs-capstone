@@ -58,3 +58,22 @@
   --nimbus-motion-medium: 180ms ease;
   --nimbus-motion-slow: 240ms ease-in-out;
 }
+
+/* Shared Skills / Skill Library page hero title */
+.library-page-title {
+  color: var(--nimbus-text-primary);
+  font-family:
+    "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
+  font-size: var(--nimbus-display-m-size);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: var(--nimbus-display-m-lh);
+  margin: 0 0 var(--nimbus-space-6);
+}
+
+@media (min-width: 768px) {
+  .library-page-title {
+    font-size: var(--nimbus-display-l-size);
+    line-height: var(--nimbus-display-l-lh);
+  }
+}

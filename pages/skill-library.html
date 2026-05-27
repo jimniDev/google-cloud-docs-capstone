@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -40,13 +40,14 @@
         --google-green: #34a853;
       }
       html {
+        font-family:
+          "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
         overflow-y: scroll;
         scrollbar-gutter: stable;
       }
       body {
-        font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial,
-          sans-serif;
-        background: var(--nimbus-surface-subtle);
+        font-family: inherit;
+        background: var(--nimbus-surface);
         color: var(--nimbus-text-primary);
         line-height: 1.5;
         padding: 0;
@@ -103,47 +104,79 @@
         position: static;
       }
 
-      /* Match .gcloud-header-inner (1600px, 24px gutters) */
-      .enterprise-topbar {
-        background: #eaf2ff;
-        border-bottom: 0;
-        position: static;
-        top: auto;
-        z-index: 21;
-      }
-      .enterprise-topbar-inner {
-        align-items: flex-start;
+      .library-shell {
+        background: var(--nimbus-surface);
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 1600px;
-        padding: 16px 24px 18px;
+        margin: 0 auto;
+        max-width: 80rem;
+        padding: var(--nimbus-space-12) var(--nimbus-space-6) 9rem;
       }
-      .enterprise-brand {
+
+      .library-page-header {
+        margin: 0 0 5rem;
+        padding: 0;
+      }
+
+      .library-breadcrumb {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0 0 var(--nimbus-space-12);
+      }
+
+      .library-breadcrumb ol {
         align-items: center;
-        color: #202124;
-        display: flex;
-        flex: 0 0 auto;
-        font-size: 22px;
-        font-weight: 400;
-        gap: 8px;
-        letter-spacing: -0.2px;
-      }
-      .library-page-intro {
-        color: #3c4043;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 22px;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: var(--nimbus-space-1);
+        list-style: none;
         margin: 0;
-        max-width: 840px;
+        padding: 0;
       }
-      .enterprise-logo {
-        color: #1a73e8;
-        font-size: 20px;
+
+      .library-breadcrumb li {
+        align-items: center;
+        display: inline-flex;
+      }
+
+      .library-breadcrumb a {
+        color: var(--nimbus-text-secondary);
+        text-decoration: none;
+        transition: color var(--nimbus-motion-fast);
+      }
+
+      .library-breadcrumb a:hover {
+        color: var(--nimbus-primary);
+      }
+
+      .library-breadcrumb .breadcrumb-sep {
+        color: var(--nimbus-text-disabled);
+        font-size: 18px;
         line-height: 1;
+      }
+
+      .library-breadcrumb .is-current {
+        color: var(--nimbus-text-primary);
+        font-weight: 500;
+      }
+
+      .library-page-eyebrow {
+        color: var(--nimbus-primary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        margin: 0 0 var(--nimbus-space-4);
+        text-transform: uppercase;
+      }
+
+      .library-page-intro {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-title-l-size);
+        font-weight: 400;
+        line-height: 1.625;
+        margin: 0;
+        max-width: 56rem;
       }
 
       .container {
@@ -151,12 +184,18 @@
         box-sizing: border-box;
         column-gap: 30px;
         display: grid;
-        grid-template-columns: 230px minmax(0, 957px) 250px;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 1600px;
-        padding: 20px 24px 48px;
+        grid-template-columns: 230px minmax(0, 1fr);
+        margin: 0;
+        max-width: none;
+        padding: 0;
         row-gap: 24px;
+      }
+
+      @media (min-width: 1024px) {
+        .library-shell {
+          padding-left: var(--nimbus-space-12);
+          padding-right: var(--nimbus-space-12);
+        }
       }
       .doc-sidebar.skill-filters {
         align-self: start;
@@ -197,14 +236,6 @@
         padding: 0 38px 48px;
         position: relative;
       }
-      .right-panel {
-        height: fit-content;
-        min-width: 0;
-        padding-top: 42px;
-        position: sticky;
-        top: 24px;
-      }
-
       .doc-header {
         background: transparent;
         margin-bottom: 24px;
@@ -225,43 +256,6 @@
         gap: 16px;
       }
 
-      .step-navigator {
-        background: transparent;
-        border: none;
-        border-left: 3px solid #1a73e8;
-        border-radius: 0;
-        opacity: 1;
-        padding: 0 0 0 14px;
-        pointer-events: auto;
-        visibility: visible;
-      }
-      .nav-title {
-        color: var(--nimbus-text-primary);
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 20px;
-        margin-bottom: 10px;
-      }
-      .nav-step-list {
-        list-style: none;
-        padding: 0;
-      }
-      .nav-step-item {
-        border-left: 2px solid transparent;
-        border-radius: 0;
-        color: #3c4043;
-        cursor: default;
-        font-size: 12px;
-        line-height: 16px;
-        margin-bottom: 2px;
-        padding: 3px 0 3px 10px;
-        transition: background var(--nimbus-motion-fast);
-      }
-      .nav-step-item.active {
-        background: transparent;
-        color: var(--nimbus-primary);
-        font-weight: 500;
-      }
       .header-actions {
         display: flex;
         flex-shrink: 0;
@@ -1386,10 +1380,6 @@
         line-height: 24px;
       }
       @media (max-width: 1200px) {
-        .skill-grid,
-        .skeleton-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
         .context-detail__layout {
           grid-template-columns: 1fr;
         }
@@ -1398,16 +1388,15 @@
         }
       }
       @media (max-width: 768px) {
-        .enterprise-brand {
-          font-size: 20px;
+        .library-shell {
+          padding: var(--nimbus-space-6) var(--nimbus-space-4) var(--nimbus-space-12);
         }
-        .enterprise-topbar-inner {
-          padding: 16px 16px 18px 24px;
+        .library-page-header {
+          margin-bottom: var(--nimbus-space-8);
         }
         .container {
           display: flex;
           flex-direction: column;
-          padding: 24px 16px 40px 24px;
         }
         .doc-sidebar.skill-filters {
           margin-bottom: var(--nimbus-space-4);
@@ -1426,9 +1415,6 @@
           align-items: flex-start;
           gap: 14px;
           width: 100%;
-        }
-        .right-panel {
-          display: none;
         }
         .header-actions,
         .detail-actions {
@@ -1477,30 +1463,47 @@
   </head>
   <body>
     <div data-site-header data-home="./home.html"></div>
-    <header class="enterprise-topbar" aria-label="Skill Library">
-      <div class="enterprise-topbar-inner">
-        <div class="enterprise-brand">
-          <span class="enterprise-logo" aria-hidden="true">✦</span>
-          <span>Skill Library</span>
-        </div>
+
+    <div class="library-shell">
+      <header class="library-page-header">
+        <nav class="library-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li>
+              <a href="./home.html">Home</a>
+            </li>
+            <li aria-hidden="true">
+              <span class="material-symbols-outlined breadcrumb-sep"
+                >chevron_right</span
+              >
+            </li>
+            <li>
+              <a href="./skills.html">Skills</a>
+            </li>
+            <li aria-hidden="true">
+              <span class="material-symbols-outlined breadcrumb-sep"
+                >chevron_right</span
+              >
+            </li>
+            <li>
+              <span class="is-current" aria-current="page">Skill Library</span>
+            </li>
+          </ol>
+        </nav>
+        <p class="library-page-eyebrow">AI-native documentation skills for Google Cloud</p>
+        <h1 class="library-page-title">Skill Library</h1>
         <p class="library-page-intro">
           Discover, create, and share guided skills that connect AI-assisted
           exploration with documentation-backed verification.
         </p>
-      </div>
-    </header>
+      </header>
 
-    <div class="container">
+      <div class="container">
       <aside
         class="doc-sidebar skill-filters"
         aria-label="Skill catalog filters"
       >
         <div class="filter-row">☰ Filter</div>
-        <div
-          class="filter-tabs"
-          role="tablist"
-          aria-label="Filter by category"
-        >
+        <div class="filter-tabs" role="tablist" aria-label="Filter by category">
           <button
             class="filter-tab filter-tab--active"
             type="button"
@@ -1573,7 +1576,10 @@
                   class="search-input"
                   type="search"
                   placeholder="Search skills by name, keyword, or product..."
-                  oninput="setLibraryBrowseMode(); renderSkills()"
+                  oninput="
+                    setLibraryBrowseMode();
+                    renderSkills();
+                  "
                 />
               </div>
               <div class="toolbar-actions">
@@ -1738,18 +1744,7 @@
           </section>
         </div>
       </div>
-
-      <div class="right-panel">
-        <div class="step-navigator">
-          <div class="nav-title">On this page</div>
-          <ul class="nav-step-list">
-            <li class="nav-step-item active">Browse catalog</li>
-            <li class="nav-step-item">Search and sort skills</li>
-            <li class="nav-step-item">Filter by goal, product, or type</li>
-            <li class="nav-step-item">Create or save skills</li>
-          </ul>
-        </div>
-      </div>
+    </div>
     </div>
 
     <div id="shareModal" class="modal-backdrop">
@@ -1815,7 +1810,8 @@
           applyCatalogData(window.__GC_SKILLS_CATALOG__);
           return;
         }
-        const url = new URL("assets/skills_data.json", window.location.href).href;
+        const url = new URL("assets/skills_data.json", window.location.href)
+          .href;
         const res = await fetch(url, { cache: "no-store" });
         if (!res.ok) throw new Error(`skills_data.json: ${res.status}`);
         const data = await res.json();
@@ -1985,10 +1981,7 @@
       function renderSkillPagination(totalItems) {
         const nav = document.getElementById("skillPagination");
         if (!nav) return;
-        const totalPages = Math.max(
-          1,
-          Math.ceil(totalItems / SKILLS_PER_PAGE),
-        );
+        const totalPages = Math.max(1, Math.ceil(totalItems / SKILLS_PER_PAGE));
         if (totalItems === 0 || totalPages <= 1) {
           nav.innerHTML = "";
           nav.classList.remove("is-visible");
