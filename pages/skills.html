@@ -29,6 +29,7 @@
       body {
         background: var(--nimbus-surface);
         color: var(--nimbus-text-primary);
+        font-family: inherit;
       }
       /* Force 4-column grid for "Inside a Skill" cards regardless of Tailwind
          CDN responsive class behavior. Below 768px it collapses to 2 columns. */
@@ -86,6 +87,87 @@
         color: currentColor;
         font-size: 16px;
       }
+
+      .skills-page-layout {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-8);
+      }
+
+      @media (min-width: 1024px) {
+        .skills-page-layout {
+          flex-direction: row;
+        }
+      }
+
+      .skills-page-content {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 5rem;
+        min-width: 0;
+      }
+
+      .skills-page-toc {
+        align-self: flex-start;
+        border-left: 2px solid var(--nimbus-primary);
+        flex-shrink: 0;
+        padding: var(--nimbus-space-1) 0 0 var(--nimbus-space-3);
+        position: sticky;
+        top: calc(48px + var(--nimbus-space-6));
+        width: 10rem;
+      }
+
+      .skills-page-toc-title {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        line-height: var(--nimbus-label-lh);
+        margin: 0 0 var(--nimbus-space-3);
+        text-transform: uppercase;
+      }
+
+      .skills-page-toc a {
+        color: var(--nimbus-text-secondary);
+        display: block;
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        text-decoration: none;
+        transition: color var(--nimbus-motion-fast);
+      }
+
+      .skills-page-toc a.is-sub {
+        font-size: 11px;
+        line-height: 1.3;
+        padding-left: var(--nimbus-space-3);
+      }
+
+      .skills-page-toc a:hover,
+      .skills-page-toc a.is-active {
+        color: var(--nimbus-primary);
+      }
+
+      .skills-page-toc a.is-active {
+        font-weight: 600;
+      }
+
+      .skills-page-toc-nav {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-3);
+      }
+
+      .skills-page-toc-aside {
+        display: none;
+      }
+
+      @media (min-width: 1024px) {
+        .skills-page-toc-aside {
+          display: block;
+        }
+      }
     </style>
   </head>
   <body
@@ -94,7 +176,7 @@
     <div data-site-header data-home="./home.html"></div>
 
     <div class="relative min-h-[calc(100vh-57px)]">
-      <main class="flex-1 overflow-y-auto bg-white relative">
+      <main class="skills-page-main bg-white relative">
         <div class="mx-auto max-w-7xl px-6 pb-36 pt-12 lg:px-12">
           <!-- Breadcrumbs -->
           <nav class="mb-12 flex text-sm text-gray-500" aria-label="Breadcrumb">
@@ -120,24 +202,16 @@
             </ol>
           </nav>
 
-          <div
-            class="relative flex flex-col items-stretch justify-between gap-12 lg:flex-row lg:items-start lg:gap-12"
-          >
-            <div class="flex-1 min-w-0">
-              <!-- Header Section -->
-              <div class="mb-20">
+          <!-- Header Section -->
+          <div class="mb-20">
                 <div class="flex items-center gap-2 mb-4">
                   <span
                     class="text-xs font-semibold text-blue-600 uppercase tracking-widest"
                   >
-                    GENAI-CONTENT SKILLS FOR GOOGLE
+                    AI-NATIVE DOCUMENTATION SKILLS FOR GOOGLE CLOUD
                   </span>
                 </div>
-                <h1
-                  class="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight mb-6"
-                >
-                  Skills
-                </h1>
+                <h1 class="library-page-title">Skills</h1>
                 <p class="text-xl text-gray-600 leading-relaxed max-w-4xl">
                   Skills transform Google Cloud Documentation from static
                   information into actionable, reusable workflows that help
@@ -156,12 +230,11 @@
                     <span class="material-symbols-outlined">arrow_forward</span>
                   </span>
                 </a>
-              </div>
+          </div>
 
-              <div class="flex flex-col gap-16 lg:flex-row lg:gap-8">
-                <!-- Left Column: Content -->
-                <div class="flex min-w-0 flex-1 flex-col gap-20">
-                  <!-- Introduction Section -->
+          <div class="skills-page-layout">
+            <div class="skills-page-content">
+              <!-- Introduction Section -->
                   <div
                     class="max-w-none space-y-6 text-gray-600 text-base leading-relaxed"
                   >
@@ -446,58 +519,43 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+            </div>
 
-                <!-- Right Column: Outline Sidebar -->
-                <div class="hidden lg:block w-40 flex-shrink-0">
-                  <div class="pl-4 border-l border-gray-200 sticky top-20 pt-1">
-                    <h2
-                      class="font-semibold text-gray-900 mb-3 text-xs uppercase tracking-wider text-left"
-                    >
-                      On this page
-                    </h2>
-                    <nav class="space-y-3 text-left">
-                      <a
-                        href="#whats-a-skill"
-                        class="block text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors"
-                      >
+            <aside class="skills-page-toc-aside" aria-label="On this page">
+                  <nav class="skills-page-toc">
+                    <p class="skills-page-toc-title">On this page</p>
+                    <div class="skills-page-toc-nav" id="skillsPageTocLinks">
+                      <a href="#whats-a-skill" data-section-link="whats-a-skill">
                         What's a skill
                       </a>
                       <a
                         href="#inside-a-skill"
-                        class="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4"
+                        class="is-sub"
+                        data-section-link="inside-a-skill"
                       >
                         Inside a Skill
                       </a>
-                      <a
-                        href="#example"
-                        class="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4"
-                      >
+                      <a href="#example" class="is-sub" data-section-link="example">
                         Example
                       </a>
-                      <a
-                        href="#example"
-                        class="block text-sm text-gray-600 hover:text-blue-600 transition-colors pl-4"
-                      >
+                      <a href="#example" class="is-sub" data-section-link="example">
                         Example SKILL.md
                       </a>
                       <a
                         href="#what-can-you-do"
-                        class="block text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                        data-section-link="what-can-you-do"
                       >
                         What can you do with skills?
                       </a>
                       <a
                         href="#how-skills-help"
-                        class="block text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                        data-section-link="how-skills-help"
                       >
                         How skills help
                       </a>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    </div>
+                  </nav>
+            </aside>
           </div>
         </div>
 
@@ -647,6 +705,73 @@
           color: "text-rose-500",
         },
       ];
+
+      function getSkillsTocScrollOffset() {
+        const header = document.querySelector(".gcloud-header");
+        return (header?.offsetHeight || 48) + 24;
+      }
+
+      function scrollToSkillsSection(target) {
+        const offset = getSkillsTocScrollOffset();
+        const top =
+          target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
+
+      function initSkillsPageToc() {
+        const linksEl = document.getElementById("skillsPageTocLinks");
+        if (!linksEl) return;
+
+        const links = [...linksEl.querySelectorAll("a[data-section-link]")];
+        const headingIds = [
+          ...new Set(
+            links.map((link) => link.dataset.sectionLink).filter(Boolean),
+          ),
+        ];
+        const headings = headingIds
+          .map((id) => document.getElementById(id))
+          .filter(Boolean);
+
+        const setActive = (id) => {
+          links.forEach((link) => {
+            link.classList.toggle(
+              "is-active",
+              link.dataset.sectionLink === id,
+            );
+          });
+        };
+
+        links.forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            const target = document.getElementById(link.dataset.sectionLink);
+            if (!target) return;
+            scrollToSkillsSection(target);
+            history.replaceState(null, "", `#${link.dataset.sectionLink}`);
+            setActive(link.dataset.sectionLink);
+          });
+        });
+
+        const updateActive = () => {
+          if (headings.length === 0) return;
+          const scrollOffset = getSkillsTocScrollOffset();
+          let activeId = headings[0].id;
+          for (const heading of headings) {
+            if (heading.getBoundingClientRect().top - scrollOffset <= 0) {
+              activeId = heading.id;
+            } else {
+              break;
+            }
+          }
+          setActive(activeId);
+        };
+
+        window.addEventListener("scroll", updateActive, { passive: true });
+        window.addEventListener("resize", updateActive);
+        updateActive();
+      }
+
+      initSkillsPageToc();
 
       document.getElementById("usecase-grid").innerHTML = useCases
         .map(

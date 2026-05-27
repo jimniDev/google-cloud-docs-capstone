@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -40,13 +40,14 @@
         --google-green: #34a853;
       }
       html {
+        font-family:
+          "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
         overflow-y: scroll;
         scrollbar-gutter: stable;
       }
       body {
-        font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial,
-          sans-serif;
-        background: var(--nimbus-surface-subtle);
+        font-family: inherit;
+        background: var(--nimbus-surface);
         color: var(--nimbus-text-primary);
         line-height: 1.5;
         padding: 0;
@@ -103,47 +104,79 @@
         position: static;
       }
 
-      /* Match .gcloud-header-inner (1600px, 24px gutters) */
-      .enterprise-topbar {
-        background: #eaf2ff;
-        border-bottom: 0;
-        position: static;
-        top: auto;
-        z-index: 21;
-      }
-      .enterprise-topbar-inner {
-        align-items: flex-start;
+      .library-shell {
+        background: var(--nimbus-surface);
         box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 1600px;
-        padding: 16px 24px 18px;
+        margin: 0 auto;
+        max-width: 80rem;
+        padding: var(--nimbus-space-12) var(--nimbus-space-6) 9rem;
       }
-      .enterprise-brand {
+
+      .library-page-header {
+        margin: 0 0 5rem;
+        padding: 0;
+      }
+
+      .library-breadcrumb {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0 0 var(--nimbus-space-12);
+      }
+
+      .library-breadcrumb ol {
         align-items: center;
-        color: #202124;
-        display: flex;
-        flex: 0 0 auto;
-        font-size: 22px;
-        font-weight: 400;
-        gap: 8px;
-        letter-spacing: -0.2px;
-      }
-      .library-page-intro {
-        color: #3c4043;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 22px;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: var(--nimbus-space-1);
+        list-style: none;
         margin: 0;
-        max-width: 840px;
+        padding: 0;
       }
-      .enterprise-logo {
-        color: #1a73e8;
-        font-size: 20px;
+
+      .library-breadcrumb li {
+        align-items: center;
+        display: inline-flex;
+      }
+
+      .library-breadcrumb a {
+        color: var(--nimbus-text-secondary);
+        text-decoration: none;
+        transition: color var(--nimbus-motion-fast);
+      }
+
+      .library-breadcrumb a:hover {
+        color: var(--nimbus-primary);
+      }
+
+      .library-breadcrumb .breadcrumb-sep {
+        color: var(--nimbus-text-disabled);
+        font-size: 18px;
         line-height: 1;
+      }
+
+      .library-breadcrumb .is-current {
+        color: var(--nimbus-text-primary);
+        font-weight: 500;
+      }
+
+      .library-page-eyebrow {
+        color: var(--nimbus-primary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        line-height: 1.5;
+        margin: 0 0 var(--nimbus-space-4);
+        text-transform: uppercase;
+      }
+
+      .library-page-intro {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-title-l-size);
+        font-weight: 400;
+        line-height: 1.625;
+        margin: 0;
+        max-width: 56rem;
       }
 
       .container {
@@ -151,55 +184,64 @@
         box-sizing: border-box;
         column-gap: 30px;
         display: grid;
-        grid-template-columns: 230px minmax(0, 957px) 250px;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 1600px;
-        padding: 20px 24px 48px;
+        grid-template-columns: 230px minmax(0, 1fr);
+        margin: 0;
+        max-width: none;
+        padding: 0;
         row-gap: 24px;
       }
+      .container.is-create-mode {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .container.is-create-mode .skill-filters {
+        display: none;
+      }
+
+      @media (min-width: 1024px) {
+        .library-shell {
+          padding-left: var(--nimbus-space-12);
+          padding-right: var(--nimbus-space-12);
+        }
+      }
       .doc-sidebar.skill-filters {
+        align-self: start;
         background: var(--nimbus-surface);
-        border-radius: 0;
-        border-right: 1px solid var(--nimbus-border);
-        box-shadow: none;
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow: var(--nimbus-shadow-sm);
         flex-shrink: unset;
-        min-height: calc(100vh - 120px);
-        padding: 0 18px 24px 0;
-        position: static;
-        top: auto;
+        max-height: calc(100vh - 48px);
+        min-height: 0;
+        overflow-y: auto;
+        padding: var(--nimbus-space-4) var(--nimbus-space-4)
+          var(--nimbus-space-6);
+        position: sticky;
+        top: 24px;
         width: auto;
       }
       .filter-row {
         align-items: center;
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-bottom: 0;
-        border-radius: 2px;
-        color: var(--nimbus-text-secondary);
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--nimbus-border);
+        border-radius: 0;
+        color: var(--nimbus-text-primary);
         display: flex;
-        font-size: 12px;
-        gap: 6px;
-        margin: 0 -18px 12px 0;
-        padding: 9px 12px;
+        font-size: var(--nimbus-label-size);
+        font-weight: 600;
+        gap: var(--nimbus-space-2);
+        margin: 0 0 var(--nimbus-space-4);
+        padding: 0 0 var(--nimbus-space-3);
       }
       .left-panel {
         background: var(--nimbus-surface);
         border: 1px solid var(--nimbus-border);
-        border-radius: 10px;
-        box-shadow: 0 1px 2px rgba(60, 64, 67, 0.08);
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow: var(--nimbus-shadow-sm);
         min-width: 0;
         padding: 0 38px 48px;
         position: relative;
       }
-      .right-panel {
-        height: fit-content;
-        min-width: 0;
-        padding-top: 42px;
-        position: sticky;
-        top: 24px;
-      }
-
       .doc-header {
         background: transparent;
         margin-bottom: 24px;
@@ -220,43 +262,6 @@
         gap: 16px;
       }
 
-      .step-navigator {
-        background: transparent;
-        border: none;
-        border-left: 3px solid #1a73e8;
-        border-radius: 0;
-        opacity: 1;
-        padding: 0 0 0 14px;
-        pointer-events: auto;
-        visibility: visible;
-      }
-      .nav-title {
-        color: var(--nimbus-text-primary);
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 20px;
-        margin-bottom: 10px;
-      }
-      .nav-step-list {
-        list-style: none;
-        padding: 0;
-      }
-      .nav-step-item {
-        border-left: 2px solid transparent;
-        border-radius: 0;
-        color: #3c4043;
-        cursor: default;
-        font-size: 12px;
-        line-height: 16px;
-        margin-bottom: 2px;
-        padding: 3px 0 3px 10px;
-        transition: background var(--nimbus-motion-fast);
-      }
-      .nav-step-item.active {
-        background: transparent;
-        color: var(--nimbus-primary);
-        font-weight: 500;
-      }
       .header-actions {
         display: flex;
         flex-shrink: 0;
@@ -290,10 +295,16 @@
         border-color: var(--nimbus-primary);
         color: var(--nimbus-surface);
       }
-      .btn-primary:hover {
+      .btn-primary:hover:not(:disabled) {
         background: var(--nimbus-primary-hover);
         border-color: var(--nimbus-primary-hover);
         box-shadow: var(--nimbus-shadow-sm);
+      }
+      .btn:disabled,
+      .btn[aria-disabled="true"] {
+        cursor: not-allowed;
+        opacity: 0.4;
+        pointer-events: none;
       }
       .btn-blue {
         background: var(--nimbus-primary);
@@ -337,30 +348,40 @@
         box-shadow: var(--nimbus-focus-ring);
       }
       .filter-tabs {
-        display: flex;
         border-bottom: 1px solid var(--nimbus-border);
-        margin-bottom: 16px;
+        display: flex;
+        gap: 0;
+        margin-bottom: var(--nimbus-space-4);
       }
       .filter-tab {
         background: transparent;
         border: none;
+        border-bottom: 2px solid transparent;
         color: var(--nimbus-text-secondary);
         cursor: pointer;
         flex: 1;
-        font-size: 12px;
-        padding: 8px 4px;
+        font-size: var(--nimbus-label-size);
+        font-weight: 500;
+        line-height: 1.35;
+        margin-bottom: -1px;
+        min-width: 0;
+        padding: var(--nimbus-space-2) var(--nimbus-space-1);
+        text-align: center;
         transition:
-          background var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast),
           color var(--nimbus-motion-fast);
       }
-      .filter-tab:hover {
-        background: var(--nimbus-surface-subtle);
+      .filter-tab:hover:not(.filter-tab--active) {
+        color: var(--nimbus-text-primary);
       }
       .filter-tab--active {
-        background: transparent;
-        border-bottom: 2px solid #1a73e8;
-        color: #1a73e8;
+        border-bottom-color: var(--nimbus-primary);
+        color: var(--nimbus-primary);
         font-weight: 600;
+      }
+      .filter-tab:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
       }
       .filter-group {
         display: none;
@@ -658,15 +679,34 @@
         font-weight: 600;
         margin-bottom: 6px;
       }
+      .main-content {
+        min-width: 0;
+      }
       .detail-view,
       .create-view {
         background: transparent;
         border: none;
         border-radius: 0;
         box-shadow: none;
-        display: none;
-        margin-top: 8px;
-        padding: 24px 0 0;
+        margin-top: 0;
+        padding: 0;
+      }
+      .create-view[hidden],
+      .detail-view[hidden],
+      #libraryView[hidden] {
+        display: none !important;
+      }
+      .create-view:not([hidden]) {
+        padding-top: var(--nimbus-space-8);
+      }
+      .create-view:not([hidden]) .form-header {
+        margin-top: var(--nimbus-space-4);
+      }
+      .create-view .header-actions:last-of-type {
+        border-top: 1px solid var(--nimbus-border);
+        justify-content: flex-end;
+        margin-top: var(--nimbus-space-6);
+        padding-top: var(--nimbus-space-6);
       }
       .back-btn {
         align-items: center;
@@ -1371,10 +1411,6 @@
         line-height: 24px;
       }
       @media (max-width: 1200px) {
-        .skill-grid,
-        .skeleton-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
         .context-detail__layout {
           grid-template-columns: 1fr;
         }
@@ -1383,28 +1419,21 @@
         }
       }
       @media (max-width: 768px) {
-        .enterprise-brand {
-          font-size: 20px;
+        .library-shell {
+          padding: var(--nimbus-space-6) var(--nimbus-space-4) var(--nimbus-space-12);
         }
-        .enterprise-topbar-inner {
-          padding: 16px 16px 18px 24px;
+        .library-page-header {
+          margin-bottom: var(--nimbus-space-8);
         }
         .container {
           display: flex;
           flex-direction: column;
-          padding: 24px 16px 40px 24px;
         }
         .doc-sidebar.skill-filters {
-          border-bottom: 1px solid var(--nimbus-border);
-          border-right: none;
-          margin-bottom: 0;
-          min-height: 0;
-          padding-bottom: 20px;
+          margin-bottom: var(--nimbus-space-4);
+          max-height: none;
+          position: static;
           width: 100%;
-        }
-        .filter-row {
-          margin-left: 0;
-          margin-right: 0;
         }
         .left-panel {
           padding: 24px;
@@ -1417,9 +1446,6 @@
           align-items: flex-start;
           gap: 14px;
           width: 100%;
-        }
-        .right-panel {
-          display: none;
         }
         .header-actions,
         .detail-actions {
@@ -1468,35 +1494,62 @@
   </head>
   <body>
     <div data-site-header data-home="./home.html"></div>
-    <header class="enterprise-topbar" aria-label="Skill Library">
-      <div class="enterprise-topbar-inner">
-        <div class="enterprise-brand">
-          <span class="enterprise-logo" aria-hidden="true">✦</span>
-          <span>Skill Library</span>
-        </div>
+
+    <div class="library-shell">
+      <header class="library-page-header">
+        <nav class="library-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li>
+              <a href="./home.html">Home</a>
+            </li>
+            <li aria-hidden="true">
+              <span class="material-symbols-outlined breadcrumb-sep"
+                >chevron_right</span
+              >
+            </li>
+            <li>
+              <a href="./skills.html">Skills</a>
+            </li>
+            <li aria-hidden="true">
+              <span class="material-symbols-outlined breadcrumb-sep"
+                >chevron_right</span
+              >
+            </li>
+            <li>
+              <span class="is-current" aria-current="page">Skill Library</span>
+            </li>
+          </ol>
+        </nav>
+        <p class="library-page-eyebrow">AI-native documentation skills for Google Cloud</p>
+        <h1 class="library-page-title">Skill Library</h1>
         <p class="library-page-intro">
           Discover, create, and share guided skills that connect AI-assisted
           exploration with documentation-backed verification.
         </p>
-      </div>
-    </header>
+      </header>
 
-    <div class="container">
+      <div class="container" id="libraryContainer">
       <aside
         class="doc-sidebar skill-filters"
         aria-label="Skill catalog filters"
       >
         <div class="filter-row">☰ Filter</div>
-        <div class="filter-tabs">
+        <div class="filter-tabs" role="tablist" aria-label="Filter by category">
           <button
             class="filter-tab filter-tab--active"
+            type="button"
+            role="tab"
+            aria-selected="true"
             data-tab="goals"
             onclick="switchFilterTab('goals')"
           >
-            User Goals
+            Goals
           </button>
           <button
             class="filter-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
             data-tab="products"
             onclick="switchFilterTab('products')"
           >
@@ -1504,10 +1557,13 @@
           </button>
           <button
             class="filter-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
             data-tab="types"
             onclick="switchFilterTab('types')"
           >
-            Skill Types
+            Types
           </button>
         </div>
         <div id="goalsFilter" class="filter-group active"></div>
@@ -1519,31 +1575,39 @@
       </aside>
 
       <div class="left-panel">
-        <header class="doc-header">
-          <div class="doc-header-top">
-            <div class="doc-feedback">
-              <div class="header-actions">
-                <button class="btn btn-primary" onclick="showCreateForm()">
-                  <span
-                    class="material-symbols-outlined icon-sm"
-                    aria-hidden="true"
-                    >add</span
-                  >Create New Skill
-                </button>
-                <button class="btn btn-secondary" onclick="showMySkills()">
-                  <span
-                    class="material-symbols-outlined icon-sm"
-                    aria-hidden="true"
-                    >bookmark</span
-                  >My Skills
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
         <div class="main-content">
           <section id="libraryView">
+            <header class="doc-header">
+              <div class="doc-header-top">
+                <div class="doc-feedback">
+                  <div class="header-actions">
+                    <button
+                      id="createSkillBtn"
+                      class="btn btn-primary"
+                      type="button"
+                      onclick="showCreateForm()"
+                    >
+                      <span
+                        class="material-symbols-outlined icon-sm"
+                        aria-hidden="true"
+                        >add</span
+                      >Create New Skill
+                    </button>
+                    <button
+                      class="btn btn-secondary"
+                      type="button"
+                      onclick="showMySkills()"
+                    >
+                      <span
+                        class="material-symbols-outlined icon-sm"
+                        aria-hidden="true"
+                        >bookmark</span
+                      >My Skills
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </header>
             <div class="main-toolbar">
               <div class="search-wrap toolbar-search">
                 <input
@@ -1551,7 +1615,10 @@
                   class="search-input"
                   type="search"
                   placeholder="Search skills by name, keyword, or product..."
-                  oninput="setLibraryBrowseMode(); renderSkills()"
+                  oninput="
+                    setLibraryBrowseMode();
+                    renderSkills();
+                  "
                 />
               </div>
               <div class="toolbar-actions">
@@ -1598,8 +1665,8 @@
             </div>
           </section>
 
-          <section id="detailView" class="detail-view"></section>
-          <section id="createView" class="create-view">
+          <section id="detailView" class="detail-view" hidden></section>
+          <section id="createView" class="create-view" hidden aria-hidden="true">
             <div class="form-header">
               <div class="form-title">Create New Skill</div>
               <div class="header-actions">
@@ -1716,18 +1783,7 @@
           </section>
         </div>
       </div>
-
-      <div class="right-panel">
-        <div class="step-navigator">
-          <div class="nav-title">On this page</div>
-          <ul class="nav-step-list">
-            <li class="nav-step-item active">Browse catalog</li>
-            <li class="nav-step-item">Search and sort skills</li>
-            <li class="nav-step-item">Filter by goal, product, or type</li>
-            <li class="nav-step-item">Create or save skills</li>
-          </ul>
-        </div>
-      </div>
+    </div>
     </div>
 
     <div id="shareModal" class="modal-backdrop">
@@ -1793,7 +1849,8 @@
           applyCatalogData(window.__GC_SKILLS_CATALOG__);
           return;
         }
-        const url = new URL("assets/skills_data.json", window.location.href).href;
+        const url = new URL("assets/skills_data.json", window.location.href)
+          .href;
         const res = await fetch(url, { cache: "no-store" });
         if (!res.ok) throw new Error(`skills_data.json: ${res.status}`);
         const data = await res.json();
@@ -1821,6 +1878,21 @@
         addDynamicItem("prereqList", "Prerequisite");
         addDynamicItem("stepListForm", "Step title");
         addDynamicItem("checkpointList", "Checkpoint");
+        document
+          .getElementById("createSkillBtn")
+          ?.addEventListener("click", showCreateForm);
+        window.addEventListener("hashchange", () => {
+          if (location.hash === "#create") {
+            showCreateForm();
+          } else {
+            showLibrary();
+          }
+        });
+        if (location.hash === "#create") {
+          showCreateForm();
+        } else {
+          showLibrary();
+        }
         setTimeout(() => {
           document.getElementById("skeletonGrid").style.display = "none";
           document.getElementById("skillGrid").style.display = "grid";
@@ -1845,10 +1917,9 @@
 
       function switchFilterTab(tab) {
         document.querySelectorAll(".filter-tab").forEach((button) => {
-          button.classList.toggle(
-            "filter-tab--active",
-            button.dataset.tab === tab,
-          );
+          const isActive = button.dataset.tab === tab;
+          button.classList.toggle("filter-tab--active", isActive);
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
         });
         document
           .querySelectorAll(".filter-group")
@@ -1964,10 +2035,7 @@
       function renderSkillPagination(totalItems) {
         const nav = document.getElementById("skillPagination");
         if (!nav) return;
-        const totalPages = Math.max(
-          1,
-          Math.ceil(totalItems / SKILLS_PER_PAGE),
-        );
+        const totalPages = Math.max(1, Math.ceil(totalItems / SKILLS_PER_PAGE));
         if (totalItems === 0 || totalPages <= 1) {
           nav.innerHTML = "";
           nav.classList.remove("is-visible");
@@ -2057,12 +2125,40 @@
         renderSkills();
       }
 
+      function setLibraryPanel(mode) {
+        const libraryView = document.getElementById("libraryView");
+        const createView = document.getElementById("createView");
+        const detailView = document.getElementById("detailView");
+        const container = document.getElementById("libraryContainer");
+        const isCreate = mode === "create";
+
+        libraryView.hidden = isCreate;
+        createView.hidden = !isCreate;
+        detailView.hidden = true;
+
+        if (isCreate) {
+          createView.removeAttribute("aria-hidden");
+          createView.removeAttribute("inert");
+          libraryView.setAttribute("inert", "");
+          container.classList.add("is-create-mode");
+          document.getElementById("skillName")?.focus();
+        } else {
+          createView.setAttribute("aria-hidden", "true");
+          createView.setAttribute("inert", "");
+          libraryView.removeAttribute("inert");
+          container.classList.remove("is-create-mode");
+        }
+      }
+
       function showLibrary() {
-        document.getElementById("libraryView").style.display = "block";
-        document.getElementById("detailView").style.display = "none";
-        document.getElementById("createView").style.display = "none";
-        document.querySelector(".skill-filters").style.display = "block";
-        history.replaceState(null, "", "./");
+        setLibraryPanel("library");
+        const url = new URL(window.location.href);
+        url.hash = "";
+        history.replaceState(
+          null,
+          "",
+          url.pathname + url.search || "./skill-library.html",
+        );
         renderSkills();
       }
 
@@ -2325,10 +2421,8 @@
       }
 
       function showCreateForm() {
-        document.getElementById("libraryView").style.display = "none";
-        document.getElementById("detailView").style.display = "none";
-        document.getElementById("createView").style.display = "block";
-        document.querySelector(".skill-filters").style.display = "none";
+        setLibraryPanel("create");
+        history.replaceState(null, "", "./skill-library.html#create");
       }
 
       function addDynamicItem(listId, placeholder) {
