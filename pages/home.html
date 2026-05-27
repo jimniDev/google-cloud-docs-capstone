@@ -51,6 +51,9 @@
       }
 
       .page {
+        --section-padding-y: calc(
+          var(--nimbus-space-16) + var(--nimbus-space-12)
+        );
         min-height: 100vh;
         overflow-y: auto;
         position: relative;
@@ -58,56 +61,266 @@
       .shell {
         margin: 0 auto;
         max-width: 1280px;
-        padding: var(--nimbus-space-16) var(--nimbus-space-8);
+        padding: 0 var(--nimbus-space-8);
       }
+
+      .hero-band {
+        background-color: #000;
+        overflow: visible;
+        padding: var(--section-padding-y) var(--nimbus-space-8);
+        position: relative;
+      }
+
+      .hero-band__accent {
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        width: min(520px, 48vw);
+        z-index: 0;
+      }
+
+      .hero-band__accent--left {
+        left: 0;
+      }
+
+      .hero-band__accent--right {
+        right: 0;
+        width: min(640px, 52vw);
+      }
+
+      .hero-band__accent img {
+        display: block;
+        height: auto;
+        width: 100%;
+      }
+
+      .hero-band__inner {
+        margin: 0 auto;
+        max-width: 720px;
+        position: relative;
+        z-index: 1;
+      }
+
       .hero {
         align-items: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 0 auto 20px;
+        margin: 0 auto calc(var(--nimbus-space-8) * 2.25);
         max-width: 720px;
-        min-height: 220px;
+        min-height: auto;
         text-align: center;
       }
-      .cloud-mark {
-        align-items: center;
-        display: inline-flex;
-        gap: var(--nimbus-space-2);
+
+      .hero-spark {
+        display: block;
         height: 40px;
-        justify-content: center;
-        margin-bottom: var(--nimbus-space-4);
+        margin-bottom: calc(var(--nimbus-space-6) * 2.25);
+        object-fit: contain;
+        width: 40px;
       }
-      .cloud-spark {
-        color: var(--nimbus-primary);
-        font-size: 30px;
-        line-height: 1;
-      }
-      .cloud-wordmark {
-        color: var(--nimbus-text-secondary);
-        font-family: "Google Sans", Inter, system-ui, sans-serif;
-        font-size: 22px;
-        font-weight: 500;
-        letter-spacing: -0.2px;
-      }
+
       .hero h1 {
-        color: var(--nimbus-text-primary);
+        color: var(--nimbus-surface);
         font-family: "Google Sans", Inter, system-ui, sans-serif;
         font-size: var(--nimbus-display-m-size);
         font-weight: 600;
         letter-spacing: -0.5px;
         line-height: var(--nimbus-display-m-lh);
-        margin: 0 0 var(--nimbus-space-3);
-        white-space: nowrap;
+        margin: 0 0 calc(var(--nimbus-space-4) * 2.25);
       }
+
       .hero p {
-        color: var(--nimbus-text-secondary);
+        color: color-mix(in srgb, var(--nimbus-surface) 84%, transparent);
         font-size: var(--nimbus-body-l-size);
         line-height: var(--nimbus-body-l-lh);
         margin: 0 auto;
-        max-width: 560px;
+        max-width: 720px;
         text-align: center;
         white-space: nowrap;
+      }
+
+      .hero-band .search-wrap {
+        margin: 0;
+        max-width: none;
+        position: relative;
+      }
+
+      .hero-band .search-pill-shell {
+        background: transparent;
+        border-radius: var(--nimbus-space-6);
+        padding: 0;
+        position: relative;
+      }
+
+      .hero-band .search-pill-shell .search-pill {
+        align-items: stretch;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: var(--nimbus-space-6);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-3);
+        padding: var(--nimbus-space-4) var(--nimbus-space-5);
+        position: relative;
+        transition:
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+        z-index: 1;
+      }
+
+      .hero-band .search-pill-shell .search-pill:hover {
+        border-color: rgba(255, 255, 255, 0.22);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      }
+
+      .hero-band .search-pill-shell .search-pill:focus-within {
+        border-color: rgba(255, 255, 255, 0.38);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.16),
+          0 0 0 3px rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-band .search-pill__input-row {
+        width: 100%;
+      }
+
+      .hero-band .search-pill__actions-row {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .hero-band .round-btn {
+        background: transparent;
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-border) 55%,
+          var(--nimbus-text-primary)
+        );
+        color: color-mix(in srgb, var(--nimbus-surface) 78%, transparent);
+      }
+
+      .hero-band .round-btn:hover,
+      .hero-band .icon-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--nimbus-surface);
+      }
+
+      .hero-band .icon-btn {
+        background: transparent;
+        border-color: transparent;
+        color: color-mix(in srgb, var(--nimbus-surface) 78%, transparent);
+      }
+
+      .hero-band .search-input {
+        background: transparent;
+        caret-color: rgba(138, 180, 248, 0.9);
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .hero-band .search-placeholder-line {
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      @supports not (
+        (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+      ) {
+        .hero-band .search-pill-shell .search-pill {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+
+      .hero-band:has(.search-wrap.is-docked) {
+        position: relative;
+        z-index: 180;
+      }
+
+      .hero-band .search-wrap.is-docked {
+        bottom: var(--nimbus-space-8);
+        left: 0;
+        margin: 0;
+        max-width: none;
+        padding: 0 var(--nimbus-space-8)
+          calc(var(--nimbus-space-2) + env(safe-area-inset-bottom, 0px));
+        position: fixed;
+        right: 0;
+        width: 100%;
+        z-index: 180;
+      }
+
+      .hero-band .search-wrap.is-docked .search-pill-shell {
+        margin: 0 auto;
+        max-width: 720px;
+        width: 100%;
+      }
+
+      .hero-band .search-wrap.is-docked .search-pill-shell .search-pill {
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.85),
+          0 8px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .hero-band .search-wrap.is-docked .search-pill-shell .search-pill:hover {
+        border-color: rgba(255, 255, 255, 0.75);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.9),
+          0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-band .search-wrap.is-docked .search-pill-shell .search-pill:focus-within {
+        border-color: rgba(255, 255, 255, 0.75);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.9),
+          0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .hero-band .search-wrap.is-docked .search-input:focus {
+        outline: none;
+      }
+
+      .hero-band .search-wrap.is-docked .search-input:focus-visible {
+        outline: none;
+      }
+
+      .hero-band .search-wrap.is-docked .search-input {
+        caret-color: var(--nimbus-primary);
+        color: var(--nimbus-text-primary);
+      }
+
+      .hero-band .search-wrap.is-docked .search-placeholder-line {
+        color: var(--nimbus-text-secondary);
+      }
+
+      .hero-band .search-wrap.is-docked .round-btn {
+        border-color: var(--nimbus-border);
+        color: var(--nimbus-text-secondary);
+      }
+
+      .hero-band .search-wrap.is-docked .icon-btn {
+        color: var(--nimbus-text-secondary);
+      }
+
+      .hero-band .search-wrap.is-docked .round-btn:hover,
+      .hero-band .search-wrap.is-docked .icon-btn:hover {
+        background: var(--nimbus-surface-subtle);
+        border-color: var(--nimbus-text-primary);
+        color: var(--nimbus-text-primary);
+      }
+
+      .hero-band .search-wrap.is-docked .plus-menu {
+        bottom: calc(100% + var(--nimbus-space-3));
+        top: auto;
+        z-index: 182;
       }
 
       .search-wrap {
@@ -236,7 +449,10 @@
         top: calc(100% + 8px);
       }
       .suggestion-panel.dock-bottom {
-        bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+        bottom: calc(
+          var(--docked-search-height, 120px) + var(--nimbus-space-8) +
+            var(--nimbus-space-4) + env(safe-area-inset-bottom, 0px)
+        );
         left: 50%;
         max-width: none;
         position: fixed;
@@ -244,7 +460,7 @@
         top: auto;
         transform: translateX(-50%);
         width: min(720px, calc(100vw - 32px));
-        z-index: 55;
+        z-index: 181;
       }
       .is-open {
         display: block;
@@ -464,92 +680,446 @@
         color: var(--nimbus-primary);
       }
 
-      .task-carousel {
+      .featured-section {
+        margin: 0;
+        padding: var(--section-padding-y) 0;
+      }
+
+      .featured-section__title {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-headline-l-size);
+        font-weight: 600;
+        line-height: var(--nimbus-headline-l-lh);
+        margin: 0 0 var(--nimbus-space-8);
+      }
+
+      .featured-grid {
+        display: grid;
+        gap: var(--nimbus-space-6);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .featured-card {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow: var(--nimbus-shadow-sm);
+        display: flex;
+        flex-direction: column;
+        min-height: 320px;
+        transition:
+          border-color var(--nimbus-motion-medium),
+          box-shadow var(--nimbus-motion-medium),
+          transform var(--nimbus-motion-medium);
+      }
+
+      .featured-card:hover {
+        border-color: color-mix(
+          in srgb,
+          var(--nimbus-border) 72%,
+          var(--nimbus-text-secondary)
+        );
+        box-shadow: var(--nimbus-shadow-md);
+        transform: translateY(calc(var(--nimbus-space-1) * -1));
+      }
+
+      .featured-card__body {
+        display: flex;
+        flex: 1;
+        gap: var(--nimbus-space-4);
+        padding: var(--nimbus-space-6);
+      }
+
+      .featured-card__content {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .featured-card__label {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        margin-bottom: var(--nimbus-space-3);
+        text-transform: uppercase;
+      }
+
+      .featured-card__title {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-title-l-size);
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0 0 var(--nimbus-space-3);
+      }
+
+      .featured-card__desc {
+        color: var(--nimbus-text-secondary);
+        flex: 1;
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0;
+      }
+
+      .featured-card__desc u {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .featured-card__art {
+        align-self: center;
+        flex-shrink: 0;
+        height: 150px;
+        object-fit: contain;
+        transition: transform var(--nimbus-motion-medium);
+        width: 130px;
+      }
+
+      .featured-card:hover .featured-card__art {
+        transform: scale(1.05);
+      }
+
+      .featured-card__footer {
+        display: flex;
+        justify-content: flex-start;
+        padding: 0 var(--nimbus-space-6) var(--nimbus-space-6);
+      }
+
+      .featured-card__btn {
+        align-items: center;
         background: color-mix(
           in srgb,
-          var(--nimbus-primary) 8%,
+          var(--nimbus-primary) 12%,
           var(--nimbus-surface)
         );
-        border: 0;
-        border-radius: 0;
-        margin: 0 calc(50% - 50vw) 36px;
-        padding: 28px calc(50vw - 50%) 20px;
-        position: relative;
-      }
-      .task-carousel-track {
-        --task-carousel-fade: 22px;
-        display: flex;
-        gap: 24px;
-        margin: 0 -32px;
-        overflow-x: auto;
-        padding: 0 40px 14px;
-        scroll-behavior: smooth;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        -webkit-mask-image: linear-gradient(
-          to right,
-          #000 0,
-          #000 calc(100% - var(--task-carousel-fade)),
-          transparent 100%
-        );
-        mask-image: linear-gradient(
-          to right,
-          #000 0,
-          #000 calc(100% - var(--task-carousel-fade)),
-          transparent 100%
-        );
-      }
-      .task-carousel-track.has-left-fade {
-        -webkit-mask-image: linear-gradient(
-          to right,
-          transparent 0,
-          #000 var(--task-carousel-fade),
-          #000 calc(100% - var(--task-carousel-fade)),
-          transparent 100%
-        );
-        mask-image: linear-gradient(
-          to right,
-          transparent 0,
-          #000 var(--task-carousel-fade),
-          #000 calc(100% - var(--task-carousel-fade)),
-          transparent 100%
-        );
-      }
-      .task-carousel-track::-webkit-scrollbar {
-        display: none;
-      }
-      .task-carousel .task-card {
-        flex: 0 0 330px;
-        min-height: 300px;
-        scroll-snap-align: start;
-      }
-      .task-carousel-controls {
-        display: flex;
-        gap: 8px;
-        margin: 6px 0 0 16px;
-      }
-      .task-carousel-btn {
-        align-items: center;
-        background: var(--nimbus-surface);
-        border: 0;
-        border-radius: 999px;
-        box-shadow: var(--nimbus-shadow-sm);
-        color: var(--nimbus-text-primary);
-        cursor: pointer;
+        border: 1px solid
+          color-mix(in srgb, var(--nimbus-primary) 28%, var(--nimbus-border));
+        border-radius: 9999px;
+        color: var(--nimbus-primary);
         display: inline-flex;
-        height: 38px;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        height: 44px;
         justify-content: center;
-        width: 38px;
+        padding: 0 var(--nimbus-space-6);
+        text-decoration: none;
+        transition:
+          background var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast);
+        width: auto;
       }
-      .task-carousel-btn:hover {
+
+      .featured-card__btn:hover {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 18%,
+          var(--nimbus-surface)
+        );
+        border-color: var(--nimbus-primary);
+      }
+
+      .featured-card__btn:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .featured-card__btn--outline {
+        background: transparent;
+        border-color: var(--nimbus-text-primary);
+        color: var(--nimbus-text-primary);
+      }
+
+      .featured-card__btn--outline:hover {
         background: var(--nimbus-surface-subtle);
+        border-color: var(--nimbus-text-primary);
+        color: var(--nimbus-text-primary);
+      }
+
+      .featured-card__btn--outline:focus-visible {
+        outline: 2px solid var(--nimbus-text-primary);
+        outline-offset: 2px;
+      }
+
+      .developer-stories {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 16%,
+          var(--nimbus-surface)
+        );
+        border-radius: calc(var(--nimbus-radius-xl) + var(--nimbus-space-8));
+        margin-inline: calc(-1 * var(--section-padding-y));
+        overflow: hidden;
+        padding-block: var(--section-padding-y);
+        padding-inline: var(--section-padding-y);
+      }
+
+      .developer-stories__inner {
+        margin: 0;
+        max-width: none;
+      }
+
+      .developer-stories__header {
+        align-items: center;
+        display: flex;
+        gap: var(--nimbus-space-4);
+        justify-content: space-between;
+        margin-bottom: var(--nimbus-space-8);
+      }
+
+      .developer-stories__header h2 {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-headline-l-size);
+        font-weight: 600;
+        line-height: var(--nimbus-headline-l-lh);
+        margin: 0;
+      }
+
+      .developer-stories__more {
+        color: var(--nimbus-primary);
+        font-size: var(--nimbus-body-l-size);
+        font-weight: 500;
+        line-height: var(--nimbus-body-l-lh);
+        text-decoration: none;
+      }
+
+      .developer-stories__more:hover {
+        color: var(--nimbus-primary-hover);
+        text-decoration: underline;
+      }
+
+      .developer-stories__featured {
+        background: var(--nimbus-surface);
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow: var(--nimbus-shadow-sm);
+        display: grid;
+        gap: var(--nimbus-space-8);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        margin-bottom: var(--nimbus-space-8);
+        overflow: hidden;
+        padding: var(--nimbus-space-8);
+      }
+
+      .developer-stories__featured-copy {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-4);
+      }
+
+      .developer-stories__badge {
+        align-self: flex-start;
+        background: color-mix(
+          in srgb,
+          var(--nimbus-success) 14%,
+          var(--nimbus-surface)
+        );
+        border-radius: var(--nimbus-radius-lg);
+        color: var(--nimbus-success);
+        display: inline-flex;
+        flex-direction: column;
+        font-size: var(--nimbus-label-size);
+        font-weight: 700;
+        gap: var(--nimbus-space-1);
+        letter-spacing: 0.06em;
+        line-height: 1.15;
+        padding: var(--nimbus-space-2) var(--nimbus-space-3);
+        text-transform: uppercase;
+      }
+
+      .developer-stories__badge-row {
+        align-items: center;
+        display: flex;
+        gap: var(--nimbus-space-2);
+      }
+
+      .developer-stories__badge-row--story {
+        padding-left: calc(16px + var(--nimbus-space-2));
+      }
+
+      .developer-stories__badge-icon {
+        flex-shrink: 0;
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      .developer-stories__featured-copy h3 {
+        color: var(--nimbus-primary);
+        font-size: var(--nimbus-headline-m-size);
+        font-weight: 600;
+        line-height: 1.25;
+        margin: 0;
+      }
+
+      .developer-stories__date {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0;
+      }
+
+      .developer-stories__desc {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-l-size);
+        line-height: var(--nimbus-body-l-lh);
+        margin: 0;
+      }
+
+      .developer-stories__watch-btn {
+        align-items: center;
+        align-self: flex-start;
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 12%,
+          var(--nimbus-surface)
+        );
+        border: 1px solid
+          color-mix(in srgb, var(--nimbus-primary) 28%, var(--nimbus-border));
+        border-radius: 9999px;
+        color: var(--nimbus-primary);
+        display: inline-flex;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        gap: var(--nimbus-space-2);
+        height: 44px;
+        justify-content: center;
+        margin-top: var(--nimbus-space-2);
+        padding: 0 var(--nimbus-space-5);
+        text-decoration: none;
+        transition:
+          background var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast);
+      }
+
+      .developer-stories__watch-btn:hover {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 18%,
+          var(--nimbus-surface)
+        );
+        border-color: var(--nimbus-primary);
+      }
+
+      .developer-stories__watch-btn .material-symbols-outlined {
+        font-size: 20px;
+      }
+
+      .developer-stories__featured-media {
+        border-radius: var(--nimbus-radius-lg);
+        display: block;
+        overflow: hidden;
+      }
+
+      .developer-stories__featured-media img {
+        display: block;
+        height: 100%;
+        min-height: 220px;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .developer-stories__grid {
+        display: grid;
+        gap: var(--nimbus-space-6);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .developer-story-card {
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-4);
+      }
+
+      .developer-story-card__thumb {
+        aspect-ratio: 39 / 25;
+        border-radius: var(--nimbus-radius-lg);
+        box-shadow: var(--nimbus-shadow-md);
+        display: block;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .developer-story-card__thumb img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .developer-story-card__label {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-label-size);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        line-height: var(--nimbus-label-lh);
+        text-transform: uppercase;
+      }
+
+      .developer-story-card__title {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-title-m-size);
+        font-weight: 600;
+        line-height: 1.35;
+        margin: 0;
+      }
+
+      .developer-story-card__meta {
+        color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0;
+      }
+
+      .developer-story-card--story {
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-xl);
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .developer-story-card--story .developer-story-card__thumb {
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .developer-story-card--story .developer-story-card__body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-3);
+        padding: var(--nimbus-space-5);
+      }
+
+      .developer-story-card__title--accent {
+        color: var(--nimbus-primary);
+      }
+
+      .developer-story-card__desc {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0;
       }
 
       .product-list-section {
+        --product-list-pill-radius: 9999px;
+        --product-list-card-radius: var(--nimbus-radius-xl);
         display: grid;
         gap: 28px;
         grid-template-columns: 220px minmax(0, 1fr);
-        margin: 18px 0 40px;
+        margin: 0;
+        padding: var(--section-padding-y) 0;
+      }
+      .product-list-section__header {
+        grid-column: 1 / -1;
+        margin-bottom: var(--nimbus-space-2);
+      }
+      .product-list-section__header h2 {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-headline-l-size);
+        font-weight: 600;
+        line-height: var(--nimbus-headline-l-lh);
+        margin: 0;
       }
       .product-filter {
         color: var(--nimbus-text-primary);
@@ -557,41 +1127,56 @@
         line-height: 20px;
       }
       .product-filter-title {
-        align-items: center;
-        background: var(--nimbus-surface-subtle);
-        border-radius: 999px;
-        display: flex;
-        font-size: 12px;
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-m-size);
         font-weight: 600;
-        gap: 8px;
-        letter-spacing: 0.04em;
-        margin-bottom: 14px;
-        padding: 8px 12px;
-        text-transform: uppercase;
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0 0 var(--nimbus-space-3);
       }
       .product-filter ul {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-3);
         list-style: none;
         margin: 0;
-        padding: 0 0 0 28px;
+        padding: 0;
+        text-align: left;
       }
       .product-filter li {
-        margin-bottom: 12px;
+        margin: 0;
+        padding: var(--nimbus-space-1) 0;
       }
       .product-list-main {
         min-width: 0;
       }
-      .product-search {
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-radius: 2px;
-        color: var(--nimbus-text-primary);
-        font-family: Inter, system-ui, sans-serif;
-        font-size: 14px;
-        height: 36px;
-        margin-bottom: 24px;
-        outline: none;
-        padding: 0 14px;
+      .product-search-wrap {
+        align-items: center;
+        background: var(--nimbus-surface-subtle);
+        border: 0;
+        border-radius: var(--product-list-pill-radius);
+        display: flex;
+        gap: var(--nimbus-space-3);
+        margin-bottom: var(--nimbus-space-6);
+        min-height: 48px;
+        padding: 0 var(--nimbus-space-5);
         width: 100%;
+      }
+      .product-search-wrap .material-symbols-outlined {
+        color: var(--nimbus-text-secondary);
+        flex-shrink: 0;
+        font-size: 20px;
+      }
+      .product-search {
+        background: transparent;
+        border: 0;
+        color: var(--nimbus-text-primary);
+        flex: 1;
+        font-family: Inter, system-ui, sans-serif;
+        font-size: var(--nimbus-body-l-size);
+        line-height: var(--nimbus-body-l-lh);
+        min-width: 0;
+        outline: none;
+        padding: var(--nimbus-space-3) 0;
       }
       .product-search::placeholder {
         color: var(--nimbus-text-secondary);
@@ -604,7 +1189,7 @@
       .product-card {
         background: var(--nimbus-surface);
         border: 1px solid var(--nimbus-border);
-        border-radius: 8px;
+        border-radius: var(--product-list-card-radius);
         min-height: 178px;
         padding: 18px 18px 20px;
         transition:
@@ -650,70 +1235,186 @@
         font-size: 20px;
       }
 
-      .starter-panel {
-        background: var(--nimbus-surface-subtle);
-        border: 1px solid var(--nimbus-border);
-        border-radius: 12px;
-        margin-bottom: 24px;
-        padding: 32px;
+      .skills-get-started {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 16%,
+          var(--nimbus-surface)
+        );
+        border-radius: calc(var(--nimbus-radius-xl) + var(--nimbus-space-8));
+        margin-inline: calc(-1 * var(--section-padding-y));
+        overflow: hidden;
+        padding-block: var(--section-padding-y);
+        padding-inline: var(--section-padding-y);
       }
-      .starter-header {
-        align-items: flex-start;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 24px;
-      }
-      .starter-header h2 {
-        align-items: center;
-        color: var(--nimbus-text-primary);
-        display: flex;
-        font-size: 20px;
-        font-weight: 600;
-        gap: 8px;
-        line-height: 28px;
-        margin: 0 0 4px;
-      }
-      .starter-header p {
-        color: var(--nimbus-text-secondary);
-        font-size: 14px;
-        line-height: 20px;
+
+      .skills-get-started__inner {
         margin: 0;
+        max-width: none;
       }
-      .view-all {
-        align-items: center;
-        color: var(--nimbus-primary);
-        display: inline-flex;
-        flex-shrink: 0;
-        font-size: 14px;
+
+      .skills-get-started__header {
+        margin-bottom: var(--nimbus-space-10);
+        text-align: center;
+      }
+
+      .skills-get-started__header h2 {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-headline-l-size);
         font-weight: 600;
-        gap: 4px;
-        white-space: nowrap;
+        line-height: var(--nimbus-headline-l-lh);
+        margin: 0 0 var(--nimbus-space-3);
       }
-      .template-grid {
+
+      .skills-get-started__header p {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-l-size);
+        line-height: var(--nimbus-body-l-lh);
+        margin: 0 auto;
+        max-width: 720px;
+      }
+
+      .skills-get-started__stats {
         display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--nimbus-space-8);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-bottom: var(--nimbus-space-12);
       }
-      .template-card {
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-radius: 8px;
-        padding: 18px;
+
+      .skills-get-started__stat {
+        text-align: center;
       }
-      .template-card h3 {
-        font-size: 15px;
-        line-height: 22px;
-        margin: 0 0 8px;
+
+      .skills-get-started__stat-value {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-display-m-size);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: var(--nimbus-display-m-lh);
+        margin: 0 0 var(--nimbus-space-3);
       }
-      .template-card p {
+
+      .skills-get-started__stat-desc {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0 auto var(--nimbus-space-3);
+        max-width: 280px;
+      }
+
+      .skills-get-started__stat-source {
         color: var(--nimbus-text-secondary);
-        font-size: 13px;
-        line-height: 19px;
+        font-size: var(--nimbus-label-size);
+        line-height: var(--nimbus-label-lh);
         margin: 0;
       }
 
+      .skills-get-started__feature {
+        align-items: center;
+        display: grid;
+        gap: var(--nimbus-space-10);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .skills-get-started__feature-media {
+        justify-self: center;
+        max-width: 360px;
+        position: relative;
+        width: 100%;
+      }
+
+      .skills-get-started__feature-media::before {
+        background:
+          radial-gradient(
+            circle at 30% 40%,
+            color-mix(in srgb, var(--nimbus-warning) 55%, transparent),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 70% 60%,
+            color-mix(in srgb, var(--nimbus-primary) 45%, transparent),
+            transparent 50%
+          );
+        border-radius: var(--nimbus-space-6);
+        content: "";
+        filter: blur(18px);
+        inset: var(--nimbus-space-2);
+        position: absolute;
+        z-index: 0;
+      }
+
+      .skills-get-started__feature-media img {
+        border-radius: var(--nimbus-space-6);
+        display: block;
+        height: auto;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+      }
+
+      .skills-get-started__feature-copy {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-4);
+      }
+
+      .skills-get-started__feature-copy h3 {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-headline-m-size);
+        font-weight: 600;
+        line-height: var(--nimbus-headline-m-lh);
+        margin: 0;
+      }
+
+      .skills-get-started__feature-copy p {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-body-l-size);
+        line-height: var(--nimbus-body-l-lh);
+        margin: 0;
+      }
+
+      .skills-get-started__btn {
+        align-self: flex-start;
+        align-items: center;
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 12%,
+          var(--nimbus-surface)
+        );
+        border: 1px solid var(--nimbus-text-primary);
+        border-radius: 9999px;
+        color: var(--nimbus-text-primary);
+        display: inline-flex;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        height: 44px;
+        justify-content: center;
+        margin-top: var(--nimbus-space-2);
+        padding: 0 var(--nimbus-space-6);
+        text-decoration: none;
+        transition:
+          background var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast);
+      }
+
+      .skills-get-started__btn:hover {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 18%,
+          var(--nimbus-surface)
+        );
+        border-color: var(--nimbus-primary);
+        color: var(--nimbus-primary);
+      }
+
+      .skills-get-started__btn:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
       .whats-new {
-        margin: 56px 0 8px;
+        margin: 0;
+        padding: var(--section-padding-y) 0;
       }
       .whats-new h2 {
         color: var(--nimbus-text-primary);
@@ -737,6 +1438,73 @@
         gap: 24px;
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
+
+      .lang-tools {
+        background: var(--nimbus-surface-subtle);
+        margin: 0 calc(50% - 50vw);
+        padding: var(--section-padding-y) calc(50vw - 50%);
+      }
+
+      .lang-tools__inner {
+        margin: 0 auto;
+        max-width: 1280px;
+      }
+
+      .lang-tools h2 {
+        color: var(--nimbus-text-primary);
+        font-size: var(--nimbus-headline-l-size);
+        font-weight: 600;
+        line-height: var(--nimbus-headline-l-lh);
+        margin: 0 0 var(--nimbus-space-8);
+      }
+
+      .lang-tools__grid {
+        display: grid;
+        gap: var(--nimbus-space-5) var(--nimbus-space-8);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .lang-tools__col {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nimbus-space-5);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .lang-tools__item a {
+        align-items: center;
+        color: var(--nimbus-primary);
+        display: flex;
+        font-size: var(--nimbus-body-l-size);
+        gap: var(--nimbus-space-3);
+        line-height: var(--nimbus-body-l-lh);
+        text-decoration: none;
+      }
+
+      .lang-tools__item a:hover {
+        color: var(--nimbus-primary-hover);
+        text-decoration: underline;
+      }
+
+      .lang-tools__item a:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .lang-tools__icon {
+        background: color-mix(
+          in srgb,
+          var(--nimbus-primary) 16%,
+          var(--nimbus-surface)
+        );
+        border-radius: 9999px;
+        flex-shrink: 0;
+        height: 36px;
+        width: 36px;
+      }
+
       .news-card {
         background: var(--nimbus-surface);
         border: 1px solid var(--nimbus-border);
@@ -753,68 +1521,47 @@
         position: relative;
       }
       .news-visual.gemini {
-        background:
-          radial-gradient(
-            circle at 42% 44%,
-            rgba(251, 188, 5, 0.58),
-            transparent 20%
-          ),
-          radial-gradient(
-            circle at 58% 38%,
-            rgba(255, 255, 255, 0.82),
-            transparent 15%
-          ),
-          linear-gradient(135deg, #5f6f67, #c8d4c3);
+        background: var(--nimbus-surface-subtle);
+        display: block;
+        line-height: 0;
+        padding: 0;
       }
-      .news-visual.gemini::before {
-        border: 2px solid rgba(255, 255, 255, 0.55);
-        border-radius: 48% 42% 52% 46%;
-        content: "";
-        height: 110px;
-        transform: rotate(-20deg);
-        width: 82px;
+
+      .news-visual.gemini img {
+        display: block;
+        height: 178px;
+        min-width: 100%;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
       }
       .news-visual.next {
-        background:
-          linear-gradient(135deg, rgba(66, 133, 244, 0.85), transparent 30%),
-          linear-gradient(45deg, rgba(234, 67, 53, 0.75), transparent 32%),
-          linear-gradient(160deg, #111827, #475569 62%, #dbeafe);
+        background: var(--nimbus-surface-subtle);
+        padding: 0;
       }
-      .news-visual.next::before {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        box-shadow:
-          80px 18px 0 rgba(255, 255, 255, 0.82),
-          -76px 12px 0 rgba(255, 255, 255, 0.78);
-        content: "";
-        height: 72px;
-        width: 110px;
+
+      .news-visual.next img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
       }
       .news-visual.codelabs {
-        background:
-          radial-gradient(
-            circle at 15% 85%,
-            rgba(52, 168, 83, 0.35),
-            transparent 24%
-          ),
-          radial-gradient(
-            circle at 90% 20%,
-            rgba(251, 188, 5, 0.35),
-            transparent 24%
-          ),
-          linear-gradient(135deg, #fff7ed, #e0f2fe);
+        background: var(--nimbus-surface-subtle);
+        display: block;
+        line-height: 0;
+        padding: 0;
       }
-      .codelab-board {
-        display: grid;
-        gap: 8px;
-        grid-template-columns: repeat(5, 42px);
+
+      .news-visual.codelabs img {
+        display: block;
+        height: 178px;
+        min-width: 100%;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
       }
-      .codelab-tile {
-        background: rgba(255, 255, 255, 0.78);
-        border: 1px solid rgba(26, 115, 232, 0.18);
-        border-radius: 6px;
-        height: 30px;
-      }
+
       .news-body {
         padding: 16px 18px 20px;
       }
@@ -842,92 +1589,248 @@
         margin: 0;
       }
 
-      .bottom-search {
-        bottom: 0;
-        display: none;
-        justify-content: center;
-        left: 0;
-        padding: 0 16px calc(16px + env(safe-area-inset-bottom, 0px));
-        pointer-events: none;
-        position: fixed;
-        right: 0;
-        width: 100%;
-        z-index: 60;
-      }
-      .bottom-search.visible {
-        display: flex;
-        pointer-events: auto;
-      }
-      .bottom-search-pill-wrap {
-        margin: 0 auto;
-        max-width: min(720px, 100%);
-        width: 100%;
-      }
-      .bottom-search-pill.search-pill {
-        box-shadow: 0 12px 30px rgba(60, 64, 67, 0.18);
+      .site-footer {
+        margin-top: 0;
       }
 
-      .footer {
-        background: var(--nimbus-surface-subtle);
-        color: var(--nimbus-text-secondary);
-        font-size: 13px;
-        margin-top: 48px;
+      .footer-main {
+        background: #000;
+        color: var(--nimbus-surface);
+        min-height: 720px;
+        overflow: hidden;
+        padding: var(--section-padding-y) 0;
+        position: relative;
       }
-      .footer-inner {
+
+      .footer-main__inner {
+        display: flex;
+        flex-direction: column;
         margin: 0 auto;
-        max-width: 1600px;
-        padding: 48px 24px;
+        max-width: 1280px;
+        padding: 0 var(--nimbus-space-6) calc(200px + var(--section-padding-y));
+        position: relative;
+        z-index: 1;
       }
+
       .footer-grid {
         display: grid;
-        gap: 40px;
+        gap: var(--nimbus-space-8);
         grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 0;
+        padding-bottom: 0;
+        position: relative;
+        z-index: 1;
       }
-      .footer h3 {
-        color: var(--nimbus-text-primary);
-        font-size: 14px;
-        margin: 0 0 16px;
+
+      .footer-grid h3 {
+        color: var(--nimbus-surface);
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 600;
+        line-height: var(--nimbus-body-m-lh);
+        margin: 0 0 var(--nimbus-space-4);
       }
-      .footer ul {
+
+      .footer-grid ul {
         list-style: none;
         margin: 0;
         padding: 0;
       }
-      .footer li {
-        margin: 0 0 10px;
+
+      .footer-grid li {
+        margin: 0 0 var(--nimbus-space-3);
       }
-      .footer a:hover {
-        color: var(--nimbus-primary);
+
+      .footer-grid li:last-child {
+        margin-bottom: 0;
       }
-      .footer-meta {
+
+      .footer-grid a {
+        color: var(--nimbus-surface);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+        text-decoration: none;
+      }
+
+      .footer-grid a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-brand {
+        align-items: flex-end;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        left: 0;
+        margin: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        width: 100%;
+        z-index: 0;
+      }
+
+      .footer-brand__logo {
+        display: block;
+        height: auto;
+        max-width: min(920px, 100%);
+        transform: scale(1.5);
+        transform-origin: center bottom;
+        width: 100%;
+      }
+
+      .footer-legal {
+        background: var(--nimbus-surface);
+        border-top: 1px solid var(--nimbus-border);
         color: var(--nimbus-text-secondary);
+        font-size: var(--nimbus-body-m-size);
+        line-height: var(--nimbus-body-m-lh);
+      }
+
+      .footer-legal__inner {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--nimbus-space-4) var(--nimbus-space-6);
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 1280px;
+        padding: var(--nimbus-space-4) var(--nimbus-space-6);
+      }
+
+      .footer-legal__links {
+        align-items: center;
         display: flex;
         flex-wrap: wrap;
-        gap: 10px 20px;
-        margin-top: 40px;
-        padding-top: 24px;
+        gap: var(--nimbus-space-2) var(--nimbus-space-3);
+      }
+
+      .footer-legal__links a {
+        color: var(--nimbus-text-secondary);
+        text-decoration: none;
+      }
+
+      .footer-legal__links a:hover {
+        color: var(--nimbus-primary);
+        text-decoration: underline;
+      }
+
+      .footer-legal__sep {
+        color: var(--nimbus-text-disabled);
+      }
+
+      .footer-legal__actions {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--nimbus-space-3);
+        justify-content: flex-end;
+        margin-left: auto;
+      }
+
+      .footer-legal__newsletter {
+        color: var(--nimbus-text-secondary);
+        white-space: nowrap;
+      }
+
+      .footer-legal__subscribe {
+        background: var(--nimbus-primary);
+        border: 0;
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-surface);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        height: 36px;
+        padding: 0 var(--nimbus-space-4);
+        transition: background var(--nimbus-motion-fast);
+      }
+
+      .footer-legal__subscribe:hover {
+        background: var(--nimbus-primary-hover);
+      }
+
+      .footer-legal__subscribe:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+
+      .footer-legal__language {
+        align-items: center;
+        background: var(--nimbus-surface);
+        border: 1px solid var(--nimbus-border);
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-text-primary);
+        display: inline-flex;
+        font-family: inherit;
+        font-size: var(--nimbus-body-m-size);
+        gap: var(--nimbus-space-2);
+        height: 36px;
+        padding: 0 var(--nimbus-space-3);
+      }
+
+      .footer-legal__language .material-symbols-outlined {
+        color: var(--nimbus-text-secondary);
+        font-size: 18px;
+      }
+
+      .footer-legal__language select {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        color: var(--nimbus-text-primary);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: var(--nimbus-body-m-size);
+        outline: none;
+        padding-right: var(--nimbus-space-4);
       }
 
       @media (max-width: 760px) {
         .shell {
-          padding: 40px 20px;
+          padding: 0 var(--nimbus-space-5);
         }
-        .task-carousel-track {
-          --task-carousel-fade: 12px;
-          margin: 0 -20px;
-          padding: 0 24px 14px;
+        .featured-grid {
+          grid-template-columns: 1fr;
         }
-        .hero h1,
-        .hero p {
-          white-space: normal;
+        .featured-card__body {
+          flex-direction: column;
+        }
+        .featured-card__art {
+          align-self: flex-end;
+          height: 120px;
+          width: 110px;
+        }
+        .developer-stories {
+          margin-inline: calc(-1 * var(--nimbus-space-5));
+          padding-inline: var(--nimbus-space-5);
+        }
+        .developer-stories__featured {
+          grid-template-columns: 1fr;
+        }
+        .developer-stories__grid {
+          grid-template-columns: 1fr;
         }
         .hero h1 {
           font-size: 30px;
           line-height: 38px;
         }
-        .starter-header {
-          flex-direction: column;
-          gap: 16px;
+        .hero p {
+          white-space: normal;
+        }
+        .hero-band {
+          padding: var(--section-padding-y) var(--nimbus-space-5);
+        }
+        .skills-get-started {
+          margin-inline: calc(-1 * var(--nimbus-space-5));
+          padding-inline: var(--nimbus-space-5);
+        }
+        .skills-get-started__stats {
+          grid-template-columns: 1fr;
+        }
+        .skills-get-started__feature {
+          grid-template-columns: 1fr;
         }
         .product-list-section {
           grid-template-columns: 1fr;
@@ -941,8 +1844,15 @@
         .news-grid {
           grid-template-columns: 1fr;
         }
+        .lang-tools {
+          margin: 0 calc(50% - 50vw);
+          padding: var(--section-padding-y) calc(50vw - 50%);
+        }
+        .lang-tools__grid {
+          grid-template-columns: 1fr 1fr;
+        }
         .footer-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 1fr;
         }
       }
     </style>
@@ -950,58 +1860,80 @@
   <body>
     <div data-site-header data-home="./home.html"></div>
     <main class="page">
-      <div class="shell">
-        <section class="hero" aria-labelledby="homeTitle">
-          <div class="cloud-mark">
-            <span class="cloud-spark">✦</span>
-            <span class="cloud-wordmark">Google Cloud Documentation</span>
-          </div>
-          <h1 id="homeTitle">
-            Ask Gemini to build, scale, govern, and optimize
-          </h1>
-          <p>
-            Build with AI, set up infrastructure, or troubleshoot deployments on
-            Google Cloud.
-          </p>
-        </section>
+      <section class="hero-band" aria-labelledby="homeTitle">
+        <div class="hero-band__accent hero-band__accent--left" aria-hidden="true">
+          <img
+            src="./assets/hero-band-accent.png"
+            alt=""
+            width="1024"
+            height="826"
+          />
+        </div>
+        <div class="hero-band__accent hero-band__accent--right" aria-hidden="true">
+          <img
+            src="./assets/hero-band-accent-right.png"
+            alt=""
+            width="1024"
+            height="826"
+          />
+        </div>
+        <div class="hero-band__inner">
+          <section class="hero">
+            <img
+              class="hero-spark"
+              src="./assets/gemini-star-logo.png"
+              alt=""
+              width="40"
+              height="40"
+              aria-hidden="true"
+            />
+            <h1 id="homeTitle">Google Cloud Agentic Documentation</h1>
+            <p>
+              Use Documentation Skills to build, scale, and optimize AI apps and agents.
+            </p>
+          </section>
 
-        <section class="search-wrap" aria-label="Ask Docs AI">
-          <div class="search-pill" id="heroSearch">
-            <button
-              class="round-btn"
-              type="button"
-              id="plusButton"
-              aria-label="Open add menu"
-            >
-              <span class="material-symbols-outlined">add</span>
-            </button>
-            <div class="search-input-wrap">
-              <input
-                class="search-input"
-                id="searchInput"
-                type="text"
-                placeholder=""
-                autocomplete="off"
-              />
-              <div
-                class="search-placeholder-marquee"
-                id="searchPlaceholderMarquee"
-                aria-hidden="true"
-              >
-                <span class="search-placeholder-line"
-                  >Ask AI to navigate the docs</span
-                >
-                <span class="search-placeholder-line">Type / for skills</span>
+          <section class="search-wrap" id="heroSearchWrap" aria-label="Ask Docs AI">
+            <div class="search-pill-shell">
+              <div class="search-pill" id="heroSearch">
+                <div class="search-pill__input-row">
+                  <div class="search-input-wrap">
+                    <input
+                      class="search-input"
+                      id="searchInput"
+                      type="text"
+                      placeholder=""
+                      autocomplete="off"
+                    />
+                    <div
+                      class="search-placeholder-marquee"
+                      id="searchPlaceholderMarquee"
+                      aria-hidden="true"
+                    >
+                      <span class="search-placeholder-line"
+                        >Ask Gemini to build, test, or deploy...</span
+                      >
+                      <span class="search-placeholder-line">Type / for skills</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="search-pill__actions-row">
+                  <button
+                    class="round-btn"
+                    type="button"
+                    id="plusButton"
+                    aria-label="Add attachment"
+                  >
+                    <span class="material-symbols-outlined">add</span>
+                  </button>
+                  <button class="icon-btn" type="button" aria-label="Speech input">
+                    <span class="material-symbols-outlined">graphic_eq</span>
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="search-actions">
-              <button class="icon-btn" type="button" aria-label="Speech input">
-                <span class="material-symbols-outlined">graphic_eq</span>
-              </button>
-            </div>
-          </div>
 
-          <div class="plus-menu" id="plusMenu">
+            <div class="plus-menu" id="plusMenu">
             <div class="menu-section">
               <div class="menu-heading">Add recent tabs</div>
               <button class="menu-item" type="button">
@@ -1124,204 +2056,183 @@
             </div>
           </div>
         </section>
+      </div>
+    </section>
 
-        <section class="task-carousel" aria-label="Featured tasks">
-          <div class="task-carousel-track" id="taskCarouselTrack">
-            <article class="task-card">
-              <div class="task-icon">
-                <span class="material-symbols-outlined">play_arrow</span>
+      <div class="shell">
+        <section class="featured-section" aria-labelledby="coreFeaturesTitle">
+          <h2 class="featured-section__title" id="coreFeaturesTitle">
+            Core Features
+          </h2>
+          <div class="featured-grid">
+            <article class="featured-card">
+              <div class="featured-card__body">
+                <div class="featured-card__content">
+                  <div class="featured-card__label">Featured</div>
+                  <h2 class="featured-card__title">Documentation Skills</h2>
+                  <p class="featured-card__desc">
+                    Google cloud documentation is Think of skills as packaged,
+                    reusable units of knowledge + action that an AI agent (or even
+                    a human workflow) can execute.
+                  </p>
+                </div>
+                <img
+                  class="featured-card__art"
+                  src="./assets/featured-lightning-card.png"
+                  alt=""
+                  width="130"
+                  height="150"
+                />
               </div>
-              <a href="#"><h3>Get started with Google Cloud</h3></a>
-              <p>
-                Get $300 in free credits and free usage of 20+ products on
-                signup to run, test, and deploy workloads.
-              </p>
-              <ul class="task-links">
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Create an Account</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Google Cloud Overview</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Start your platform setup</span></a
-                  >
-                </li>
-              </ul>
-            </article>
-
-            <article class="task-card">
-              <div class="task-icon">
-                <span class="material-symbols-outlined">account_tree</span>
-              </div>
-              <a href="./skills.html"><h3>Skills</h3></a>
-              <p>
-                Turn documentation into action with guided, step-by-step
-                workflows that help you get things done faster.
-              </p>
-              <ul class="task-links">
-                <li>
-                  <a class="link-row" href="./skills.html"
-                    ><span>What's a Skill</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="./skills.html"
-                    ><span>What Can you do with Skills</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="./skill-library.html"
-                    ><span>Skills Library</span></a
-                  >
-                </li>
-              </ul>
-            </article>
-            <article class="task-card">
-              <div class="task-icon">
-                <span class="material-symbols-outlined">terminal</span>
-              </div>
-              <h3>Build</h3>
-              <p>
-                Create conversational agents, document analysis pipelines, and
-                fine-tune models with your data.
-              </p>
-              <ul class="task-links">
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Build a conversational agent</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Build a document analysis pipeline</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Fine-tune a model with your data</span></a
-                  >
-                </li>
-              </ul>
-            </article>
-            <article class="task-card">
-              <div class="task-icon">
-                <span class="material-symbols-outlined">code</span>
-              </div>
-              <h3>Setting Up Services &amp; Initial Configuration</h3>
-              <p>
-                Configure projects, environments, and APIs to get your Google
-                Cloud environment production-ready.
-              </p>
-              <ul class="task-links">
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Create a new cloud project</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Enable APIs and services</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Configure billing</span></a
-                  >
-                </li>
-              </ul>
-            </article>
-            <article class="task-card">
-              <div class="task-icon">
-                <span class="material-symbols-outlined">gpp_maybe</span>
-              </div>
-              <h3>Troubleshooting Errors</h3>
-              <p>
-                Resolve errors quickly with action-first guides for permissions,
-                model responses, and billing issues.
-              </p>
-              <ul class="task-links">
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Debug API and SDK errors</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Identify missing IAM roles</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Resolve quota or billing issues</span></a
-                  >
-                </li>
-              </ul>
-            </article>
-            <article class="task-card">
-              <div class="task-icon">
-                <span class="material-symbols-outlined"
-                  >dashboard_customize</span
+              <div class="featured-card__footer">
+                <a
+                  class="featured-card__btn featured-card__btn--outline"
+                  href="./skills.html"
+                  >Learn about Documentation Skills</a
                 >
               </div>
-              <h3>Deploy &amp; Scale</h3>
-              <p>
-                Deploy your tuned models to endpoints, monitor their
-                performance, and manage cloud costs and quotas.
-              </p>
-              <ul class="task-links">
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Launch web applications</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Configure CI/CD pipelines</span></a
-                  >
-                </li>
-                <li>
-                  <a class="link-row" href="#"
-                    ><span>Create API endpoints</span></a
-                  >
-                </li>
-              </ul>
             </article>
-          </div>
-          <div
-            class="task-carousel-controls"
-            aria-label="Task carousel controls"
-          >
-            <button
-              class="task-carousel-btn"
-              type="button"
-              id="taskCarouselPrev"
-              aria-label="Previous task card"
-            >
-              <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button
-              class="task-carousel-btn"
-              type="button"
-              id="taskCarouselNext"
-              aria-label="Next task card"
-            >
-              <span class="material-symbols-outlined">chevron_right</span>
-            </button>
+
+            <article class="featured-card">
+              <div class="featured-card__body">
+                <div class="featured-card__content">
+                  <div class="featured-card__label">Featured</div>
+                  <h2 class="featured-card__title">Get started with Google Cloud</h2>
+                  <p class="featured-card__desc">
+                    Get hands-on experience with
+                    <u>free usage of 20+ products</u>, including popular products
+                    like AI APIs, Compute Engine, BigQuery, and more.
+                  </p>
+                </div>
+                <img
+                  class="featured-card__art"
+                  src="./assets/featured-cloud-gradient-transparent.png"
+                  alt=""
+                  width="130"
+                  height="150"
+                />
+              </div>
+              <div class="featured-card__footer">
+                <a
+                  class="featured-card__btn featured-card__btn--outline"
+                  href="#"
+                  >Learn about Google Cloud</a
+                >
+              </div>
+            </article>
           </div>
         </section>
 
-        <section class="product-list-section" aria-label="Product list">
-          <aside class="product-filter" aria-label="Product filters">
-            <div class="product-filter-title">
-              <span class="material-symbols-outlined">menu</span>
-              Filter by
+        <section class="developer-stories" aria-labelledby="developerStoriesTitle">
+          <div class="developer-stories__inner">
+            <div class="developer-stories__header">
+              <h2 id="developerStoriesTitle">Developer Stories</h2>
+              <a class="developer-stories__more" href="#">More Videos</a>
             </div>
+
+            <article class="developer-stories__featured">
+              <div class="developer-stories__featured-copy">
+                <span class="developer-stories__badge">
+                  <span class="developer-stories__badge-row">
+                    <span
+                      class="material-symbols-outlined developer-stories__badge-icon"
+                      aria-hidden="true"
+                      >spark</span
+                    >
+                    Skills Success
+                  </span>
+                  <span
+                    class="developer-stories__badge-row developer-stories__badge-row--story"
+                    >Story</span
+                  >
+                </span>
+                <h3>
+                  How Lena cut her team's deployment time by 80% using Documentation
+                  Skills
+                </h3>
+                <p class="developer-stories__date">Tuesday, May 20, 2026</p>
+                <p class="developer-stories__desc">
+                  Lena Müller, a backend engineer at a Berlin-based fintech startup,
+                  was spending over four hours each week navigating Cloud Run and IAM
+                  documentation to onboard new teammates. After discovering
+                  Documentation Skills, her team resolved permission errors in under
+                  five minutes and shipped three new services in a single sprint.
+                </p>
+              </div>
+              <div class="developer-stories__featured-media">
+                <img
+                  src="./assets/developer-story-lena-featured.png"
+                  alt="Documentation Skills in Action"
+                  width="640"
+                  height="360"
+                />
+              </div>
+            </article>
+
+            <div class="developer-stories__grid">
+              <article class="developer-story-card">
+                <a class="developer-story-card__thumb" href="#">
+                  <img
+                    src="./assets/developer-story-gemini-agent-platform-card.png"
+                    alt="Gemini Enterprise Agent Platform — Build, Scale, Govern, Optimize"
+                    width="1024"
+                    height="575"
+                  />
+                </a>
+                <div class="developer-story-card__label">YouTube · AI &amp; ML</div>
+                <h3 class="developer-story-card__title">
+                  From prompt to production: multi-agent systems with Gemini Enterprise
+                  Agent Platform
+                </h3>
+                <p class="developer-story-card__meta">Updated May 19, 2026</p>
+              </article>
+
+              <article class="developer-story-card">
+                <a class="developer-story-card__thumb" href="#">
+                  <img
+                    src="./assets/developer-story-marcus-card.png"
+                    alt="How Marcus built a real-time retail analytics pipeline using BigQuery and Looker Studio"
+                    width="1024"
+                    height="517"
+                  />
+                </a>
+                <div class="developer-story-card__label">YouTube · Data Analytics</div>
+                <h3 class="developer-story-card__title">
+                  How Marcus built a real-time retail analytics pipeline using BigQuery
+                  and Looker Studio
+                </h3>
+                <p class="developer-story-card__meta">Updated May 14, 2026</p>
+              </article>
+
+              <article class="developer-story-card">
+                <a class="developer-story-card__thumb" href="#">
+                  <img
+                    src="./assets/developer-story-bluesignum-card.png"
+                    alt="BlueSignum uses AI for personalized digital mental health services with Google for Startups Accelerator"
+                    width="1024"
+                    height="517"
+                  />
+                </a>
+                <div class="developer-story-card__label">
+                  Google for Startups Accelerator
+                </div>
+                <h3 class="developer-story-card__title">
+                  See how Korean startup BlueSignum uses AI to provide personalized
+                  digital mental health services with a little help from Google for
+                  Startups Accelerator.
+                </h3>
+                <p class="developer-story-card__meta">Updated April 29, 2026</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="product-list-section" aria-labelledby="documentationTitle">
+          <header class="product-list-section__header">
+            <h2 id="documentationTitle">Documentation</h2>
+          </header>
+          <aside class="product-filter" aria-label="Browse by category">
+            <div class="product-filter-title">Browse by category</div>
             <ul>
               <li>Featured products</li>
               <li>AI and ML</li>
@@ -1341,12 +2252,17 @@
             </ul>
           </aside>
           <div class="product-list-main">
-            <input
-              class="product-search"
-              type="search"
-              placeholder="Search for a product"
-              aria-label="Search for a product"
-            />
+            <div class="product-search-wrap">
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >search</span
+              >
+              <input
+                class="product-search"
+                type="search"
+                placeholder='Search for a product (eg: "BigQuery")'
+                aria-label='Search for a product (eg: "BigQuery")'
+              />
+            </div>
             <div class="product-grid">
               <article class="product-card">
                 <span class="material-symbols-outlined product-icon"
@@ -1482,69 +2398,76 @@
           </div>
         </section>
 
-        <section class="starter-panel">
-          <div class="starter-header">
-            <div>
-              <h2>
-                <span class="material-symbols-outlined">code</span> Prompt &amp;
-                Code Starters
+        <section class="skills-get-started" aria-labelledby="skillsGetStartedTitle">
+          <div class="skills-get-started__inner">
+            <header class="skills-get-started__header">
+              <h2 id="skillsGetStartedTitle">
+                Get started Google Cloud Documentation Skills
               </h2>
               <p>
-                Copy, customize, and run ready-made prompts and code snippets
-                for common Google Cloud tasks.
+                Use Documentation Skills to build, scale, and optimize AI apps
+                and agents.
               </p>
+            </header>
+
+            <div class="skills-get-started__stats">
+              <article class="skills-get-started__stat">
+                <p class="skills-get-started__stat-value">1.6K</p>
+                <p class="skills-get-started__stat-desc">
+                  Active skills across the Google Cloud ecosystem and community
+                  marketplaces.
+                </p>
+                <p class="skills-get-started__stat-source">
+                  Google Cloud Developer Ecosystem Index, 2026
+                </p>
+              </article>
+              <article class="skills-get-started__stat">
+                <p class="skills-get-started__stat-value">82%+</p>
+                <p class="skills-get-started__stat-desc">
+                  Builders report faster implementation when using Documentation
+                  Skills in workflows.
+                </p>
+                <p class="skills-get-started__stat-source">
+                  Google Cloud AI Research Lab Benchmarks
+                </p>
+              </article>
+              <article class="skills-get-started__stat">
+                <p class="skills-get-started__stat-value">2.5 hrs +</p>
+                <p class="skills-get-started__stat-desc">
+                  Average time saved per workflow task when using Documentation
+                  Skills in production.
+                </p>
+                <p class="skills-get-started__stat-source">
+                  Internal DevOps &amp; Builder Productivity Study
+                </p>
+              </article>
             </div>
-            <a class="view-all" href="#"
-              >View all templates
-              <span class="material-symbols-outlined">arrow_forward</span></a
-            >
-          </div>
-          <div class="template-grid">
-            <article class="template-card">
-              <h3>Deploy a model to an endpoint</h3>
-              <p>
-                Launch, configure, and test a production-ready model endpoint.
-              </p>
-            </article>
-            <article class="template-card">
-              <h3>Python: Basic Text Generation</h3>
-              <p>
-                Boilerplate python script to call the Gemini API using the
-                Vertex AI SDK.
-              </p>
-            </article>
+
+            <div class="skills-get-started__feature">
+              <div class="skills-get-started__feature-media">
+                <img
+                  src="./assets/skills-get-started-feature.png"
+                  alt="Developer using a Chromebook to explore Google Cloud Documentation Skills"
+                  width="925"
+                  height="1024"
+                />
+              </div>
+              <div class="skills-get-started__feature-copy">
+                <h3>Build with Executable Cloud Knowledge</h3>
+                <p>
+                  Google Cloud is transitioning from static, fragmented docs to
+                  a decentralized ecosystem of executable skills (MCPs).
+                  Documentation Skills allow developers to find skills, learn
+                  how to use them, and build workflows inside documentation.
+                </p>
+                <a class="skills-get-started__btn" href="./skill-library.html"
+                  >Explore Skills Library</a
+                >
+              </div>
+            </div>
           </div>
         </section>
 
-        <section class="card-grid" style="padding-bottom: 32px">
-          <article class="task-card">
-            <div class="task-icon">
-              <span class="material-symbols-outlined">menu_book</span>
-            </div>
-            <h3>Reference</h3>
-            <p>
-              Explore the full API documentation, IAM roles and permissions
-              tables, pricing guides, and supported regions.
-            </p>
-            <ul class="task-links">
-              <li>
-                <a class="link-row" href="#"
-                  ><span>API reference (models, parameters)</span></a
-                >
-              </li>
-              <li>
-                <a class="link-row" href="#"
-                  ><span>IAM roles and permissions table</span></a
-                >
-              </li>
-              <li>
-                <a class="link-row" href="#"
-                  ><span>Pricing and billing reference</span></a
-                >
-              </li>
-            </ul>
-          </article>
-        </section>
 
         <section class="whats-new" aria-labelledby="whatsNewTitle">
           <h2 id="whatsNewTitle">What's new in Google Cloud</h2>
@@ -1554,7 +2477,14 @@
           </p>
           <div class="news-grid">
             <article class="news-card">
-              <div class="news-visual gemini" aria-hidden="true"></div>
+              <div class="news-visual gemini" aria-hidden="true">
+                <img
+                  src="./assets/whats-new-gemini-card.png"
+                  alt=""
+                  width="640"
+                  height="360"
+                />
+              </div>
               <div class="news-body">
                 <span class="news-chip event">Event</span>
                 <h3>The Gemini Enterprise Roadmap - June 4, 2026</h3>
@@ -1566,7 +2496,14 @@
               </div>
             </article>
             <article class="news-card">
-              <div class="news-visual next" aria-hidden="true"></div>
+              <div class="news-visual next" aria-hidden="true">
+                <img
+                  src="./assets/whats-new-next-card.png"
+                  alt=""
+                  width="1024"
+                  height="682"
+                />
+              </div>
               <div class="news-body">
                 <span class="news-chip">Blog</span>
                 <h3>
@@ -1581,18 +2518,12 @@
             </article>
             <article class="news-card">
               <div class="news-visual codelabs" aria-hidden="true">
-                <div class="codelab-board">
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                  <span class="codelab-tile"></span>
-                </div>
+                <img
+                  src="./assets/whats-new-codelabs-card.png"
+                  alt=""
+                  width="1024"
+                  height="502"
+                />
               </div>
               <div class="news-body">
                 <span class="news-chip">Blog</span>
@@ -1606,131 +2537,214 @@
             </article>
           </div>
         </section>
-      </div>
 
-      <footer class="footer">
-        <div class="footer-inner">
-          <div class="footer-grid">
-            <div>
-              <h3>Products and pricing</h3>
-              <ul>
-                <li><a href="#">See all products</a></li>
-                <li><a href="#">Google Cloud pricing</a></li>
-                <li><a href="#">Google Cloud Marketplace</a></li>
-                <li><a href="#">Contact sales</a></li>
+        <section class="lang-tools" aria-labelledby="langToolsTitle">
+          <div class="lang-tools__inner">
+            <h2 id="langToolsTitle">Languages, frameworks, and tools</h2>
+            <div class="lang-tools__grid">
+              <ul class="lang-tools__col">
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>gcloud CLI
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>JavaScript and Node.js
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Ruby
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Prometheus
+                  </a>
+                </li>
               </ul>
-            </div>
-            <div>
-              <h3>Support</h3>
-              <ul>
-                <li><a href="#">Community forums</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Release Notes</a></li>
-                <li><a href="#">System status</a></li>
+              <ul class="lang-tools__col">
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Python
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>C# and .NET
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Rust
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Kubernetes
+                  </a>
+                </li>
               </ul>
-            </div>
-            <div>
-              <h3>Resources</h3>
-              <ul>
-                <li><a href="#">GitHub</a></li>
-                <li><a href="#">Getting Started with Google Cloud</a></li>
-                <li><a href="#">Code samples</a></li>
-                <li><a href="#">Cloud Architecture Center</a></li>
+              <ul class="lang-tools__col">
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Java
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>PHP
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Spring
+                  </a>
+                </li>
               </ul>
-            </div>
-            <div>
-              <h3>Engage</h3>
-              <ul>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">X (Twitter)</a></li>
-                <li><a href="#">Google Cloud on YouTube</a></li>
+              <ul class="lang-tools__col">
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Go
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>C++
+                  </a>
+                </li>
+                <li class="lang-tools__item">
+                  <a href="#">
+                    <span class="lang-tools__icon" aria-hidden="true"></span>Terraform
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
-          <div class="footer-meta">
-            <a href="#">About Google</a>
-            <a href="#">Privacy</a>
-            <a href="#">Site terms</a>
-            <a href="#">Google Cloud terms</a>
-            <a href="#">Manage cookies</a>
+        </section>
+      </div>
+
+      <footer class="site-footer">
+        <div class="footer-main">
+          <div class="footer-main__inner">
+            <div class="footer-grid">
+              <div>
+                <h3>Products and pricing</h3>
+                <ul>
+                  <li><a href="#">See all products</a></li>
+                  <li><a href="#">Google Cloud pricing</a></li>
+                  <li><a href="#">Google Cloud Marketplace</a></li>
+                  <li><a href="#">Contact sales</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3>Support</h3>
+                <ul>
+                  <li><a href="#">Community forums</a></li>
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">Release Notes</a></li>
+                  <li><a href="#">System status</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3>Resources</h3>
+                <ul>
+                  <li><a href="#">GitHub</a></li>
+                  <li>
+                    <a href="#">Getting Started with Google Cloud</a>
+                  </li>
+                  <li><a href="#">Code samples</a></li>
+                  <li><a href="#">Cloud Architecture Center</a></li>
+                  <li><a href="#">Training and Certification</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3>Engage</h3>
+                <ul>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Events</a></li>
+                  <li><a href="#">X (Twitter)</a></li>
+                  <li><a href="#">Google Cloud on YouTube</a></li>
+                  <li><a href="#">Google Cloud Tech on YouTube</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-brand" aria-hidden="true">
+            <img
+              class="footer-brand__logo"
+              src="./assets/footer-cloud-logo.png"
+              alt=""
+              width="1024"
+              height="504"
+            />
+          </div>
+        </div>
+        <div class="footer-legal">
+          <div class="footer-legal__inner">
+            <nav class="footer-legal__links" aria-label="Legal links">
+              <a href="#">About Google</a>
+              <span class="footer-legal__sep" aria-hidden="true">|</span>
+              <a href="#">Privacy</a>
+              <span class="footer-legal__sep" aria-hidden="true">|</span>
+              <a href="#">Site terms</a>
+              <span class="footer-legal__sep" aria-hidden="true">|</span>
+              <a href="#">Google Cloud terms</a>
+              <span class="footer-legal__sep" aria-hidden="true">|</span>
+              <a href="#">Our third decade of climate action: join us</a>
+            </nav>
+            <div class="footer-legal__actions">
+              <span class="footer-legal__newsletter"
+                >Sign up for the Google Cloud newsletter</span
+              >
+              <button class="footer-legal__subscribe" type="button">
+                Subscribe
+              </button>
+              <label class="footer-legal__language">
+                <span class="material-symbols-outlined" aria-hidden="true"
+                  >language</span
+                >
+                <select aria-label="Language">
+                  <option selected>English</option>
+                </select>
+                <span class="material-symbols-outlined" aria-hidden="true"
+                  >expand_more</span
+                >
+              </label>
+            </div>
           </div>
         </div>
       </footer>
     </main>
 
-    <div class="bottom-search" id="bottomSearch" aria-hidden="true">
-      <div class="bottom-search-pill-wrap">
-        <div class="search-pill bottom-search-pill">
-          <button
-            class="round-btn"
-            type="button"
-            id="bottomPlusButton"
-            aria-label="Open add menu (scrolls to top search)"
-          >
-            <span class="material-symbols-outlined">add</span>
-          </button>
-          <input
-            class="search-input"
-            id="bottomSearchInput"
-            type="text"
-            placeholder="Ask Docs AI"
-            autocomplete="off"
-          />
-          <div class="search-actions">
-            <button class="icon-btn" type="button" aria-label="Speech input">
-              <span class="material-symbols-outlined">graphic_eq</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script>
       const plusButton = document.getElementById("plusButton");
-      const bottomPlusButton = document.getElementById("bottomPlusButton");
       const plusMenu = document.getElementById("plusMenu");
       const searchInput = document.getElementById("searchInput");
-      const bottomSearchInput = document.getElementById("bottomSearchInput");
       const searchPlaceholderMarquee = document.getElementById(
         "searchPlaceholderMarquee",
       );
       const suggestionPanel = document.getElementById("suggestionPanel");
       const heroSearch = document.getElementById("heroSearch");
-      const bottomSearch = document.getElementById("bottomSearch");
-      const taskCarouselTrack = document.getElementById("taskCarouselTrack");
-      const taskCarouselPrev = document.getElementById("taskCarouselPrev");
-      const taskCarouselNext = document.getElementById("taskCarouselNext");
+      const heroSearchWrap = document.getElementById("heroSearchWrap");
+      const heroBand = document.querySelector(".hero-band");
 
       plusButton.addEventListener("click", (event) => {
         event.stopPropagation();
         plusMenu.classList.toggle("is-open");
       });
 
-      bottomPlusButton?.addEventListener("click", (event) => {
-        event.stopPropagation();
-        heroSearch.scrollIntoView({ behavior: "smooth", block: "center" });
-        window.setTimeout(() => {
-          plusMenu.classList.add("is-open");
-        }, 280);
-      });
-
       document.addEventListener("click", (event) => {
         const t = event.target;
-        if (
-          !plusMenu.contains(t) &&
-          t !== plusButton &&
-          t !== bottomPlusButton
-        ) {
+        if (!plusMenu.contains(t) && t !== plusButton) {
           plusMenu.classList.remove("is-open");
         }
       });
 
       function syncPlaceholderMarquee() {
         const hasText = searchInput.value.trim().length > 0;
-        const isFocused =
-          document.activeElement === searchInput ||
-          document.activeElement === bottomSearchInput;
+        const isFocused = document.activeElement === searchInput;
         searchPlaceholderMarquee.classList.toggle(
           "is-hidden",
           hasText || isFocused,
@@ -1739,15 +2753,14 @@
 
       function updateSuggestionDockMode() {
         const pinned =
-          bottomSearch.classList.contains("visible") &&
-          document.activeElement === bottomSearchInput;
+          heroSearchWrap.classList.contains("is-docked") &&
+          document.activeElement === searchInput;
         suggestionPanel.classList.toggle("dock-bottom", pinned);
       }
 
       function refreshSuggestionsOpen() {
         const rich = searchInput.value.trim().length > 2;
-        const ae = document.activeElement;
-        const fieldFocused = ae === searchInput || ae === bottomSearchInput;
+        const fieldFocused = document.activeElement === searchInput;
         suggestionPanel.classList.toggle(
           "is-open",
           rich && fieldFocused,
@@ -1760,7 +2773,6 @@
           const ae = document.activeElement;
           if (
             ae === searchInput ||
-            ae === bottomSearchInput ||
             suggestionPanel.contains(ae)
           ) {
             updateSuggestionDockMode();
@@ -1771,16 +2783,17 @@
         }, 200);
       }
 
-      bottomSearchInput.value = searchInput.value;
-
       searchInput.addEventListener("input", () => {
-        bottomSearchInput.value = searchInput.value;
         syncPlaceholderMarquee();
-        suggestionPanel.classList.remove("dock-bottom");
+        if (!heroSearchWrap.classList.contains("is-docked")) {
+          suggestionPanel.classList.remove("dock-bottom");
+        }
         refreshSuggestionsOpen();
       });
       searchInput.addEventListener("focus", () => {
-        suggestionPanel.classList.remove("dock-bottom");
+        if (!heroSearchWrap.classList.contains("is-docked")) {
+          suggestionPanel.classList.remove("dock-bottom");
+        }
         syncPlaceholderMarquee();
         refreshSuggestionsOpen();
       });
@@ -1789,23 +2802,10 @@
         scheduleSuggestionClose();
       });
 
-      bottomSearchInput.addEventListener("input", () => {
-        searchInput.value = bottomSearchInput.value;
-        syncPlaceholderMarquee();
-        refreshSuggestionsOpen();
-      });
-      bottomSearchInput.addEventListener("focus", () => {
-        refreshSuggestionsOpen();
-      });
-      bottomSearchInput.addEventListener("blur", () => {
-        scheduleSuggestionClose();
-      });
-
       let placeholderAlt = false;
       window.setInterval(() => {
         if (searchInput.value.trim().length > 0) return;
-        const ae = document.activeElement;
-        if (ae === searchInput || ae === bottomSearchInput) return;
+        if (document.activeElement === searchInput) return;
         placeholderAlt = !placeholderAlt;
         searchPlaceholderMarquee.classList.toggle("is-alt", placeholderAlt);
       }, 4500);
@@ -1821,12 +2821,28 @@
         });
       });
 
+      function updateDockedSearchHeight() {
+        document.documentElement.style.setProperty(
+          "--docked-search-height",
+          `${heroSearch.offsetHeight}px`,
+        );
+      }
+
       function updateFloatingSearchVisibility() {
-        const heroRect = heroSearch.getBoundingClientRect();
-        const show = heroRect.bottom < 96;
-        bottomSearch.classList.toggle("visible", show);
-        bottomSearch.setAttribute("aria-hidden", show ? "false" : "true");
-        if (!show) suggestionPanel.classList.remove("dock-bottom");
+        if (!heroBand || !heroSearchWrap) return;
+
+        const heroRect = heroBand.getBoundingClientRect();
+        const docked = heroRect.bottom <= 0;
+
+        heroSearchWrap.classList.toggle("is-docked", docked);
+        heroSearchWrap.setAttribute("aria-hidden", "false");
+
+        if (docked) {
+          updateDockedSearchHeight();
+        } else {
+          suggestionPanel.classList.remove("dock-bottom");
+        }
+
         updateSuggestionDockMode();
       }
 
@@ -1842,27 +2858,13 @@
           updateFloatingSearchVisibility,
           { passive: true },
         );
-      window.addEventListener("resize", updateFloatingSearchVisibility);
+      window.addEventListener("resize", () => {
+        updateDockedSearchHeight();
+        updateFloatingSearchVisibility();
+      });
+      updateDockedSearchHeight();
       updateFloatingSearchVisibility();
 
-      taskCarouselPrev.addEventListener("click", () => {
-        taskCarouselTrack.scrollBy({ left: -354, behavior: "smooth" });
-      });
-
-      taskCarouselNext.addEventListener("click", () => {
-        taskCarouselTrack.scrollBy({ left: 354, behavior: "smooth" });
-      });
-
-      function syncTaskCarouselFade() {
-        taskCarouselTrack.classList.toggle(
-          "has-left-fade",
-          taskCarouselTrack.scrollLeft > 56,
-        );
-      }
-
-      taskCarouselTrack.addEventListener("scroll", syncTaskCarouselFade, {
-        passive: true,
-      });
     </script>
     <script src="./assets/site-header.js"></script>
   </body>

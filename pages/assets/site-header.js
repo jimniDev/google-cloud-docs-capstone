@@ -49,6 +49,12 @@
     );
   }
 
+  function navLink(label, href) {
+    return (
+      '<a class="gcloud-nav-link" href="' + href + '">' + label + "</a>"
+    );
+  }
+
   function navItem(label, items, key) {
     return (
       '<div class="gcloud-nav-item" data-nav="' +
@@ -65,8 +71,16 @@
 
   function renderHeader(target, options) {
     const homeHref = (options && options.homeHref) || "./home.html";
+    const skillsIntroHref =
+      (options && options.skillsIntroHref) || "./skills.html";
+    const skillsLibraryHref =
+      (options && options.skillsLibraryHref) || "./skill-library.html";
     const logoSrc =
       (options && options.logoSrc) || "./assets/logo.svg";
+    const skillsLinks = [
+      { label: "Skills Introduction", href: skillsIntroHref },
+      { label: "Skills Library", href: skillsLibraryHref },
+    ];
     target.innerHTML =
       '<header class="gcloud-header">' +
       '  <div class="gcloud-header-inner">' +
@@ -81,6 +95,7 @@
       '      <nav class="gcloud-nav" aria-label="Primary">' +
       navItem("Technology areas", technologyAreas, "tech") +
       navItem("Cross-product tools", crossProductTools, "tools") +
+      navItem("Skills", skillsLinks, "skills") +
       "      </nav>" +
       "    </div>" +
       '    <div class="gcloud-header-right">' +
@@ -162,6 +177,10 @@
       renderHeader(el, {
         homeHref: el.getAttribute("data-home") || "./home.html",
         logoSrc: el.getAttribute("data-logo") || "./assets/logo.svg",
+        skillsIntroHref:
+          el.getAttribute("data-skills-intro") || "./skills.html",
+        skillsLibraryHref:
+          el.getAttribute("data-skills-library") || "./skill-library.html",
       });
     });
     document.querySelectorAll("[data-site-footer]").forEach((el) => {

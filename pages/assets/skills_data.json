@@ -43,6 +43,53 @@
       ]
     },
     {
+      "id": "google-cloud-recipe-onboarding",
+      "title": "Onboarding to Google Cloud",
+      "icon": "school",
+      "category": "Setup & Configuration",
+      "goal": "Setup & Configuration",
+      "products": [
+        "Application hosting",
+        "Featured products"
+      ],
+      "type": "Task Guide",
+      "difficulty": "Beginner",
+      "steps": 7,
+      "time": 20,
+      "overview": "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
+      "tags": [
+        "onboarding",
+        "gcloud",
+        "billing",
+        "projects",
+        "getting-started"
+      ],
+      "views": 8650,
+      "popularity": 512,
+      "previouslyViewed": false,
+      "highlight": "First-time GCP setup path",
+      "description": "Guidance for a developer's first steps on Google Cloud, covering account creation, billing setup, project management, and deploying a first resource.",
+      "prerequisites": [
+        "Google Account",
+        "Valid payment method for billing verification"
+      ],
+      "stepTitles": [
+        "Sign up and activate free credit",
+        "Create your first project",
+        "Set up billing",
+        "Install and initialize gcloud CLI",
+        "Enable necessary APIs",
+        "Deploy your first resource",
+        "Validate onboarding completion"
+      ],
+      "checkpoints": [
+        "Project ID created",
+        "Billing linked",
+        "CLI authenticated",
+        "First resource reachable"
+      ]
+    },
+    {
       "id": "deploy-first-cloud-run-service",
       "title": "Deploy Your First Cloud Run Service",
       "icon": "rocket_launch",

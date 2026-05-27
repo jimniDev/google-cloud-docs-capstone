@@ -80,12 +80,40 @@
   background: #f1f3f4;
 }
 
+.gcloud-nav-link {
+  align-items: center;
+  border-radius: 4px;
+  color: inherit;
+  display: inline-flex;
+  font-family: "Google Sans", "Noto Sans", "Roboto", Arial, sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 1.2;
+  padding: 4px 8px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.gcloud-nav-link:hover {
+  background: #f1f3f4;
+}
+
+.gcloud-nav-link:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}
+
 .gcloud-nav-button .arrow {
   font-size: 16px;
   transition: transform 120ms ease-out;
 }
 
 .gcloud-nav-item.is-open .gcloud-nav-button .arrow {
+  transform: rotate(180deg);
+}
+
+.gcloud-nav-item[data-nav="skills"]:hover .gcloud-nav-button .arrow,
+.gcloud-nav-item[data-nav="skills"]:focus-within .gcloud-nav-button .arrow {
   transform: rotate(180deg);
 }
 
@@ -116,6 +144,18 @@
 }
 
 .gcloud-nav-item.is-open .gcloud-dropdown {
+  clip-path: inset(0 0 0 0 round 6px);
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    clip-path 420ms cubic-bezier(0.22, 1, 0.25, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.25, 1),
+    visibility 0s linear 0s;
+}
+
+.gcloud-nav-item[data-nav="skills"]:hover .gcloud-dropdown,
+.gcloud-nav-item[data-nav="skills"]:focus-within .gcloud-dropdown {
   clip-path: inset(0 0 0 0 round 6px);
   transform: translateY(0);
   visibility: visible;
