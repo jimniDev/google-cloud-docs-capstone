@@ -27,6 +27,12 @@
         font-family: Inter, system-ui, sans-serif;
         line-height: 1.5;
       }
+      p {
+        font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial,
+          sans-serif;
+        font-size: var(--nimbus-title-m-size);
+        line-height: var(--nimbus-title-m-lh);
+      }
       a {
         color: inherit;
         text-decoration: none;
@@ -96,7 +102,7 @@
 
       .hero-band__inner {
         margin: 0 auto;
-        max-width: 720px;
+        max-width: 960px;
         position: relative;
         z-index: 1;
       }
@@ -107,9 +113,10 @@
         flex-direction: column;
         justify-content: center;
         margin: 0 auto calc(var(--nimbus-space-8) * 2.25);
-        max-width: 720px;
+        max-width: 960px;
         min-height: auto;
         text-align: center;
+        width: 100%;
       }
 
       .hero-spark {
@@ -123,17 +130,19 @@
       .hero h1 {
         color: var(--nimbus-surface);
         font-family: "Google Sans", Inter, system-ui, sans-serif;
-        font-size: var(--nimbus-display-m-size);
-        font-weight: 600;
+        font-size: var(--nimbus-display-l-size);
+        font-weight: 500;
         letter-spacing: -0.5px;
-        line-height: var(--nimbus-display-m-lh);
+        line-height: 60px;
         margin: 0 0 calc(var(--nimbus-space-4) * 2.25);
+        white-space: nowrap;
       }
 
       .hero p {
         color: color-mix(in srgb, var(--nimbus-surface) 84%, transparent);
-        font-size: var(--nimbus-body-l-size);
-        line-height: var(--nimbus-body-l-lh);
+        font-size: 22px;
+        font-weight: 400;
+        line-height: var(--nimbus-title-m-lh);
         margin: 0 auto;
         max-width: 720px;
         text-align: center;
@@ -141,9 +150,10 @@
       }
 
       .hero-band .search-wrap {
-        margin: 0;
-        max-width: none;
+        margin: 0 auto;
+        max-width: 720px;
         position: relative;
+        width: 100%;
       }
 
       .hero-band .search-pill-shell {
@@ -155,12 +165,12 @@
 
       .hero-band .search-pill-shell .search-pill {
         align-items: stretch;
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.12);
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: var(--nimbus-space-6);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
         display: flex;
         flex-direction: column;
         gap: var(--nimbus-space-3);
@@ -173,15 +183,15 @@
       }
 
       .hero-band .search-pill-shell .search-pill:hover {
-        border-color: rgba(255, 255, 255, 0.22);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
       }
 
       .hero-band .search-pill-shell .search-pill:focus-within {
-        border-color: rgba(255, 255, 255, 0.38);
+        border-color: rgba(255, 255, 255, 0.42);
         box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.16),
-          0 0 0 3px rgba(255, 255, 255, 0.08);
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          0 0 0 3px rgba(255, 255, 255, 0.1);
       }
 
       @property --nimbus-rainbow-angle {
@@ -275,37 +285,37 @@
           var(--nimbus-border) 55%,
           var(--nimbus-text-primary)
         );
-        color: color-mix(in srgb, var(--nimbus-surface) 78%, transparent);
+        color: color-mix(in srgb, var(--nimbus-surface) 88%, transparent);
       }
 
       .hero-band .round-btn:hover,
       .hero-band .icon-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.28);
         color: var(--nimbus-surface);
       }
 
       .hero-band .icon-btn {
         background: transparent;
         border-color: transparent;
-        color: color-mix(in srgb, var(--nimbus-surface) 78%, transparent);
+        color: color-mix(in srgb, var(--nimbus-surface) 88%, transparent);
       }
 
       .hero-band .search-input {
         background: transparent;
         caret-color: rgba(138, 180, 248, 0.9);
-        color: rgba(255, 255, 255, 0.85);
+        color: rgba(255, 255, 255, 0.92);
       }
 
       .hero-band .search-placeholder-line {
-        color: rgba(255, 255, 255, 0.35);
+        color: rgba(255, 255, 255, 0.48);
       }
 
       @supports not (
         (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
       ) {
         .hero-band .search-pill-shell .search-pill {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.14);
         }
       }
 
@@ -1120,31 +1130,12 @@
         );
         border-radius: var(--nimbus-radius-lg);
         color: var(--nimbus-success);
-        display: inline-flex;
-        flex-direction: column;
+        display: inline-block;
         font-size: var(--nimbus-label-size);
-        font-weight: 700;
-        gap: var(--nimbus-space-1);
-        letter-spacing: 0.06em;
-        line-height: 1.15;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: var(--nimbus-label-lh);
         padding: var(--nimbus-space-2) var(--nimbus-space-3);
-        text-transform: uppercase;
-      }
-
-      .developer-stories__badge-row {
-        align-items: center;
-        display: flex;
-        gap: var(--nimbus-space-2);
-      }
-
-      .developer-stories__badge-row--story {
-        padding-left: calc(16px + var(--nimbus-space-2));
-      }
-
-      .developer-stories__badge-icon {
-        flex-shrink: 0;
-        font-size: 16px;
-        line-height: 1;
       }
 
       .developer-stories__featured-copy h3 {
@@ -2024,6 +2015,7 @@
         .hero h1 {
           font-size: 30px;
           line-height: 38px;
+          white-space: normal;
         }
         .hero p {
           white-space: normal;
@@ -2395,20 +2387,7 @@
 
             <article class="developer-stories__featured">
               <div class="developer-stories__featured-copy">
-                <span class="developer-stories__badge">
-                  <span class="developer-stories__badge-row">
-                    <span
-                      class="material-symbols-outlined developer-stories__badge-icon"
-                      aria-hidden="true"
-                      >spark</span
-                    >
-                    Skills Success
-                  </span>
-                  <span
-                    class="developer-stories__badge-row developer-stories__badge-row--story"
-                    >Story</span
-                  >
-                </span>
+                <span class="developer-stories__badge">Skill Success story</span>
                 <h3>
                   How Lena cut her team's deployment time by 80% using
                   Documentation Skills
