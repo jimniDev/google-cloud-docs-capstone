@@ -62,8 +62,7 @@
 /* Shared Skills / Skill Library page hero title */
 .library-page-title {
   color: var(--nimbus-text-primary);
-  font-family:
-    "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
+  font-family: var(--nimbus-font-display);
   font-size: var(--nimbus-display-m-size);
   font-weight: 500;
   letter-spacing: -0.025em;

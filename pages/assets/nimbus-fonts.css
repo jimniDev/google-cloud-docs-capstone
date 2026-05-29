@@ -1,0 +1,62 @@
+/* Nimbus typography: Google Sans (display) + Roboto (body) */
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+
+:root {
+  --nimbus-font-display: "Google Sans", sans-serif;
+  --nimbus-font-body: "Roboto", Arial, sans-serif;
+}
+
+body {
+  font-family: var(--nimbus-font-body);
+  font-size: var(--nimbus-body-l-size);
+  line-height: var(--nimbus-body-l-lh);
+}
+
+p,
+li,
+dd,
+dt,
+blockquote,
+figcaption,
+.gcloud-footer,
+.gcloud-footer p {
+  font-family: var(--nimbus-font-body);
+}
+
+input:not([type="button"]):not([type="submit"]):not([type="reset"]),
+textarea,
+select {
+  font-family: var(--nimbus-font-body);
+}
+
+:is(h1, h2, h3, h4, h5, h6),
+.library-page-title,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[class*="__btn"],
+[class*="__cta"],
+.gcloud-nav-button,
+.gcloud-nav-link,
+.gcloud-pill,
+.gcloud-header {
+  font-family: var(--nimbus-font-display);
+  font-weight: 400;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+}
+
+.material-icons {
+  font-family: "Material Icons";
+}
+
+code,
+pre,
+kbd,
+samp,
+.font-mono {
+  font-family: "Roboto Mono", ui-monospace, monospace;
+}

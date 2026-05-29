@@ -1,6 +1,5 @@
 /* Shared Google Cloud site header for static prototype pages.
    Mirrors the previous React <Header /> component. */
-@import url("https://fonts.cdnfonts.com/css/google-sans");
 
 .gcloud-header {
   position: sticky;
@@ -8,7 +7,6 @@
   z-index: 200;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  font-family: "Google Sans", "Noto Sans", "Roboto", Arial, sans-serif;
 }
 
 .gcloud-header-inner {
@@ -46,7 +44,6 @@
   gap: 4px;
   color: #3c4043;
   font-size: 14px;
-  font-family: "Google Sans", "Noto Sans", "Roboto", Arial, sans-serif;
 }
 
 @media (min-width: 720px) {
@@ -69,7 +66,6 @@
   color: inherit;
   font: inherit;
   font-size: 14px;
-  font-family: "Google Sans", "Noto Sans", "Roboto", Arial, sans-serif;
   cursor: pointer;
   border-radius: 4px;
   padding: 4px 8px;
@@ -85,7 +81,6 @@
   border-radius: 4px;
   color: inherit;
   display: inline-flex;
-  font-family: "Google Sans", "Noto Sans", "Roboto", Arial, sans-serif;
   font-size: 14px;
   height: 36px;
   line-height: 1.2;
@@ -290,7 +285,7 @@
   border-top: 1px solid #e5e7eb;
   background: #f8f9fa;
   color: #5f6368;
-  font-family: "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
+  font-family: var(--nimbus-font-body);
 }
 
 .gcloud-footer-inner {
