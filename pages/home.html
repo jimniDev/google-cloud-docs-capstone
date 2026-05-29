@@ -16,6 +16,9 @@
       * {
         box-sizing: border-box;
       }
+      html {
+        overflow-x: clip;
+      }
       html,
       body {
         margin: 0;
@@ -25,6 +28,8 @@
         background: var(--nimbus-surface);
         color: var(--nimbus-text-primary);
         line-height: 1.5;
+        max-width: 100%;
+        overflow-x: clip;
       }
       a {
         color: inherit;
@@ -53,21 +58,36 @@
         --section-padding-y: calc(
           var(--nimbus-space-16) + var(--nimbus-space-12)
         );
+        --shell-inline-pad: var(--nimbus-space-8);
         min-height: 100vh;
+        max-width: 100%;
+        overflow-x: clip;
         overflow-y: auto;
         position: relative;
       }
       .shell {
+        box-sizing: border-box;
         margin: 0 auto;
-        max-width: 1280px;
-        padding: 0 var(--nimbus-space-8);
+        max-width: min(1280px, 100%);
+        padding: 0 var(--shell-inline-pad);
+        position: relative;
+        width: 100%;
+        z-index: 0;
       }
 
       .hero-band {
         background-color: #000;
-        overflow: visible;
+        overflow-x: clip;
+        overflow-y: visible;
         padding: var(--section-padding-y) var(--nimbus-space-8);
         position: relative;
+        z-index: 1;
+      }
+
+      .hero-band:has(.suggestion-panel.is-open),
+      .hero-band:has(.slash-menu.is-open),
+      .hero-band:has(.plus-menu.is-open) {
+        z-index: 190;
       }
 
       .hero-band__accent {
@@ -114,10 +134,10 @@
 
       .hero-spark {
         display: block;
-        height: 40px;
-        margin-bottom: calc(var(--nimbus-space-6) * 2.25);
+        height: 56px;
+        margin-bottom: var(--nimbus-space-4);
         object-fit: contain;
-        width: 40px;
+        width: 56px;
       }
 
       .hero h1,
@@ -147,6 +167,7 @@
         max-width: 720px;
         position: relative;
         width: 100%;
+        z-index: 2;
       }
 
       .hero-band .search-pill-shell {
@@ -512,7 +533,7 @@
         display: none;
         overflow: hidden;
         position: absolute;
-        z-index: 20;
+        z-index: 50;
       }
       .plus-menu {
         left: 0;
@@ -537,7 +558,7 @@
         top: auto;
         transform: translateX(-50%);
         width: min(720px, calc(100vw - 32px));
-        z-index: 181;
+        z-index: 195;
       }
       .is-open {
         display: block;
@@ -554,7 +575,7 @@
         position: absolute;
         right: 0;
         top: calc(100% + 8px);
-        z-index: 20;
+        z-index: 50;
       }
       .slash-menu.is-open {
         display: block;
@@ -798,7 +819,10 @@
       .card-grid {
         display: grid;
         gap: 24px;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(min(100%, 320px), 1fr)
+        );
         margin-bottom: 24px;
       }
       .task-card {
@@ -1054,7 +1078,7 @@
           var(--nimbus-surface)
         );
         border-radius: calc(var(--nimbus-radius-xl) + var(--nimbus-space-8));
-        margin-inline: calc(-1 * var(--section-padding-y));
+        margin-inline: calc(-1 * var(--shell-inline-pad));
         overflow: hidden;
         padding-block: var(--section-padding-y);
         padding-inline: var(--section-padding-y);
@@ -1432,7 +1456,7 @@
           var(--nimbus-surface)
         );
         border-radius: calc(var(--nimbus-radius-xl) + var(--nimbus-space-8));
-        margin-inline: calc(-1 * var(--section-padding-y));
+        margin-inline: calc(-1 * var(--shell-inline-pad));
         overflow: hidden;
         padding-block: var(--section-padding-y);
         padding-inline: var(--section-padding-y);
@@ -1631,8 +1655,8 @@
 
       .lang-tools {
         background: var(--nimbus-surface-subtle);
-        margin: 0 calc(50% - 50vw);
-        padding: var(--section-padding-y) calc(50vw - 50%);
+        margin-inline: calc(-1 * var(--shell-inline-pad));
+        padding: var(--section-padding-y) var(--shell-inline-pad);
       }
 
       .lang-tools__inner {
@@ -1784,22 +1808,23 @@
       }
 
       .footer-main {
-        background: #000;
+        background-color: #000;
         color: var(--nimbus-surface);
-        min-height: 720px;
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
-        padding: var(--section-padding-y) 0;
+        padding: var(--section-padding-y) 0 0;
         position: relative;
       }
 
       .footer-main__inner {
-        display: flex;
-        flex-direction: column;
+        flex: 0 0 auto;
         margin: 0 auto;
         max-width: 1280px;
-        padding: 0 var(--nimbus-space-6) calc(200px + var(--section-padding-y));
+        padding: 0 var(--nimbus-space-6);
         position: relative;
-        z-index: 1;
+        width: 100%;
+        z-index: 2;
       }
 
       .footer-grid {
@@ -1847,23 +1872,26 @@
 
       .footer-brand {
         align-items: flex-end;
-        bottom: 0;
         display: flex;
+        flex: 0 0 auto;
         justify-content: center;
-        left: 0;
-        margin: 0;
+        line-height: 0;
+        margin: var(--nimbus-space-8) 0 calc(-1 * var(--nimbus-space-8));
         pointer-events: none;
-        position: absolute;
-        right: 0;
+        position: relative;
         width: 100%;
-        z-index: 0;
+        z-index: 1;
       }
 
       .footer-brand__logo {
         display: block;
         height: auto;
+        margin-bottom: 0;
         max-width: min(920px, 100%);
-        transform: scale(1.5);
+        object-fit: contain;
+        object-position: center bottom;
+        opacity: 0.9;
+        transform: scale(1.4);
         transform-origin: center bottom;
         width: 100%;
       }
@@ -1976,9 +2004,34 @@
         padding-right: var(--nimbus-space-4);
       }
 
+      @media (max-width: 1024px) {
+        .hero h1,
+        #homeTitle {
+          white-space: normal;
+        }
+        .hero p {
+          white-space: normal;
+        }
+        .featured-grid {
+          grid-template-columns: 1fr;
+        }
+        .product-list-section {
+          grid-template-columns: 1fr;
+        }
+        .product-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .lang-tools__grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
       @media (max-width: 760px) {
+        .page {
+          --shell-inline-pad: var(--nimbus-space-5);
+        }
         .shell {
-          padding: 0 var(--nimbus-space-5);
+          padding: 0 var(--shell-inline-pad);
         }
         .featured-grid {
           grid-template-columns: 1fr;
@@ -1992,8 +2045,7 @@
           width: 110px;
         }
         .developer-stories {
-          margin-inline: calc(-1 * var(--nimbus-space-5));
-          padding-inline: var(--nimbus-space-5);
+          padding-inline: var(--shell-inline-pad);
         }
         .developer-stories__featured {
           grid-template-columns: 1fr;
@@ -2013,8 +2065,7 @@
           padding: var(--section-padding-y) var(--nimbus-space-5);
         }
         .skills-get-started {
-          margin-inline: calc(-1 * var(--nimbus-space-5));
-          padding-inline: var(--nimbus-space-5);
+          padding-inline: var(--shell-inline-pad);
         }
         .skills-get-started__stats {
           grid-template-columns: 1fr;
@@ -2034,12 +2085,8 @@
         .news-grid {
           grid-template-columns: 1fr;
         }
-        .lang-tools {
-          margin: 0 calc(50% - 50vw);
-          padding: var(--section-padding-y) calc(50vw - 50%);
-        }
         .lang-tools__grid {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
         }
         .footer-grid {
           grid-template-columns: 1fr 1fr;
@@ -2077,10 +2124,10 @@
           <section class="hero">
             <img
               class="hero-spark"
-              src="./assets/gemini-star-logo.png"
+              src="./assets/cloud-logo.svg"
               alt=""
-              width="40"
-              height="40"
+              width="56"
+              height="56"
               aria-hidden="true"
             />
             <h1 id="homeTitle">Google Cloud Agentic Documentation</h1>
