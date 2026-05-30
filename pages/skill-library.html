@@ -37,6 +37,7 @@
         --google-green: #34a853;
       }
       html {
+        overflow-x: clip;
         overflow-y: scroll;
         scrollbar-gutter: stable;
       }
@@ -44,6 +45,8 @@
         background: var(--nimbus-surface);
         color: var(--nimbus-text-primary);
         line-height: 1.5;
+        max-width: 100%;
+        overflow-x: clip;
         padding: 0;
       }
       input:not([type="button"]):not([type="submit"]):not([type="reset"]),
@@ -101,8 +104,10 @@
         background: var(--nimbus-surface);
         box-sizing: border-box;
         margin: 0 auto;
-        max-width: 80rem;
+        max-width: min(80rem, 100%);
+        overflow-x: clip;
         padding: var(--nimbus-space-12) var(--nimbus-space-6) 9rem;
+        width: 100%;
       }
 
       .library-page-header {
@@ -177,11 +182,12 @@
         box-sizing: border-box;
         column-gap: 30px;
         display: grid;
-        grid-template-columns: 230px minmax(0, 1fr);
+        grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
         margin: 0;
-        max-width: none;
+        max-width: 100%;
         padding: 0;
         row-gap: 24px;
+        width: 100%;
       }
       .container.is-create-mode {
         grid-template-columns: minmax(0, 1fr);
@@ -444,8 +450,11 @@
       }
       .skill-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 22px;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(min(100%, 320px), 1fr)
+        );
       }
       .skill-pagination {
         align-items: center;
@@ -1011,8 +1020,11 @@
       }
       .skeleton-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 20px;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(min(100%, 320px), 1fr)
+        );
       }
       .skeleton-card {
         background: var(--nimbus-surface);
@@ -1064,8 +1076,10 @@
         align-items: start;
         display: grid;
         gap: 24px;
-        grid-template-columns: minmax(0, 760px) 200px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 200px);
         justify-content: center;
+        max-width: 100%;
+        width: 100%;
       }
       .context-detail__content {
         background: var(--nimbus-surface);
@@ -1404,6 +1418,26 @@
         font-size: 15px;
         line-height: 24px;
       }
+      @media (max-width: 1024px) {
+        .container {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .doc-sidebar.skill-filters {
+          max-height: none;
+          position: static;
+          width: 100%;
+        }
+
+        .left-panel,
+        .main-content {
+          max-width: 100%;
+          min-width: 0;
+          width: 100%;
+        }
+      }
+
       @media (max-width: 1200px) {
         .context-detail__layout {
           grid-template-columns: 1fr;

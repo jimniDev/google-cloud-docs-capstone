@@ -28,6 +28,7 @@
       }
 
       html {
+        overflow-x: clip;
         scroll-behavior: smooth;
       }
 
@@ -63,6 +64,8 @@
         margin: 0;
         background: var(--nimbus-surface-subtle);
         color: var(--text);
+        max-width: 100%;
+        overflow-x: clip;
       }
 
       button,
@@ -71,18 +74,23 @@
       }
 
       .screen-shell {
+        box-sizing: border-box;
+        max-width: 100%;
         min-height: 100vh;
-        padding: 24px 32px 64px;
+        overflow-x: clip;
+        padding: 24px clamp(var(--nimbus-space-4), 3vw, 32px) 64px;
       }
 
       .page {
-        max-width: 1220px;
-        margin: 0 auto;
         background: transparent;
         border: 0;
         border-radius: 0;
-        overflow: visible;
         box-shadow: none;
+        box-sizing: border-box;
+        margin: 0 auto;
+        max-width: min(1220px, 100%);
+        overflow: visible;
+        width: 100%;
       }
 
       .doc-main {
@@ -221,13 +229,16 @@
       }
 
       .container {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 190px;
-        gap: 40px;
-        max-width: none;
-        margin: 0;
-        padding: 0;
         align-items: start;
+        box-sizing: border-box;
+        display: grid;
+        gap: 40px;
+        grid-template-areas: "main toc";
+        grid-template-columns: minmax(0, 1fr) minmax(0, 190px);
+        margin: 0 auto;
+        max-width: 100%;
+        padding: 0;
+        width: 100%;
       }
 
       .doc-content {
@@ -2209,19 +2220,27 @@
       }
 
       .screen-shell {
-        padding: 28px 32px 72px;
+        padding: 28px clamp(var(--nimbus-space-4), 3vw, 32px) 72px;
       }
 
-      .page {
-        max-width: calc(760px * 1.35 + 400px);
-        margin: 0 auto;
+      @media (min-width: 1200px) {
+        .container {
+          gap: 32px;
+          grid-template-columns: minmax(0, min(1026px, 1fr)) minmax(0, 190px);
+          max-width: min(100%, calc(760px * 1.35 + 32px + 190px));
+        }
       }
 
-      .container {
-        grid-template-columns: 168px minmax(0, calc(760px * 1.35)) 168px;
-        grid-template-areas: ". main toc";
-        gap: 32px;
-        justify-content: center;
+      @media (max-width: 1199px) {
+        .container {
+          gap: 32px;
+          grid-template-columns: minmax(0, 1fr);
+          grid-template-areas: "main";
+        }
+
+        .toc {
+          display: none;
+        }
       }
 
       .doc-content {
@@ -2519,9 +2538,9 @@
         }
 
         .page {
-          min-height: 100vh;
           border: 0;
           border-radius: 0;
+          min-height: 100vh;
         }
 
         .container {

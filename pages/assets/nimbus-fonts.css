@@ -6,10 +6,16 @@
   --nimbus-font-body: "Roboto", Arial, sans-serif;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--nimbus-font-body);
   font-size: var(--nimbus-body-l-size);
   line-height: var(--nimbus-body-l-lh);
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 p,

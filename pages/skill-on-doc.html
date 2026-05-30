@@ -13,10 +13,37 @@
     <link rel="stylesheet" href="./assets/nimbus-theme.css" />
     <link rel="stylesheet" href="./assets/site-header.css" />
     <style>
-
       :root {
         --nimbus-surface-elevated: #ffffff;
         --detail-quick-stack-gap: 16px;
+        /* Google Cloud docs chrome (gemini-enterprise-agent-platform) */
+        --docs-product-bar-bg: #eaf2ff;
+        --docs-product-bar-border: #cfd8e6;
+        --docs-layout-max: 1600px;
+        --docs-nav-width: 261px;
+        --docs-nav-scrollbar-width: 8px;
+        --docs-toc-width: 228px;
+        --docs-column-gap: 48px;
+        --docs-nav-active-bg: #e8f0fe;
+        --docs-nav-filter-bg: #f1f3f4;
+        --docs-nav-divider: #dadce0;
+        --docs-nav-link-size: 13px;
+        --docs-nav-link-lh: 24px;
+        --docs-nav-item-height: 24px;
+        --docs-nav-item-inset-end: 8px;
+        --docs-tab-bar-height: 48px;
+        --docs-chrome-row-padding-inline: var(--nimbus-space-6);
+        --docs-product-title-size: 22px;
+        --docs-product-title-lh: 32px;
+        --docs-product-row-height: 56px;
+        --gcloud-header-height: 48px;
+        --docs-sticky-chrome-top: calc(
+          var(--gcloud-header-height) + var(--docs-tab-bar-height)
+        );
+        --docs-toc-sticky-gap: var(--nimbus-space-6);
+        --docs-toc-sticky-top: calc(
+          var(--docs-sticky-chrome-top) + var(--docs-toc-sticky-gap)
+        );
       }
 
       * {
@@ -24,167 +51,379 @@
         margin: 0;
         padding: 0;
       }
-      html {
-        overflow-x: clip;
+      html,
+      body {
+        overflow-x: visible;
       }
       body {
         background: var(--nimbus-surface-subtle);
         color: var(--nimbus-text-primary);
         line-height: 1.5;
         max-width: 100%;
-        overflow-x: clip;
-        padding: 0;
+        padding: var(--gcloud-header-height) 0 0;
       }
-      .gcloud-header {
-        position: static;
+      [data-site-header] {
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 200;
       }
-
-      .enterprise-topbar {
-        align-items: center;
-        background: #eaf2ff;
-        border-bottom: 0;
-        display: flex;
-        height: 58px;
-        padding: 0 28px;
-        position: static;
-        top: auto;
+      [data-site-header] .gcloud-header {
+        position: relative;
+        width: 100%;
+      }
+      .docs-product-chrome {
+        background: var(--docs-product-bar-bg);
+        position: relative;
         z-index: 21;
+      }
+      .docs-product-chrome__product-row {
+        align-items: center;
+        box-sizing: border-box;
+        display: flex;
+        gap: var(--nimbus-space-4);
+        height: var(--docs-product-row-height);
+        justify-content: space-between;
+        margin: 0;
+        max-width: 100%;
+        padding: 0 var(--docs-chrome-row-padding-inline);
+        width: 100%;
       }
       .enterprise-brand {
         align-items: center;
-        color: #202124;
+        color: var(--nimbus-text-primary);
         display: flex;
         flex: 1 1 auto;
-        flex-wrap: wrap;
-        font-size: 22px;
+        font-family: var(--nimbus-font-display);
+        font-size: var(--docs-product-title-size);
         font-weight: 400;
-        gap: 8px;
-        letter-spacing: -0.2px;
+        gap: var(--nimbus-space-2);
+        letter-spacing: 0;
+        line-height: var(--docs-product-title-lh);
         min-width: 0;
       }
-      .enterprise-logo {
-        color: #1a73e8;
-        font-size: 20px;
-        line-height: 1;
+      .enterprise-brand span {
+        color: inherit;
+        font: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
       }
-      .cloud-docbar {
+      .enterprise-logo-img {
+        display: block;
+        flex-shrink: 0;
+        height: 28px;
+        width: 28px;
+      }
+      .docs-cta-start-free {
         align-items: center;
-        background: #eaf2ff;
-        border-bottom: 1px solid #cfd8e6;
-        box-shadow: 0 2px 4px rgba(60, 64, 67, 0.12);
-        display: flex;
-        gap: 0;
-        height: 44px;
-        max-width: 100%;
-        overflow-x: auto;
-        padding: 0 28px;
-        position: static;
-        top: auto;
-        z-index: 19;
-        -webkit-overflow-scrolling: touch;
+        background: var(--nimbus-primary);
+        border-radius: var(--nimbus-radius-sm);
+        color: var(--nimbus-surface);
+        display: inline-flex;
+        flex-shrink: 0;
+        font-size: var(--nimbus-body-m-size);
+        font-weight: 500;
+        height: 36px;
+        justify-content: center;
+        padding: 0 var(--nimbus-space-6);
+        text-decoration: none;
+        transition: background var(--nimbus-motion-fast);
+        white-space: nowrap;
       }
-      .docbar-title {
-        display: none;
+      .docs-cta-start-free:hover {
+        background: var(--nimbus-primary-hover);
+      }
+      .docs-cta-start-free:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 2px;
+      }
+      .docs-product-chrome__tab-row {
+        background: var(--docs-product-bar-bg);
+        border-bottom: 1px solid var(--docs-product-bar-border);
+        box-sizing: border-box;
+        font-family: var(--nimbus-font-display);
+        margin: 0;
+        max-width: 100%;
+        padding: 0 var(--docs-chrome-row-padding-inline);
+        position: sticky;
+        top: var(--gcloud-header-height);
+        width: 100%;
+        z-index: 199;
       }
       .docbar-nav {
         align-items: stretch;
+        box-sizing: border-box;
         display: flex;
+        font-family: inherit;
         gap: 30px;
-        height: 100%;
+        height: var(--docs-tab-bar-height);
+        max-width: 100%;
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
       }
       .docbar-nav a {
         align-items: center;
         border-bottom: 2px solid transparent;
-        color: #5f6368;
+        box-sizing: border-box;
+        color: var(--nimbus-text-secondary);
         display: inline-flex;
-        font-size: 14px;
+        flex-shrink: 0;
+        font-size: var(--nimbus-body-m-size);
+        height: var(--docs-tab-bar-height);
+        margin: 0;
+        padding: 0;
         text-decoration: none;
+        transition:
+          color var(--nimbus-motion-fast),
+          border-color var(--nimbus-motion-fast);
+      }
+      .docbar-nav a:hover {
+        color: var(--nimbus-primary);
       }
       .docbar-nav a.active {
-        border-bottom-color: #1a73e8;
-        color: #1a73e8;
+        border-bottom-color: var(--nimbus-primary);
+        color: var(--nimbus-primary);
         font-weight: 500;
       }
 
-      .container {
-        align-items: flex-start;
-        box-sizing: border-box;
-        column-gap: 30px;
+      .docs-shell {
+        align-items: start;
         display: grid;
-        grid-template-columns: minmax(0, 230px) minmax(0, 1fr) minmax(0, 250px);
-        margin: 0 auto;
-        max-width: min(1580px, 100%);
-        padding: 20px var(--nimbus-space-6) 48px;
-        row-gap: 24px;
+        grid-template-columns: var(--docs-nav-width) minmax(0, 1fr);
+        margin: 0;
+        max-width: 100%;
+        padding: 0;
         width: 100%;
       }
       .doc-sidebar {
+        align-self: start;
         background: var(--nimbus-surface);
-        border-right: 1px solid var(--nimbus-border);
-        border-radius: 0;
-        min-height: calc(100vh - 128px);
-        padding: 0 18px 24px 20px;
-        position: static;
-        top: auto;
-      }
-      .filter-row {
-        align-items: center;
-        background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-bottom: 0;
-        border-radius: 2px;
-        color: var(--nimbus-text-secondary);
+        border: none;
+        border-right: 1px solid var(--docs-nav-divider);
+        box-sizing: border-box;
         display: flex;
-        font-size: 12px;
-        gap: 6px;
-        margin-bottom: 12px;
-        padding: 9px 12px;
+        flex-direction: column;
+        flex-shrink: 0;
+        height: calc(100vh - var(--docs-sticky-chrome-top));
+        margin: 0;
+        max-height: calc(100vh - var(--docs-sticky-chrome-top));
+        min-height: 0;
+        overflow: hidden;
+        padding: 0;
+        position: sticky;
+        top: var(--docs-sticky-chrome-top);
+        width: var(--docs-nav-width);
+      }
+      .doc-book-nav-filter {
+        background: var(--nimbus-surface);
+        border: none;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        margin: 0;
+        padding: 25px var(--nimbus-space-6) var(--nimbus-space-6);
+        width: 100%;
+        z-index: 2;
+      }
+      .doc-book-nav-filter + .side-divider {
+        flex-shrink: 0;
+        margin-top: 0;
+      }
+      .doc-sidebar__scroll {
+        flex: 1;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding: 0 0 var(--nimbus-space-6);
+        scrollbar-color: var(--nimbus-border) transparent;
+        scrollbar-gutter: stable;
+        scrollbar-width: thin;
+      }
+      .doc-sidebar__scroll::-webkit-scrollbar {
+        width: var(--docs-nav-scrollbar-width);
+      }
+      .doc-sidebar__scroll::-webkit-scrollbar-thumb {
+        background: var(--nimbus-border);
+        border-radius: var(--nimbus-radius-sm);
+      }
+      .doc-sidebar__scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .docs-main {
+        align-items: start;
+        box-sizing: border-box;
+        column-gap: var(--docs-column-gap);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, var(--docs-toc-width));
+        margin: 0;
+        max-width: 100%;
+        min-width: 0;
+        padding: var(--nimbus-space-6) var(--nimbus-space-6)
+          var(--nimbus-space-12);
+        row-gap: var(--nimbus-space-6);
+        width: 100%;
+      }
+      .doc-book-nav {
+        font-family: var(--nimbus-font-display);
+      }
+      .filter-field {
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+      .filter-input {
+        background-color: var(--docs-nav-filter-bg);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%235f6368' viewBox='0 0 24 24'%3E%3Cpath d='M4 6h16v2H4V6zm2 5h12v2H6v-2zm3 5h6v2H9v-2z'/%3E%3C/svg%3E");
+        background-position: 12px center;
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        border: none;
+        border-radius: var(--nimbus-radius-lg);
+        box-sizing: border-box;
+        color: var(--nimbus-text-primary);
+        font-family: var(--nimbus-font-body);
+        font-size: var(--nimbus-body-m-size);
+        height: 32px;
+        line-height: 18px;
+        padding: 7px 32px;
+        width: 100%;
+      }
+      .filter-input::placeholder {
+        color: var(--nimbus-text-secondary);
+      }
+      .filter-input:focus {
+        box-shadow: 0 0 0 2px
+          color-mix(in srgb, var(--nimbus-primary) 30%, transparent);
+        outline: none;
+      }
+      .visually-hidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
       }
       .side-nav {
         list-style: none;
         margin: 0;
         padding: 0;
       }
-      .side-nav li {
-        border-radius: 0;
-        color: #3c4043;
-        font-size: 12px;
-        line-height: 17px;
-        padding: 4px 8px;
+      .side-nav__item {
+        margin: 0;
+        width: 100%;
       }
-      .side-nav li.active {
+      .side-nav__item.is-active {
         background: transparent;
-        color: #1967d2;
+      }
+      .side-nav__link,
+      .side-nav__branch-btn {
+        align-items: center;
+        background: transparent;
+        border: none;
+        border-radius: 0 20px 20px 0;
+        box-sizing: border-box;
+        color: var(--nimbus-text-primary);
+        cursor: pointer;
+        display: flex;
+        font-family: inherit;
+        font-size: var(--docs-nav-link-size);
+        font-weight: 400;
+        gap: var(--nimbus-space-1);
+        height: var(--docs-nav-item-height);
+        line-height: var(--docs-nav-link-lh);
+        margin: 0;
+        min-height: var(--docs-nav-item-height);
+        padding: 0 var(--nimbus-space-4) 0 var(--nimbus-space-6);
+        text-align: left;
+        text-decoration: none;
+        transition:
+          background var(--nimbus-motion-fast),
+          color var(--nimbus-motion-fast);
+        width: calc(100% - var(--docs-nav-item-inset-end));
+      }
+      .side-nav__link:hover,
+      .side-nav__branch-btn:hover {
+        background: color-mix(in srgb, var(--nimbus-primary) 8%, transparent);
+        color: var(--nimbus-primary);
+      }
+      .side-nav__item.is-active .side-nav__link {
+        background: var(--docs-nav-active-bg);
+        color: var(--nimbus-primary);
         font-weight: 500;
       }
-      .side-divider {
-        border-top: 1px solid #d5dbe5;
-        margin: 10px -18px;
+      .side-nav__link:focus-visible,
+      .side-nav__branch-btn:focus-visible {
+        outline: 2px solid var(--nimbus-primary);
+        outline-offset: 1px;
       }
-      .side-group {
-        align-items: center;
-        color: #3c4043;
-        display: flex;
-        font-size: 12px;
-        justify-content: space-between;
-        line-height: 17px;
-        padding: 10px 8px;
+      .side-nav__caret {
+        border-bottom: 4px solid transparent;
+        border-left: 5px solid var(--nimbus-text-primary);
+        border-top: 4px solid transparent;
+        flex-shrink: 0;
+        height: 0;
+        margin-right: 2px;
+        width: 0;
+      }
+      .side-nav__branch-btn:hover .side-nav__caret {
+        border-left-color: var(--nimbus-primary);
+      }
+      .side-nav__label {
+        flex: 1;
+        min-width: 0;
+      }
+      .side-divider {
+        border: 0;
+        border-top: 1px solid var(--docs-nav-divider);
+        margin: var(--nimbus-space-3) var(--nimbus-space-6);
+      }
+      .side-nav__heading {
+        color: var(--nimbus-text-primary);
+        font-size: var(--docs-nav-link-size);
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        line-height: var(--docs-nav-link-lh);
+        margin: var(--nimbus-space-4) 0 var(--nimbus-space-2);
+        padding: 0 var(--nimbus-space-4) 0 var(--nimbus-space-6);
+      }
+      .doc-book-nav > .side-nav__heading:first-of-type {
+        margin-top: var(--nimbus-space-2);
       }
       .left-panel {
         background: var(--nimbus-surface);
-        border: 1px solid var(--nimbus-border);
-        border-radius: 10px;
-        box-shadow: 0 1px 2px rgba(60, 64, 67, 0.08);
+        border: none;
+        border-radius: var(--nimbus-radius-xl);
+        box-shadow:
+          0 1px 2px 0 rgba(60, 64, 67, 0.3),
+          0 1px 3px 1px rgba(60, 64, 67, 0.15);
         max-width: 100%;
         min-width: 0;
-        padding: 42px 38px 48px;
+        padding: var(--nimbus-space-8) var(--nimbus-space-12)
+          var(--nimbus-space-12);
         position: relative;
       }
       .right-panel {
-        min-width: 0;
-        position: sticky;
-        top: 24px;
+        align-self: start;
         height: fit-content;
+        margin-top: var(--docs-toc-sticky-gap);
+        max-height: calc(100vh - var(--docs-toc-sticky-top));
+        min-width: 0;
+        overflow-y: auto;
+        position: sticky;
+        top: var(--docs-toc-sticky-top);
+      }
+
+      @media (min-width: 1280px) {
+        .docs-main {
+          padding-left: var(--nimbus-space-8);
+          padding-right: var(--nimbus-space-12);
+        }
       }
 
       /* Header */
@@ -218,9 +457,10 @@
         line-height: 1;
       }
       .doc-title {
+        color: var(--nimbus-text-primary);
+        font-family: var(--nimbus-font-display);
         font-size: 34px;
         font-weight: 500;
-        color: var(--nimbus-text-primary);
         letter-spacing: -0.8px;
         line-height: 44px;
       }
@@ -839,7 +1079,11 @@
         display: block;
         fill: currentColor;
         font-size: calc(48px * 0.8);
-        font-variation-settings: "FILL" 1, "wght" 600, "GRAD" 0, "opsz" 38;
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 600,
+          "GRAD" 0,
+          "opsz" 38;
         height: calc(48px * 0.8);
         width: calc(48px * 0.8);
       }
@@ -1097,7 +1341,8 @@
         display: flex;
         gap: var(--nimbus-space-4);
         justify-content: flex-end;
-        padding: var(--nimbus-space-4) var(--nimbus-space-6) var(--nimbus-space-6);
+        padding: var(--nimbus-space-4) var(--nimbus-space-6)
+          var(--nimbus-space-6);
       }
 
       .execution-modal {
@@ -1112,7 +1357,8 @@
         display: flex;
         gap: var(--nimbus-space-4);
         justify-content: space-between;
-        padding: var(--nimbus-space-6) var(--nimbus-space-6) var(--nimbus-space-4);
+        padding: var(--nimbus-space-6) var(--nimbus-space-6)
+          var(--nimbus-space-4);
       }
 
       .execution-modal-header h3 {
@@ -1210,7 +1456,8 @@
         border-top: 0;
         gap: var(--nimbus-space-4);
         justify-content: flex-end;
-        padding: var(--nimbus-space-4) var(--nimbus-space-6) var(--nimbus-space-6);
+        padding: var(--nimbus-space-4) var(--nimbus-space-6)
+          var(--nimbus-space-6);
       }
 
       .execution-modal .btn-cancel {
@@ -1792,7 +2039,7 @@
       .step-navigator {
         background: transparent;
         border: none;
-        border-left: 3px solid #1a73e8;
+        border-left: 3px solid var(--nimbus-primary);
         border-radius: 0;
         opacity: 1;
         padding: 0 0 0 14px;
@@ -1822,7 +2069,7 @@
         padding: 0;
       }
       .nav-step-item {
-        color: #3c4043;
+        color: var(--nimbus-text-primary);
         padding: 3px 0 3px 10px;
         margin-bottom: 2px;
         border-radius: 0;
@@ -1841,6 +2088,39 @@
         border-left-color: transparent;
         color: var(--nimbus-primary);
         font-weight: 500;
+      }
+      .nav-step-item--depth-1 {
+        color: var(--nimbus-text-primary);
+        cursor: default;
+        font-weight: 600;
+      }
+      .nav-step-item--depth-1:hover {
+        color: var(--nimbus-text-primary);
+      }
+      .nav-step-item--depth-2 {
+        cursor: default;
+        padding-left: calc(10px + var(--nimbus-space-3));
+      }
+      .nav-step-item--depth-2:hover {
+        background: transparent;
+      }
+      .nav-step-skill-link {
+        align-items: center;
+        color: var(--nimbus-primary);
+        display: inline-flex;
+        font-size: 12px;
+        gap: var(--nimbus-space-1);
+        line-height: 16px;
+        text-decoration: none;
+      }
+      .nav-step-skill-link:hover {
+        box-shadow: inset 0 -1px 0 currentColor;
+        text-decoration: none;
+      }
+      .nav-step-skill-link .material-symbols-outlined {
+        flex-shrink: 0;
+        font-size: 14px;
+        line-height: 16px;
       }
       .nav-step-num {
         display: none;
@@ -2095,39 +2375,58 @@
 
       /* Tablet / narrow desktop — stack columns to prevent horizontal overflow */
       @media (max-width: 1180px) {
-        .container {
+        :root {
+          --docs-column-gap: var(--nimbus-space-6);
+        }
+        .docs-shell {
           display: block;
-          padding: 24px var(--nimbus-space-5) 40px;
         }
         .doc-sidebar {
           display: none;
         }
+        .docs-main {
+          display: block;
+          padding: var(--nimbus-space-6) var(--nimbus-space-5)
+            var(--nimbus-space-10);
+        }
         .left-panel {
+          border-radius: var(--nimbus-radius-lg);
           max-width: 100%;
-          padding: 24px;
+          padding: var(--nimbus-space-6);
           width: 100%;
         }
         .right-panel {
+          margin-top: var(--nimbus-space-6);
           position: static;
           width: 100%;
         }
       }
 
       @media (max-width: 900px) {
-        .cloud-docbar {
+        .docbar-nav {
           display: none;
         }
-        .enterprise-topbar {
-          position: static;
-          top: auto;
+        .docs-product-chrome__tab-row {
+          display: none;
+        }
+        .doc-sidebar {
+          height: calc(100vh - var(--gcloud-header-height));
+          max-height: calc(100vh - var(--gcloud-header-height));
+          top: var(--gcloud-header-height);
+        }
+        .docs-product-chrome__product-row {
+          align-items: flex-start;
+          flex-direction: column;
           height: auto;
-          min-height: 58px;
-          padding: 12px 20px;
+          padding: var(--nimbus-space-3) var(--docs-chrome-row-padding-inline);
         }
         .enterprise-brand {
           font-size: 20px;
         }
-        .container {
+        .docs-cta-start-free {
+          width: 100%;
+        }
+        .docs-main {
           padding: 24px var(--nimbus-space-5) 40px;
         }
         .left-panel {
@@ -2165,1019 +2464,1284 @@
   </head>
   <body>
     <div data-site-header data-home="./home.html"></div>
-    <header class="enterprise-topbar" aria-label="Enterprise product header">
-      <div class="enterprise-brand">
-        <span class="enterprise-logo" aria-hidden="true">✦</span>
-        <span>Gemini Enterprise Agent Platform</span>
+    <div
+      class="docs-product-chrome"
+      role="banner"
+      aria-label="Gemini Enterprise Agent Platform documentation"
+    >
+      <div class="docs-product-chrome__product-row">
+        <div class="enterprise-brand">
+          <img
+            class="enterprise-logo-img"
+            src="./assets/gemini-star-logo.png"
+            alt=""
+            width="28"
+            height="28"
+          />
+          <span>Gemini Enterprise Agent Platform</span>
+        </div>
+        <a class="docs-cta-start-free" href="#">Start free</a>
       </div>
-    </header>
-
-    <div class="cloud-docbar">
-      <div class="docbar-title">Google Cloud Documentation</div>
+    </div>
+    <div class="docs-product-chrome__tab-row">
       <nav class="docbar-nav" aria-label="Documentation navigation">
-        <a href="#">Overview</a>
+        <a class="active" href="#">Overview</a>
         <a href="#">Studio</a>
         <a href="#">Agents</a>
-        <a class="active" href="#">Models</a>
+        <a href="#">Models</a>
         <a href="#">Notebooks</a>
         <a href="#">Pricing⌄</a>
         <a href="#">Engineering Blog</a>
       </nav>
     </div>
 
-    <div class="container">
+    <div class="docs-shell">
       <aside class="doc-sidebar" aria-label="Documentation navigation">
-        <div class="filter-row">☰ Filter</div>
-        <ul class="side-nav">
-          <li>Overview</li>
-          <li>Beginner's guide</li>
-          <li>Glossary</li>
-        </ul>
-        <div class="side-divider"></div>
-        <div class="side-group">Get started <span></span></div>
-        <ul class="side-nav">
-          <li>Get started with Agent Platform</li>
-          <li>Develop Gemini API code with the Gen AI SDK</li>
-          <li>Get an API key</li>
-          <li>Configure application default credentials</li>
-          <li>Migrate from Google AI Studio to Agent Platform</li>
-          <li>Get started with Gemini 3</li>
-          <li>Gemini 3 prompting guide</li>
-          <li>Google GenAI libraries</li>
-          <li>Generate AI cookbook</li>
-          <li>Access Gemini models using OpenAI libraries</li>
-        </ul>
-        <div class="side-group">Select models <span>⌄</span></div>
-        <div class="side-group">Build <span>⌄</span></div>
-        <div class="side-group">Evaluate <span>⌄</span></div>
-        <div class="side-group">Deploy <span>⌄</span></div>
-        <div class="side-group">Administer <span>⌄</span></div>
-        <div class="side-group">Build your own model <span>⌃</span></div>
-        <ul class="side-nav">
-          <li>Overview</li>
-          <li>MLOps on Agent Platform</li>
-          <li>Interfaces for Agent Platform</li>
-          <li>Agent Platform beginner's guides</li>
-          <li>Integrated ML frameworks</li>
-          <li>Agent Platform for BigQuery users</li>
-          <li>Glossary</li>
-        </ul>
+        <div class="doc-book-nav-filter">
+          <label class="filter-field">
+            <span class="visually-hidden">Type to filter</span>
+            <input
+              type="search"
+              class="filter-input"
+              placeholder="Filter"
+              aria-label="Type to filter"
+            />
+          </label>
+        </div>
+        <hr class="side-divider" />
+        <div class="doc-sidebar__scroll">
+          <nav class="doc-book-nav" aria-label="Book navigation">
+            <ul class="side-nav">
+              <li class="side-nav__item is-active">
+                <a class="side-nav__link" href="#" aria-current="page">Home</a>
+              </li>
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Platform overview</a>
+              </li>
+            </ul>
+            <hr class="side-divider" />
+            <p class="side-nav__heading">Agent Platform documentation</p>
+            <ul class="side-nav">
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Studio</a>
+              </li>
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Agents</a>
+              </li>
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Models</a>
+              </li>
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Notebooks</a>
+              </li>
+            </ul>
+            <hr class="side-divider" />
+            <p class="side-nav__heading">API reference</p>
+            <ul class="side-nav">
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">All APIs and reference</a>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label">Client libraries</span>
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label"
+                    >Agent Platform in express mode</span
+                  >
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label">REST API reference</span>
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label">RPC API reference</span>
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label">Model API guides</span>
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Long-running operations</a>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label">MCP reference</span>
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label">Notebooks reference</span>
+                </button>
+              </li>
+              <li class="side-nav__item">
+                <button
+                  type="button"
+                  class="side-nav__branch-btn"
+                  aria-expanded="false"
+                >
+                  <span class="side-nav__caret" aria-hidden="true"></span>
+                  <span class="side-nav__label"
+                    >Vector Search REST API reference</span
+                  >
+                </button>
+              </li>
+            </ul>
+            <hr class="side-divider" />
+            <p class="side-nav__heading">Resources</p>
+            <ul class="side-nav">
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">All resources</a>
+              </li>
+              <li class="side-nav__item">
+                <a class="side-nav__link" href="#">Billing questions</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </aside>
 
-      <!-- Left Panel -->
-      <div class="left-panel">
-        <!-- Document Header -->
-        <div class="doc-header">
-          <div class="doc-header-top">
-            <div class="doc-header-main">
-              <div class="doc-breadcrumb">
-                <span>Home</span>
-                <span class="breadcrumb-separator">›</span>
-                <span>Documentation</span>
-                <span class="breadcrumb-separator">›</span>
-                <span>AI and ML</span>
-                <span class="breadcrumb-separator">›</span>
-                <span>Gemini Enterprise Agent Platform</span>
-                <span class="breadcrumb-separator">›</span>
-                <span>Models</span>
-              </div>
-              <div class="doc-title">
-                Agent Platform access control with IAM
-              </div>
-            </div>
-            <div class="doc-feedback">
-              <div class="helpful-row">
-                <span>Was this helpful?</span>
-                <span class="helpful-icons" aria-hidden="true">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path
-                      d="M7 11v10H4a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h3Z"
-                    ></path>
-                    <path
-                      d="M7 11l4.4-8a1.6 1.6 0 0 1 3 1.1L13.5 9H20a2 2 0 0 1 2 2.3l-1.2 8A2 2 0 0 1 18.8 21H7V11Z"
-                    ></path>
-                  </svg>
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path
-                      d="M17 13V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-3Z"
-                    ></path>
-                    <path
-                      d="M17 13l-4.4 8a1.6 1.6 0 0 1-3-1.1l.9-4.9H4a2 2 0 0 1-2-2.3l1.2-8A2 2 0 0 1 5.2 3H17v10Z"
-                    ></path>
-                  </svg>
-                </span>
-              </div>
-              <button class="feedback-btn">Send feedback</button>
-            </div>
-          </div>
-          <div class="doc-action-row">
-            <div class="doc-action-group">
-              <button class="doc-icon-btn" aria-label="Bookmark">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-3.5L6 21V4.5Z"
-                  ></path>
-                </svg>
-              </button>
-              <button class="doc-icon-btn" aria-label="Bookmark options">
-                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                  <path d="M4.5 6 8 9.5 11.5 6h-7Z"></path>
-                </svg>
-              </button>
-            </div>
-            <div class="doc-action-group">
-              <button class="doc-icon-btn" aria-label="Copy">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M8 8h10v13H8z"></path>
-                  <path
-                    d="M5 16H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v1"
-                  ></path>
-                </svg>
-              </button>
-              <button class="doc-icon-btn" aria-label="Copy options">
-                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                  <path d="M4.5 6 8 9.5 11.5 6h-7Z"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <p class="doc-intro">
-            This page describes how to use
-            <a href="#">Identity and Access Management (IAM)</a> to manage
-            access to Gemini Enterprise Agent Platform resources. To manage
-            access to Gemini Enterprise Agent Platform Workbench instances, see
-            <a href="#">Agent Platform Workbench instances access control</a>.
-          </p>
-        </div>
-
-        <div class="doc-content">
-          <!-- Skill Card -->
-          <div class="skill-card" id="skillCard">
-            <div class="page-title-header">
-              <div class="page-title-main">
-                <h2>
-                  <span class="skill-title-text">Fix 403 Forbidden Access</span>
-                  <span class="skill-title-icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">bolt</span>
-                  </span>
-                </h2>
-              </div>
-              <button
-                id="saveBtn"
-                class="skill-card__save-btn"
-                type="button"
-                aria-label="Save"
-                onclick="toggleSave()"
-              >
-                <span class="material-symbols-outlined" aria-hidden="true" id="saveIcon">bookmark</span>
-              </button>
-            </div>
-
-            <div class="page-title-section">
-              <div class="page-meta-row">
-                <span class="category-chip category-troubleshooting">Troubleshooting</span>
-              </div>
-            </div>
-
-            <section class="skill-card__overview">
-              <h3 class="section-title">Overview</h3>
-              <p class="skill-overview-text">
-                This skill provides a structured troubleshooting path for resolving a 403 Forbidden error when calling a Vertex AI or Gemini Enterprise endpoint. It covers identity detection, IAM policy inspection, and role binding to restore access.
-              </p>
-            </section>
-
-            <section class="quick-start-card" id="quick-start">
-              <div class="execution-control">
-                <button class="btn-primary-action" type="button" onclick="handleExecuteClick()">Execute</button>
-              </div>
-
-              <div class="agent-install-panel">
-                <div class="agent-tabs" role="tablist" aria-label="Agent install commands" id="agentTabs">
-                  <button class="agent-tab" type="button" role="tab" data-agent="antigravity" aria-selected="false" aria-controls="installCommand">Antigravity</button>
-                  <button class="agent-tab" type="button" role="tab" data-agent="claude" aria-selected="false" aria-controls="installCommand">Claude Code</button>
-                  <button class="agent-tab" type="button" role="tab" data-agent="codex" aria-selected="false" aria-controls="installCommand">Codex</button>
-                  <button class="agent-tab" type="button" role="tab" data-agent="cursor" aria-selected="false" aria-controls="installCommand">Cursor</button>
-                  <button class="agent-tab" type="button" role="tab" data-agent="gemini" aria-selected="false" aria-controls="installCommand">Gemini CLI</button>
-                  <button class="agent-tab is-active" type="button" role="tab" data-agent="other" aria-selected="true" aria-controls="installCommand">Other agents</button>
+      <div class="docs-main">
+        <!-- Left Panel -->
+        <div class="left-panel">
+          <!-- Document Header -->
+          <div class="doc-header">
+            <div class="doc-header-top">
+              <div class="doc-header-main">
+                <div class="doc-breadcrumb">
+                  <span>Home</span>
+                  <span class="breadcrumb-separator">›</span>
+                  <span>Documentation</span>
+                  <span class="breadcrumb-separator">›</span>
+                  <span>AI and ML</span>
+                  <span class="breadcrumb-separator">›</span>
+                  <span>Gemini Enterprise Agent Platform</span>
+                  <span class="breadcrumb-separator">›</span>
+                  <span>Models</span>
                 </div>
-                <div class="agent-command-panel">
-                  <code id="installCommand">gcloud skills run fix-403-error skill</code>
-                  <div class="agent-command-actions">
-                    <button class="agent-command-action" type="button" aria-label="Enhance command" onclick="showToast('Command enhancement coming soon')">
-                      <span class="material-symbols-outlined" aria-hidden="true">auto_awesome</span>
+                <div class="doc-title">
+                  Agent Platform access control with IAM
+                </div>
+              </div>
+              <div class="doc-feedback">
+                <div class="helpful-row">
+                  <span>Was this helpful?</span>
+                  <span class="helpful-icons" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M7 11v10H4a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h3Z"
+                      ></path>
+                      <path
+                        d="M7 11l4.4-8a1.6 1.6 0 0 1 3 1.1L13.5 9H20a2 2 0 0 1 2 2.3l-1.2 8A2 2 0 0 1 18.8 21H7V11Z"
+                      ></path>
+                    </svg>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M17 13V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-3Z"
+                      ></path>
+                      <path
+                        d="M17 13l-4.4 8a1.6 1.6 0 0 1-3-1.1l.9-4.9H4a2 2 0 0 1-2-2.3l1.2-8A2 2 0 0 1 5.2 3H17v10Z"
+                      ></path>
+                    </svg>
+                  </span>
+                </div>
+                <button class="feedback-btn">Send feedback</button>
+              </div>
+            </div>
+            <div class="doc-action-row">
+              <div class="doc-action-group">
+                <button class="doc-icon-btn" aria-label="Bookmark">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-3.5L6 21V4.5Z"
+                    ></path>
+                  </svg>
+                </button>
+                <button class="doc-icon-btn" aria-label="Bookmark options">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M4.5 6 8 9.5 11.5 6h-7Z"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="doc-action-group">
+                <button class="doc-icon-btn" aria-label="Copy">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M8 8h10v13H8z"></path>
+                    <path
+                      d="M5 16H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v1"
+                    ></path>
+                  </svg>
+                </button>
+                <button class="doc-icon-btn" aria-label="Copy options">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M4.5 6 8 9.5 11.5 6h-7Z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <p class="doc-intro">
+              This page describes how to use
+              <a href="#">Identity and Access Management (IAM)</a> to manage
+              access to Gemini Enterprise Agent Platform resources. To manage
+              access to Gemini Enterprise Agent Platform Workbench instances,
+              see
+              <a href="#">Agent Platform Workbench instances access control</a>.
+            </p>
+          </div>
+
+          <div class="doc-content">
+            <!-- Skill Card -->
+            <div class="skill-card" id="skillCard">
+              <div class="page-title-header">
+                <div class="page-title-main">
+                  <h2>
+                    <span class="skill-title-text"
+                      >Fix 403 Forbidden Access</span
+                    >
+                    <span class="skill-title-icon" aria-hidden="true">
+                      <span class="material-symbols-outlined">bolt</span>
+                    </span>
+                  </h2>
+                </div>
+                <button
+                  id="saveBtn"
+                  class="skill-card__save-btn"
+                  type="button"
+                  aria-label="Save"
+                  onclick="toggleSave()"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    aria-hidden="true"
+                    id="saveIcon"
+                    >bookmark</span
+                  >
+                </button>
+              </div>
+
+              <div class="page-title-section">
+                <div class="page-meta-row">
+                  <span class="category-chip category-troubleshooting"
+                    >Troubleshooting</span
+                  >
+                </div>
+              </div>
+
+              <section class="skill-card__overview">
+                <h3 class="section-title">Overview</h3>
+                <p class="skill-overview-text">
+                  This skill provides a structured troubleshooting path for
+                  resolving a 403 Forbidden error when calling a Vertex AI or
+                  Gemini Enterprise endpoint. It covers identity detection, IAM
+                  policy inspection, and role binding to restore access.
+                </p>
+              </section>
+
+              <section class="quick-start-card" id="quick-start">
+                <div class="execution-control">
+                  <button
+                    class="btn-primary-action"
+                    type="button"
+                    onclick="handleExecuteClick()"
+                  >
+                    Execute
+                  </button>
+                </div>
+
+                <div class="agent-install-panel">
+                  <div
+                    class="agent-tabs"
+                    role="tablist"
+                    aria-label="Agent install commands"
+                    id="agentTabs"
+                  >
+                    <button
+                      class="agent-tab"
+                      type="button"
+                      role="tab"
+                      data-agent="antigravity"
+                      aria-selected="false"
+                      aria-controls="installCommand"
+                    >
+                      Antigravity
                     </button>
-                    <button class="agent-command-action" type="button" aria-label="Toggle command contrast" onclick="showToast('Command contrast toggled')">
-                      <span class="material-symbols-outlined" aria-hidden="true">contrast</span>
+                    <button
+                      class="agent-tab"
+                      type="button"
+                      role="tab"
+                      data-agent="claude"
+                      aria-selected="false"
+                      aria-controls="installCommand"
+                    >
+                      Claude Code
                     </button>
-                    <button class="agent-command-action" type="button" aria-label="Copy command" onclick="copyCommand()">
-                      <span class="material-symbols-outlined" aria-hidden="true">content_copy</span>
+                    <button
+                      class="agent-tab"
+                      type="button"
+                      role="tab"
+                      data-agent="codex"
+                      aria-selected="false"
+                      aria-controls="installCommand"
+                    >
+                      Codex
+                    </button>
+                    <button
+                      class="agent-tab"
+                      type="button"
+                      role="tab"
+                      data-agent="cursor"
+                      aria-selected="false"
+                      aria-controls="installCommand"
+                    >
+                      Cursor
+                    </button>
+                    <button
+                      class="agent-tab"
+                      type="button"
+                      role="tab"
+                      data-agent="gemini"
+                      aria-selected="false"
+                      aria-controls="installCommand"
+                    >
+                      Gemini CLI
+                    </button>
+                    <button
+                      class="agent-tab is-active"
+                      type="button"
+                      role="tab"
+                      data-agent="other"
+                      aria-selected="true"
+                      aria-controls="installCommand"
+                    >
+                      Other agents
                     </button>
                   </div>
+                  <div class="agent-command-panel">
+                    <code id="installCommand"
+                      >gcloud skills run fix-403-error skill</code
+                    >
+                    <div class="agent-command-actions">
+                      <button
+                        class="agent-command-action"
+                        type="button"
+                        aria-label="Enhance command"
+                        onclick="showToast('Command enhancement coming soon')"
+                      >
+                        <span
+                          class="material-symbols-outlined"
+                          aria-hidden="true"
+                          >auto_awesome</span
+                        >
+                      </button>
+                      <button
+                        class="agent-command-action"
+                        type="button"
+                        aria-label="Toggle command contrast"
+                        onclick="showToast('Command contrast toggled')"
+                      >
+                        <span
+                          class="material-symbols-outlined"
+                          aria-hidden="true"
+                          >contrast</span
+                        >
+                      </button>
+                      <button
+                        class="agent-command-action"
+                        type="button"
+                        aria-label="Copy command"
+                        onclick="copyCommand()"
+                      >
+                        <span
+                          class="material-symbols-outlined"
+                          aria-hidden="true"
+                          >content_copy</span
+                        >
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </section>
+
+              <div class="skill-card__footer">
+                <a
+                  class="skill-card__footer-link"
+                  href="./skill-detail-screen.html#skills/fix-403-forbidden-access"
+                  >More about this skill →</a
+                >
+              </div>
+            </div>
+
+            <!-- Original Documentation Content -->
+            <div class="doc-section" id="docIntro">
+              <div class="doc-section-title">Overview</div>
+              <div class="doc-section-content">
+                <p>
+                  Agent Platform uses IAM to manage access to resources. When
+                  you plan access control for your resources, you can manage
+                  access at the project level or at the resource level.
+                </p>
+                <p>
+                  Project-level access applies to all resources in that project.
+                  Resource-level access applies only to a specific resource.
+                </p>
+                <p>
+                  You grant access by assigning IAM roles to principals.
+                  Predefined roles make setup easier, but custom roles are
+                  recommended when you want to limit access to only the
+                  permissions that are required.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep1">
+              <div class="doc-section-title">IAM roles</div>
+              <div class="doc-section-content">
+                <p>Agent Platform supports three common IAM role approaches:</p>
+                <ul>
+                  <li>
+                    <strong>Custom roles</strong> let you choose a specific set
+                    of permissions, create your own role with those permissions,
+                    and grant the role to users in your organization.
+                  </li>
+                  <li>
+                    <strong>Predefined roles</strong> grant a set of related
+                    permissions to Agent Platform resources at the project
+                    level.
+                  </li>
+                  <li>
+                    <strong>Basic roles</strong>, such as Owner, Editor, and
+                    Viewer, provide broad project-level access and are common to
+                    all Google Cloud services.
+                  </li>
+                </ul>
+                <p>
+                  To add, update, or remove these roles in your Agent Platform
+                  project, use the IAM workflow for granting, changing, and
+                  revoking access.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep2">
+              <div class="doc-section-title">
+                Use custom roles for least privilege
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  Predefined roles often contain more permissions than you need.
+                  You can create custom roles to grant principals only the
+                  specific permissions required for a task.
+                </p>
+                <p>
+                  For example, you can create a custom role with the
+                  <code>aiplatform.endpoints.predict</code> permission, and then
+                  assign that role to a service account on an endpoint. This
+                  lets the service account call the endpoint for predictions
+                  without granting broader endpoint control.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep3">
+              <div class="doc-section-title">
+                Predefined roles for Agent Platform
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  The full predefined role list is very large, so this prototype
+                  shows a shortened set of common roles from the document.
+                </p>
+                <table class="doc-summary-table">
+                  <thead>
+                    <tr>
+                      <th>Role</th>
+                      <th>Role ID</th>
+                      <th>Typical use</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Vertex AI Administrator</td>
+                      <td><code>roles/aiplatform.admin</code></td>
+                      <td>Grants full access to all resources in Vertex AI.</td>
+                    </tr>
+                    <tr>
+                      <td>Vertex AI User</td>
+                      <td><code>roles/aiplatform.user</code></td>
+                      <td>
+                        Grants access to use resources in Vertex AI, including
+                        common prediction workflows.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Vertex AI Viewer</td>
+                      <td><code>roles/aiplatform.viewer</code></td>
+                      <td>
+                        Grants read-only access to view Vertex AI resources.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Vertex AI Agent Engine Memory User</td>
+                      <td><code>roles/aiplatform.memoryUser</code></td>
+                      <td>
+                        Grants user access to Agent Engine Memory resources.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Vertex AI Agent Engine Session User</td>
+                      <td><code>roles/aiplatform.sessionUser</code></td>
+                      <td>
+                        Grants user access to Agent Engine Session resources.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep4">
+              <div class="doc-section-title">Basic roles</div>
+              <div class="doc-section-content">
+                <p>
+                  The older Google Cloud basic roles are common to all Google
+                  Cloud services. These roles are <strong>Owner</strong>,
+                  <strong>Editor</strong>, and <strong>Viewer</strong>.
+                </p>
+                <p>
+                  Basic roles provide broad access at the project level. For
+                  Agent Platform, use predefined or custom roles when you need
+                  more focused permissions.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep5">
+              <div class="doc-section-title">
+                Project-level versus resource-level access
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  You can manage access at the project level or resource level.
+                  You might also have the ability to manage access at a folder
+                  or organization level.
+                </p>
+                <p>
+                  For most Agent Platform resources, access can only be
+                  controlled by the project, folder, and organization. Access to
+                  individual resources can be granted only for specific resource
+                  types, such as an endpoint or a featurestore.
+                </p>
+                <p>
+                  Setting a policy at the resource level does not affect
+                  project-level policies. A resource inherits policies from its
+                  ancestry, so you can combine broad read permissions at the
+                  project level with more specific write permissions on
+                  individual resources.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep6">
+              <div class="doc-section-title">Supported resources</div>
+              <div class="doc-section-content">
+                <p>
+                  Agent Platform supports resource-level access for Vertex AI
+                  Feature Store featurestore resources, entity type resources,
+                  and Model Registry resources.
+                </p>
+                <p>
+                  Not all Agent Platform predefined roles and resources support
+                  resource-level policies. After granting or revoking access to
+                  a resource, changes can take time to propagate.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep7">
+              <div class="doc-section-title">
+                Resources, service accounts, and service agents
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  Agent Platform services often manage long-running resources
+                  that perform actions, such as running training jobs that read
+                  data or serving ML models that read model weights. These
+                  standalone resources have their own resource identity when
+                  performing actions.
+                </p>
+                <p>
+                  This identity is distinct from the principal that created the
+                  resource. Permissions granted to the resource identity define
+                  which data and other resources that identity can access.
+                </p>
+                <p>
+                  By default, Agent Platform resources use service accounts
+                  managed by Agent Platform as a resource identity. For some
+                  services, you can specify a service account to attach to the
+                  resource.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep8">
+              <div class="doc-section-title">Service accounts</div>
+              <div class="doc-section-content">
+                <p>
+                  A service account is a special account used by an application
+                  or a virtual machine instance, not a person. You can create
+                  and assign permissions to service accounts to provide specific
+                  permissions to a resource or application.
+                </p>
+                <p>
+                  For custom training containers or containers that serve online
+                  predictions for custom-trained models, a custom service
+                  account can be used to control which permissions are available
+                  to the workload.
+                </p>
+                <p>Service accounts are identified by an email address.</p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep9">
+              <div class="doc-section-title">Service agents</div>
+              <div class="doc-section-content">
+                <p>
+                  Service agents are automatically provided accounts that let
+                  Google Cloud services access resources on your behalf.
+                </p>
+                <p>
+                  When a service agent is created, it is granted a predefined
+                  role for your project. The complete table is long, so this
+                  prototype shows the most relevant Agent Platform service
+                  agents.
+                </p>
+                <table class="doc-summary-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Used for</th>
+                      <th>Email pattern</th>
+                      <th>Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Agent Platform Service Agent</td>
+                      <td>Agent Platform capabilities</td>
+                      <td>
+                        <code
+                          >service-PROJECT_NUMBER@gcp-sa-aiplatform.iam.gserviceaccount.com</code
+                        >
+                      </td>
+                      <td><code>roles/aiplatform.serviceAgent</code></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Gemini Enterprise Agent Platform RAG Data Service Agent
+                      </td>
+                      <td>
+                        RAG access to user-imported data, Agent Platform, and
+                        Document AI processors
+                      </td>
+                      <td>
+                        <code
+                          >service-PROJECT_NUMBER@gcp-sa-vertex-rag.iam.gserviceaccount.com</code
+                        >
+                      </td>
+                      <td><code>roles/aiplatform.ragServiceAgent</code></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Gemini Enterprise Agent Platform Custom Code Service
+                        Agent
+                      </td>
+                      <td>Custom training code</td>
+                      <td>
+                        <code
+                          >service-PROJECT_NUMBER@gcp-sa-aiplatform-cc.iam.gserviceaccount.com</code
+                        >
+                      </td>
+                      <td>
+                        <code>roles/aiplatform.customCodeServiceAgent</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Agent Platform Extension Service Agent</td>
+                      <td>Vertex Extensions</td>
+                      <td>
+                        <code
+                          >service-PROJECT_NUMBER@gcp-sa-vertex-ex.iam.gserviceaccount.com</code
+                        >
+                      </td>
+                      <td>
+                        <code>roles/aiplatform.extensionServiceAgent</code>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Cloud AI Platform Notebooks Service Account</td>
+                      <td>Agent Platform Workbench capabilities</td>
+                      <td>
+                        <code
+                          >service-PROJECT_NUMBER@gcp-sa-notebooks.iam.gserviceaccount.com</code
+                        >
+                      </td>
+                      <td><code>roles/notebooks.serviceAgent</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>
+                  The Gemini Enterprise Agent Platform Custom Code Service Agent
+                  is created only if you run custom training code to train a
+                  custom-trained model. In some cases, you must grant additional
+                  roles to a service agent, such as when Agent Platform needs to
+                  access a Cloud Storage bucket or BigQuery table in a different
+                  project.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep10">
+              <div class="doc-section-title">
+                Grant Agent Platform service agents access to other resources
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  Sometimes you need to grant additional roles to an Agent
+                  Platform service agent. For example, if Agent Platform needs
+                  to access a Cloud Storage bucket in a different project, you
+                  must grant one or more additional roles to the service agent.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep11">
+              <div class="doc-section-title">
+                Role addition requirements for BigQuery
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  The following table describes the required additional roles
+                  for BigQuery tables or views in a different project or backed
+                  by an external data source. The home project is where the
+                  Agent Platform dataset or model is located; a different
+                  project is any other project.
+                </p>
+                <table class="doc-summary-table">
+                  <thead>
+                    <tr>
+                      <th>Table type</th>
+                      <th>Table project</th>
+                      <th>Data source project</th>
+                      <th>Role addition required</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Native BigQuery table</td>
+                      <td>Home project</td>
+                      <td>N/A</td>
+                      <td>None.</td>
+                    </tr>
+                    <tr>
+                      <td>Native BigQuery table</td>
+                      <td>Different project</td>
+                      <td>N/A</td>
+                      <td>
+                        <code>BigQuery Data Viewer</code> for the different
+                        project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>BigQuery view</td>
+                      <td>Home project</td>
+                      <td>N/A</td>
+                      <td>None.</td>
+                    </tr>
+                    <tr>
+                      <td>BigQuery view</td>
+                      <td>Different project</td>
+                      <td>N/A</td>
+                      <td>
+                        <code>BigQuery Data Viewer</code> for the different
+                        project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>External BigQuery data source backed by Bigtable</td>
+                      <td>Home project</td>
+                      <td>Home project</td>
+                      <td>
+                        <code>Bigtable Reader</code> for the home project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>External BigQuery data source backed by Bigtable</td>
+                      <td>Home project</td>
+                      <td>Different project</td>
+                      <td>
+                        <code>Bigtable Reader</code> for the different project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>External BigQuery data source backed by Bigtable</td>
+                      <td>Different project</td>
+                      <td>Different project</td>
+                      <td>
+                        <code>BigQuery Reader</code> and
+                        <code>Bigtable Reader</code> for the different project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        External BigQuery data source backed by Cloud Storage
+                      </td>
+                      <td>Home project</td>
+                      <td>Home project</td>
+                      <td>None.</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        External BigQuery data source backed by Cloud Storage
+                      </td>
+                      <td>Home project</td>
+                      <td>Different project</td>
+                      <td>
+                        <code>Storage Object Viewer</code> for the different
+                        project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        External BigQuery data source backed by Cloud Storage
+                      </td>
+                      <td>Different project</td>
+                      <td>Different project</td>
+                      <td>
+                        <code>Storage Object Viewer</code> and
+                        <code>BigQuery Data Viewer</code> for the different
+                        project.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        External BigQuery data source backed by Google Sheets
+                      </td>
+                      <td>Home project</td>
+                      <td>N/A</td>
+                      <td>
+                        Share your Sheets file with the Agent Platform service
+                        account.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        External BigQuery data source backed by Google Sheets
+                      </td>
+                      <td>Different project</td>
+                      <td>N/A</td>
+                      <td>
+                        <code>BigQuery Reader</code> for the different project
+                        and share your Sheets file with the Agent Platform
+                        service account.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep12">
+              <div class="doc-section-title">
+                Role addition requirements for Cloud Storage
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  If you access data in a Cloud Storage bucket in a different
+                  project, grant Agent Platform the
+                  <code>Storage Object Viewer</code> role in that project.
+                </p>
+                <p>
+                  If you use a Cloud Storage bucket to receive data from your
+                  local computer for an import operation, and the bucket is in a
+                  different project than your Google Cloud project, grant Agent
+                  Platform the <code>Storage Object Creator</code> role in that
+                  project.
+                </p>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep13">
+              <div class="doc-section-title">
+                Grant access in your home project
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  To grant additional roles to a service agent for Agent
+                  Platform in your home project:
+                </p>
+                <ul>
+                  <li>
+                    Go to the IAM page of the Google Cloud console for your home
+                    project.
+                  </li>
+                  <li>
+                    Select the
+                    <strong>Include Google-provided role grants</strong>
+                    checkbox.
+                  </li>
+                  <li>
+                    Determine the service agent you want to grant permissions to
+                    and click the pencil icon.
+                  </li>
+                  <li>
+                    Filter for
+                    <code
+                      >Principal:@gcp-sa-aiplatform-cc.iam.gserviceaccount.com</code
+                    >
+                    to find Agent Platform service agents.
+                  </li>
+                  <li>
+                    Grant the required roles to the service agent and save your
+                    changes.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep14">
+              <div class="doc-section-title">
+                Grant access in a different project
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  When you use data sources or destinations in a different
+                  project, you must give the Agent Platform service agent
+                  permissions in that project. The service agent is created
+                  after you start the first asynchronous job, such as creating
+                  an endpoint. You can also explicitly create the Agent Platform
+                  service agent with
+                  <code>gcloud beta services identity create</code>.
+                </p>
+                <ul>
+                  <li>
+                    Go to the IAM page for your home project, where you are
+                    using Agent Platform.
+                  </li>
+                  <li>
+                    Select the
+                    <strong>Include Google-provided role grants</strong>
+                    checkbox.
+                  </li>
+                  <li>
+                    Find the service agent and copy its email address from the
+                    Principal column.
+                  </li>
+                  <li>
+                    Change projects to the project where permissions are needed.
+                  </li>
+                  <li>
+                    Click <strong>Add</strong>, enter the service agent email
+                    address in <strong>New principals</strong>, add all required
+                    roles, and save.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep15">
+              <div class="doc-section-title">
+                Provide access to Google Sheets
+              </div>
+              <div class="doc-section-content">
+                <p>
+                  If you use an external BigQuery data source backed by Google
+                  Sheets, share your sheet with the Agent Platform service
+                  account. The service account is created after the first
+                  asynchronous job, or you can explicitly create it with the
+                  Google Cloud CLI.
+                </p>
+                <ul>
+                  <li>Go to the IAM page of the Google Cloud console.</li>
+                  <li>
+                    Look for the service account named
+                    <strong>Agent Platform Service Agent</strong> and copy its
+                    email address from the Principal column.
+                  </li>
+                  <li>Open your Sheets file and share it with that address.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="doc-section" id="docStep16">
+              <div class="doc-section-title">What's next</div>
+              <div class="doc-section-content">
+                <ul>
+                  <li>Learn more about IAM.</li>
+                  <li>
+                    Learn about specific IAM permissions and the operations they
+                    support.
+                  </li>
+                  <li>
+                    Review recommended ways to set up a project for a team.
+                  </li>
+                  <li>Get an overview of Agent Platform.</li>
+                </ul>
+              </div>
+            </div>
+
+            <section class="related-skills-section" id="related-skills">
+              <div class="related-skills-header">
+                <h2 class="related-skills-title">Related Skills</h2>
+                <a class="related-skills-more" href="./skill-library.html"
+                  >More Skills <span aria-hidden="true">→</span></a
+                >
+              </div>
+              <div class="related-skills-grid">
+                <a
+                  class="related-skill-card"
+                  href="./skill-detail-screen.html#skills/google-cloud-recipe-onboarding"
+                >
+                  <span class="related-skill-card__icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">school</span>
+                  </span>
+                  <h4>Onboarding to Google Cloud</h4>
+                  <p>
+                    Guidance for first-time setup, including billing, projects,
+                    and deploying your first resource.
+                  </p>
+                </a>
+                <a class="related-skill-card" href="./skill-library.html">
+                  <span class="related-skill-card__icon" aria-hidden="true">
+                    <span class="material-symbols-outlined"
+                      >admin_panel_settings</span
+                    >
+                  </span>
+                  <h4>Configure Custom IAM Roles</h4>
+                  <p>
+                    Create fine-grained custom IAM roles following the principle
+                    of least privilege.
+                  </p>
+                </a>
               </div>
             </section>
-
-            <div class="skill-card__footer">
-              <a class="skill-card__footer-link" href="./skill-detail-screen.html#skills/fix-403-forbidden-access">More about this skill →</a>
-            </div>
           </div>
-
-          <!-- Original Documentation Content -->
-          <div class="doc-section" id="docIntro">
-            <div class="doc-section-title">Overview</div>
-            <div class="doc-section-content">
-              <p>
-                Agent Platform uses IAM to manage access to resources. When you
-                plan access control for your resources, you can manage access at
-                the project level or at the resource level.
-              </p>
-              <p>
-                Project-level access applies to all resources in that project.
-                Resource-level access applies only to a specific resource.
-              </p>
-              <p>
-                You grant access by assigning IAM roles to principals.
-                Predefined roles make setup easier, but custom roles are
-                recommended when you want to limit access to only the
-                permissions that are required.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep1">
-            <div class="doc-section-title">IAM roles</div>
-            <div class="doc-section-content">
-              <p>Agent Platform supports three common IAM role approaches:</p>
-              <ul>
-                <li>
-                  <strong>Custom roles</strong> let you choose a specific set of
-                  permissions, create your own role with those permissions, and
-                  grant the role to users in your organization.
-                </li>
-                <li>
-                  <strong>Predefined roles</strong> grant a set of related
-                  permissions to Agent Platform resources at the project level.
-                </li>
-                <li>
-                  <strong>Basic roles</strong>, such as Owner, Editor, and
-                  Viewer, provide broad project-level access and are common to
-                  all Google Cloud services.
-                </li>
-              </ul>
-              <p>
-                To add, update, or remove these roles in your Agent Platform
-                project, use the IAM workflow for granting, changing, and
-                revoking access.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep2">
-            <div class="doc-section-title">
-              Use custom roles for least privilege
-            </div>
-            <div class="doc-section-content">
-              <p>
-                Predefined roles often contain more permissions than you need.
-                You can create custom roles to grant principals only the
-                specific permissions required for a task.
-              </p>
-              <p>
-                For example, you can create a custom role with the
-                <code>aiplatform.endpoints.predict</code> permission, and then
-                assign that role to a service account on an endpoint. This lets
-                the service account call the endpoint for predictions without
-                granting broader endpoint control.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep3">
-            <div class="doc-section-title">
-              Predefined roles for Agent Platform
-            </div>
-            <div class="doc-section-content">
-              <p>
-                The full predefined role list is very large, so this prototype
-                shows a shortened set of common roles from the document.
-              </p>
-              <table class="doc-summary-table">
-                <thead>
-                  <tr>
-                    <th>Role</th>
-                    <th>Role ID</th>
-                    <th>Typical use</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Vertex AI Administrator</td>
-                    <td><code>roles/aiplatform.admin</code></td>
-                    <td>Grants full access to all resources in Vertex AI.</td>
-                  </tr>
-                  <tr>
-                    <td>Vertex AI User</td>
-                    <td><code>roles/aiplatform.user</code></td>
-                    <td>
-                      Grants access to use resources in Vertex AI, including
-                      common prediction workflows.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Vertex AI Viewer</td>
-                    <td><code>roles/aiplatform.viewer</code></td>
-                    <td>
-                      Grants read-only access to view Vertex AI resources.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Vertex AI Agent Engine Memory User</td>
-                    <td><code>roles/aiplatform.memoryUser</code></td>
-                    <td>
-                      Grants user access to Agent Engine Memory resources.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Vertex AI Agent Engine Session User</td>
-                    <td><code>roles/aiplatform.sessionUser</code></td>
-                    <td>
-                      Grants user access to Agent Engine Session resources.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep4">
-            <div class="doc-section-title">Basic roles</div>
-            <div class="doc-section-content">
-              <p>
-                The older Google Cloud basic roles are common to all Google
-                Cloud services. These roles are <strong>Owner</strong>,
-                <strong>Editor</strong>, and <strong>Viewer</strong>.
-              </p>
-              <p>
-                Basic roles provide broad access at the project level. For Agent
-                Platform, use predefined or custom roles when you need more
-                focused permissions.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep5">
-            <div class="doc-section-title">
-              Project-level versus resource-level access
-            </div>
-            <div class="doc-section-content">
-              <p>
-                You can manage access at the project level or resource level.
-                You might also have the ability to manage access at a folder or
-                organization level.
-              </p>
-              <p>
-                For most Agent Platform resources, access can only be controlled
-                by the project, folder, and organization. Access to individual
-                resources can be granted only for specific resource types, such
-                as an endpoint or a featurestore.
-              </p>
-              <p>
-                Setting a policy at the resource level does not affect
-                project-level policies. A resource inherits policies from its
-                ancestry, so you can combine broad read permissions at the
-                project level with more specific write permissions on individual
-                resources.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep6">
-            <div class="doc-section-title">Supported resources</div>
-            <div class="doc-section-content">
-              <p>
-                Agent Platform supports resource-level access for Vertex AI
-                Feature Store featurestore resources, entity type resources, and
-                Model Registry resources.
-              </p>
-              <p>
-                Not all Agent Platform predefined roles and resources support
-                resource-level policies. After granting or revoking access to a
-                resource, changes can take time to propagate.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep7">
-            <div class="doc-section-title">
-              Resources, service accounts, and service agents
-            </div>
-            <div class="doc-section-content">
-              <p>
-                Agent Platform services often manage long-running resources that
-                perform actions, such as running training jobs that read data or
-                serving ML models that read model weights. These standalone
-                resources have their own resource identity when performing
-                actions.
-              </p>
-              <p>
-                This identity is distinct from the principal that created the
-                resource. Permissions granted to the resource identity define
-                which data and other resources that identity can access.
-              </p>
-              <p>
-                By default, Agent Platform resources use service accounts
-                managed by Agent Platform as a resource identity. For some
-                services, you can specify a service account to attach to the
-                resource.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep8">
-            <div class="doc-section-title">Service accounts</div>
-            <div class="doc-section-content">
-              <p>
-                A service account is a special account used by an application or
-                a virtual machine instance, not a person. You can create and
-                assign permissions to service accounts to provide specific
-                permissions to a resource or application.
-              </p>
-              <p>
-                For custom training containers or containers that serve online
-                predictions for custom-trained models, a custom service account
-                can be used to control which permissions are available to the
-                workload.
-              </p>
-              <p>Service accounts are identified by an email address.</p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep9">
-            <div class="doc-section-title">Service agents</div>
-            <div class="doc-section-content">
-              <p>
-                Service agents are automatically provided accounts that let
-                Google Cloud services access resources on your behalf.
-              </p>
-              <p>
-                When a service agent is created, it is granted a predefined role
-                for your project. The complete table is long, so this prototype
-                shows the most relevant Agent Platform service agents.
-              </p>
-              <table class="doc-summary-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Used for</th>
-                    <th>Email pattern</th>
-                    <th>Role</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Agent Platform Service Agent</td>
-                    <td>Agent Platform capabilities</td>
-                    <td>
-                      <code
-                        >service-PROJECT_NUMBER@gcp-sa-aiplatform.iam.gserviceaccount.com</code
-                      >
-                    </td>
-                    <td><code>roles/aiplatform.serviceAgent</code></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Gemini Enterprise Agent Platform RAG Data Service Agent
-                    </td>
-                    <td>
-                      RAG access to user-imported data, Agent Platform, and
-                      Document AI processors
-                    </td>
-                    <td>
-                      <code
-                        >service-PROJECT_NUMBER@gcp-sa-vertex-rag.iam.gserviceaccount.com</code
-                      >
-                    </td>
-                    <td><code>roles/aiplatform.ragServiceAgent</code></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Gemini Enterprise Agent Platform Custom Code Service Agent
-                    </td>
-                    <td>Custom training code</td>
-                    <td>
-                      <code
-                        >service-PROJECT_NUMBER@gcp-sa-aiplatform-cc.iam.gserviceaccount.com</code
-                      >
-                    </td>
-                    <td>
-                      <code>roles/aiplatform.customCodeServiceAgent</code>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Agent Platform Extension Service Agent</td>
-                    <td>Vertex Extensions</td>
-                    <td>
-                      <code
-                        >service-PROJECT_NUMBER@gcp-sa-vertex-ex.iam.gserviceaccount.com</code
-                      >
-                    </td>
-                    <td><code>roles/aiplatform.extensionServiceAgent</code></td>
-                  </tr>
-                  <tr>
-                    <td>Cloud AI Platform Notebooks Service Account</td>
-                    <td>Agent Platform Workbench capabilities</td>
-                    <td>
-                      <code
-                        >service-PROJECT_NUMBER@gcp-sa-notebooks.iam.gserviceaccount.com</code
-                      >
-                    </td>
-                    <td><code>roles/notebooks.serviceAgent</code></td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                The Gemini Enterprise Agent Platform Custom Code Service Agent
-                is created only if you run custom training code to train a
-                custom-trained model. In some cases, you must grant additional
-                roles to a service agent, such as when Agent Platform needs to
-                access a Cloud Storage bucket or BigQuery table in a different
-                project.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep10">
-            <div class="doc-section-title">
-              Grant Agent Platform service agents access to other resources
-            </div>
-            <div class="doc-section-content">
-              <p>
-                Sometimes you need to grant additional roles to an Agent
-                Platform service agent. For example, if Agent Platform needs to
-                access a Cloud Storage bucket in a different project, you must
-                grant one or more additional roles to the service agent.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep11">
-            <div class="doc-section-title">
-              Role addition requirements for BigQuery
-            </div>
-            <div class="doc-section-content">
-              <p>
-                The following table describes the required additional roles for
-                BigQuery tables or views in a different project or backed by an
-                external data source. The home project is where the Agent
-                Platform dataset or model is located; a different project is any
-                other project.
-              </p>
-              <table class="doc-summary-table">
-                <thead>
-                  <tr>
-                    <th>Table type</th>
-                    <th>Table project</th>
-                    <th>Data source project</th>
-                    <th>Role addition required</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Native BigQuery table</td>
-                    <td>Home project</td>
-                    <td>N/A</td>
-                    <td>None.</td>
-                  </tr>
-                  <tr>
-                    <td>Native BigQuery table</td>
-                    <td>Different project</td>
-                    <td>N/A</td>
-                    <td>
-                      <code>BigQuery Data Viewer</code> for the different
-                      project.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>BigQuery view</td>
-                    <td>Home project</td>
-                    <td>N/A</td>
-                    <td>None.</td>
-                  </tr>
-                  <tr>
-                    <td>BigQuery view</td>
-                    <td>Different project</td>
-                    <td>N/A</td>
-                    <td>
-                      <code>BigQuery Data Viewer</code> for the different
-                      project.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>External BigQuery data source backed by Bigtable</td>
-                    <td>Home project</td>
-                    <td>Home project</td>
-                    <td><code>Bigtable Reader</code> for the home project.</td>
-                  </tr>
-                  <tr>
-                    <td>External BigQuery data source backed by Bigtable</td>
-                    <td>Home project</td>
-                    <td>Different project</td>
-                    <td>
-                      <code>Bigtable Reader</code> for the different project.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>External BigQuery data source backed by Bigtable</td>
-                    <td>Different project</td>
-                    <td>Different project</td>
-                    <td>
-                      <code>BigQuery Reader</code> and
-                      <code>Bigtable Reader</code> for the different project.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      External BigQuery data source backed by Cloud Storage
-                    </td>
-                    <td>Home project</td>
-                    <td>Home project</td>
-                    <td>None.</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      External BigQuery data source backed by Cloud Storage
-                    </td>
-                    <td>Home project</td>
-                    <td>Different project</td>
-                    <td>
-                      <code>Storage Object Viewer</code> for the different
-                      project.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      External BigQuery data source backed by Cloud Storage
-                    </td>
-                    <td>Different project</td>
-                    <td>Different project</td>
-                    <td>
-                      <code>Storage Object Viewer</code> and
-                      <code>BigQuery Data Viewer</code> for the different
-                      project.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      External BigQuery data source backed by Google Sheets
-                    </td>
-                    <td>Home project</td>
-                    <td>N/A</td>
-                    <td>
-                      Share your Sheets file with the Agent Platform service
-                      account.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      External BigQuery data source backed by Google Sheets
-                    </td>
-                    <td>Different project</td>
-                    <td>N/A</td>
-                    <td>
-                      <code>BigQuery Reader</code> for the different project and
-                      share your Sheets file with the Agent Platform service
-                      account.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep12">
-            <div class="doc-section-title">
-              Role addition requirements for Cloud Storage
-            </div>
-            <div class="doc-section-content">
-              <p>
-                If you access data in a Cloud Storage bucket in a different
-                project, grant Agent Platform the
-                <code>Storage Object Viewer</code> role in that project.
-              </p>
-              <p>
-                If you use a Cloud Storage bucket to receive data from your
-                local computer for an import operation, and the bucket is in a
-                different project than your Google Cloud project, grant Agent
-                Platform the <code>Storage Object Creator</code> role in that
-                project.
-              </p>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep13">
-            <div class="doc-section-title">
-              Grant access in your home project
-            </div>
-            <div class="doc-section-content">
-              <p>
-                To grant additional roles to a service agent for Agent Platform
-                in your home project:
-              </p>
-              <ul>
-                <li>
-                  Go to the IAM page of the Google Cloud console for your home
-                  project.
-                </li>
-                <li>
-                  Select the
-                  <strong>Include Google-provided role grants</strong> checkbox.
-                </li>
-                <li>
-                  Determine the service agent you want to grant permissions to
-                  and click the pencil icon.
-                </li>
-                <li>
-                  Filter for
-                  <code
-                    >Principal:@gcp-sa-aiplatform-cc.iam.gserviceaccount.com</code
-                  >
-                  to find Agent Platform service agents.
-                </li>
-                <li>
-                  Grant the required roles to the service agent and save your
-                  changes.
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep14">
-            <div class="doc-section-title">
-              Grant access in a different project
-            </div>
-            <div class="doc-section-content">
-              <p>
-                When you use data sources or destinations in a different
-                project, you must give the Agent Platform service agent
-                permissions in that project. The service agent is created after
-                you start the first asynchronous job, such as creating an
-                endpoint. You can also explicitly create the Agent Platform
-                service agent with
-                <code>gcloud beta services identity create</code>.
-              </p>
-              <ul>
-                <li>
-                  Go to the IAM page for your home project, where you are using
-                  Agent Platform.
-                </li>
-                <li>
-                  Select the
-                  <strong>Include Google-provided role grants</strong> checkbox.
-                </li>
-                <li>
-                  Find the service agent and copy its email address from the
-                  Principal column.
-                </li>
-                <li>
-                  Change projects to the project where permissions are needed.
-                </li>
-                <li>
-                  Click <strong>Add</strong>, enter the service agent email
-                  address in <strong>New principals</strong>, add all required
-                  roles, and save.
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep15">
-            <div class="doc-section-title">Provide access to Google Sheets</div>
-            <div class="doc-section-content">
-              <p>
-                If you use an external BigQuery data source backed by Google
-                Sheets, share your sheet with the Agent Platform service
-                account. The service account is created after the first
-                asynchronous job, or you can explicitly create it with the
-                Google Cloud CLI.
-              </p>
-              <ul>
-                <li>Go to the IAM page of the Google Cloud console.</li>
-                <li>
-                  Look for the service account named
-                  <strong>Agent Platform Service Agent</strong> and copy its
-                  email address from the Principal column.
-                </li>
-                <li>Open your Sheets file and share it with that address.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="doc-section" id="docStep16">
-            <div class="doc-section-title">What's next</div>
-            <div class="doc-section-content">
-              <ul>
-                <li>Learn more about IAM.</li>
-                <li>
-                  Learn about specific IAM permissions and the operations they
-                  support.
-                </li>
-                <li>Review recommended ways to set up a project for a team.</li>
-                <li>Get an overview of Agent Platform.</li>
-              </ul>
-            </div>
-          </div>
-
-          <section class="related-skills-section" id="related-skills">
-            <div class="related-skills-header">
-              <h2 class="related-skills-title">Related Skills</h2>
-              <a class="related-skills-more" href="./skill-library.html"
-                >More Skills <span aria-hidden="true">→</span></a
-              >
-            </div>
-            <div class="related-skills-grid">
-              <a
-                class="related-skill-card"
-                href="./skill-detail-screen.html#skills/google-cloud-recipe-onboarding"
-              >
-                <span class="related-skill-card__icon" aria-hidden="true">
-                  <span class="material-symbols-outlined">school</span>
-                </span>
-                <h4>Onboarding to Google Cloud</h4>
-                <p>
-                  Guidance for first-time setup, including billing, projects,
-                  and deploying your first resource.
-                </p>
-              </a>
-              <a class="related-skill-card" href="./skill-library.html">
-                <span class="related-skill-card__icon" aria-hidden="true">
-                  <span class="material-symbols-outlined"
-                    >admin_panel_settings</span
-                  >
-                </span>
-                <h4>Configure Custom IAM Roles</h4>
-                <p>
-                  Create fine-grained custom IAM roles following the principle
-                  of least privilege.
-                </p>
-              </a>
-            </div>
-          </section>
         </div>
-      </div>
 
-      <!-- Right Panel - Step Navigator -->
-      <div class="right-panel">
-        <div class="step-navigator">
-          <div class="nav-title">On this page</div>
-          <ul class="nav-step-list" id="navStepList">
-            <li
-              class="nav-step-item active"
-              data-nav="intro"
-              onclick="navigateToStep('intro')"
-            >
-              Overview
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step1"
-              onclick="navigateToStep('step1')"
-            >
-              <span class="nav-step-num">1</span> IAM roles
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step2"
-              onclick="navigateToStep('step2')"
-            >
-              <span class="nav-step-num">2</span> Least privilege
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step3"
-              onclick="navigateToStep('step3')"
-            >
-              <span class="nav-step-num">3</span> Predefined roles
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step4"
-              onclick="navigateToStep('step4')"
-            >
-              <span class="nav-step-num">4</span> Basic roles
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step5"
-              onclick="navigateToStep('step5')"
-            >
-              <span class="nav-step-num">5</span> Project vs resource access
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step6"
-              onclick="navigateToStep('step6')"
-            >
-              <span class="nav-step-num">6</span> Supported resources
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step7"
-              onclick="navigateToStep('step7')"
-            >
-              <span class="nav-step-num">7</span> Resources and identities
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step8"
-              onclick="navigateToStep('step8')"
-            >
-              <span class="nav-step-num">8</span> Service accounts
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step9"
-              onclick="navigateToStep('step9')"
-            >
-              <span class="nav-step-num">9</span> Service agents
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step10"
-              onclick="navigateToStep('step10')"
-            >
-              <span class="nav-step-num">10</span> Grant other resources
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step11"
-              onclick="navigateToStep('step11')"
-            >
-              <span class="nav-step-num">11</span> BigQuery requirements
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step12"
-              onclick="navigateToStep('step12')"
-            >
-              <span class="nav-step-num">12</span> Cloud Storage requirements
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step13"
-              onclick="navigateToStep('step13')"
-            >
-              <span class="nav-step-num">13</span> Home project access
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step14"
-              onclick="navigateToStep('step14')"
-            >
-              <span class="nav-step-num">14</span> Different project access
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step15"
-              onclick="navigateToStep('step15')"
-            >
-              <span class="nav-step-num">15</span> Google Sheets access
-            </li>
-            <li
-              class="nav-step-item"
-              data-nav="step16"
-              onclick="navigateToStep('step16')"
-            >
-              <span class="nav-step-num">16</span> What's next
-            </li>
-          </ul>
+        <!-- Right Panel - Step Navigator -->
+        <div class="right-panel">
+          <div class="step-navigator">
+            <div class="nav-title">On this page</div>
+            <ul class="nav-step-list" id="navStepList">
+              <li class="nav-step-item nav-step-item--depth-1">Skill for this</li>
+              <li class="nav-step-item nav-step-item--depth-2">
+                <a class="nav-step-skill-link" href="#skillCard">
+                  <span class="material-symbols-outlined" aria-hidden="true"
+                    >bolt</span
+                  >
+                  <span class="nav-step-skill-link__text"
+                    >Fix 403 Forbidden Access</span
+                  >
+                </a>
+              </li>
+              <li
+                class="nav-step-item active"
+                data-nav="intro"
+                onclick="navigateToStep('intro')"
+              >
+                Overview
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step1"
+                onclick="navigateToStep('step1')"
+              >
+                <span class="nav-step-num">1</span> IAM roles
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step2"
+                onclick="navigateToStep('step2')"
+              >
+                <span class="nav-step-num">2</span> Least privilege
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step3"
+                onclick="navigateToStep('step3')"
+              >
+                <span class="nav-step-num">3</span> Predefined roles
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step4"
+                onclick="navigateToStep('step4')"
+              >
+                <span class="nav-step-num">4</span> Basic roles
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step5"
+                onclick="navigateToStep('step5')"
+              >
+                <span class="nav-step-num">5</span> Project vs resource access
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step6"
+                onclick="navigateToStep('step6')"
+              >
+                <span class="nav-step-num">6</span> Supported resources
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step7"
+                onclick="navigateToStep('step7')"
+              >
+                <span class="nav-step-num">7</span> Resources and identities
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step8"
+                onclick="navigateToStep('step8')"
+              >
+                <span class="nav-step-num">8</span> Service accounts
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step9"
+                onclick="navigateToStep('step9')"
+              >
+                <span class="nav-step-num">9</span> Service agents
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step10"
+                onclick="navigateToStep('step10')"
+              >
+                <span class="nav-step-num">10</span> Grant other resources
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step11"
+                onclick="navigateToStep('step11')"
+              >
+                <span class="nav-step-num">11</span> BigQuery requirements
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step12"
+                onclick="navigateToStep('step12')"
+              >
+                <span class="nav-step-num">12</span> Cloud Storage requirements
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step13"
+                onclick="navigateToStep('step13')"
+              >
+                <span class="nav-step-num">13</span> Home project access
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step14"
+                onclick="navigateToStep('step14')"
+              >
+                <span class="nav-step-num">14</span> Different project access
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step15"
+                onclick="navigateToStep('step15')"
+              >
+                <span class="nav-step-num">15</span> Google Sheets access
+              </li>
+              <li
+                class="nav-step-item"
+                data-nav="step16"
+                onclick="navigateToStep('step16')"
+              >
+                <span class="nav-step-num">16</span> What's next
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -3567,7 +4131,9 @@
         if (sectionId === "docIntro") return "intro";
         if (!sectionId || !sectionId.startsWith("doc")) return null;
         const rawStep = sectionId.slice(3);
-        return rawStep ? rawStep.charAt(0).toLowerCase() + rawStep.slice(1) : null;
+        return rawStep
+          ? rawStep.charAt(0).toLowerCase() + rawStep.slice(1)
+          : null;
       }
 
       function updateOnThisPageByScroll() {
