@@ -30,9 +30,11 @@
         overflow-x: clip;
       }
 
-      .skills-page-main,
-      .skills-page-main > div {
+      .skills-page-main {
         max-width: 100%;
+        overflow-x: clip;
+      }
+      .skills-page-main > div {
         overflow-x: clip;
       }
       /* Force 4-column grid for "Inside a Skill" cards regardless of Tailwind
@@ -192,7 +194,7 @@
 
     <div class="relative min-h-[calc(100vh-57px)]">
       <main class="skills-page-main bg-white relative">
-        <div class="mx-auto max-w-7xl px-6 pb-36 pt-12 lg:px-12">
+        <div class="mx-auto max-w-7xl px-6 pb-36 pt-12">
           <!-- Breadcrumbs -->
           <nav class="mb-12 flex text-sm text-gray-500" aria-label="Breadcrumb">
             <ol class="inline-flex items-center">
@@ -219,357 +221,350 @@
 
           <!-- Header Section -->
           <div class="mb-20">
-                <div class="flex items-center gap-2 mb-4">
-                  <span
-                    class="text-xs font-semibold text-blue-600 uppercase tracking-widest"
-                  >
-                    AI-NATIVE DOCUMENTATION SKILLS FOR GOOGLE CLOUD
-                  </span>
-                </div>
-                <h1 class="library-page-title">Skills</h1>
-                <p class="text-xl text-gray-600 leading-relaxed max-w-4xl">
-                  Skills transform Google Cloud Documentation from static
-                  information into actionable, reusable workflows that help
-                  users complete tasks faster and with more confidence.
-                </p>
+            <div class="flex items-center gap-2 mb-4">
+              <span
+                class="text-xs font-semibold text-blue-600 uppercase tracking-widest"
+              >
+                AI-NATIVE DOCUMENTATION SKILLS FOR GOOGLE CLOUD
+              </span>
+            </div>
+            <h1 class="library-page-title">Skills</h1>
+            <p class="text-xl text-gray-600 leading-relaxed max-w-4xl">
+              Skills transform Google Cloud Documentation from static
+              information into actionable, reusable workflows that help users
+              complete tasks faster and with more confidence.
+            </p>
 
-                <!-- Go to library CTA pill -->
-                <a
-                  href="./skill-library.html"
-                  class="gtl-pill"
-                >
-                  <span class="gtl-pill-label">
-                    <strong>Go to Skills Library</strong>
-                  </span>
-                  <span class="gtl-pill-icon">
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                  </span>
-                </a>
+            <!-- Go to library CTA pill -->
+            <a href="./skill-library.html" class="gtl-pill">
+              <span class="gtl-pill-label">
+                <strong>Go to Skills Library</strong>
+              </span>
+              <span class="gtl-pill-icon">
+                <span class="material-symbols-outlined">arrow_forward</span>
+              </span>
+            </a>
           </div>
 
           <div class="skills-page-layout">
             <div class="skills-page-content">
               <!-- Introduction Section -->
-                  <div
-                    class="max-w-none space-y-6 text-gray-600 text-base leading-relaxed"
+              <div
+                class="max-w-none space-y-6 text-gray-600 text-base leading-relaxed"
+              >
+                <h2
+                  id="whats-a-skill"
+                  class="text-xl font-medium text-gray-900 mb-4 mt-0"
+                >
+                  What's a skill
+                </h2>
+                <p class="mb-6">
+                  A skill is a structured bundle of guidance, steps, and
+                  resources designed to help users accomplish a specific
+                  goal—whether that's setting up a project, deploying a model,
+                  connecting services, or optimizing performance. Instead of
+                  navigating multiple pages and piecing together information,
+                  users can follow a skill to move from intent to execution in a
+                  clear, guided way.
+                </p>
+
+                <div
+                  class="mt-12 mb-20 rounded-2xl border border-blue-100 bg-blue-50/50 p-10"
+                >
+                  <h3
+                    class="text-xl font-medium text-gray-900 mb-6 flex items-center gap-3"
                   >
-                    <h2
-                      id="whats-a-skill"
-                      class="text-xl font-medium text-gray-900 mb-4 mt-0"
+                    <span
+                      class="material-symbols-outlined text-blue-500"
+                      style="font-size: 24px"
+                      >smart_toy</span
                     >
-                      What's a skill
-                    </h2>
-                    <p class="mb-6">
-                      A skill is a structured bundle of guidance, steps, and
-                      resources designed to help users accomplish a specific
-                      goal—whether that's setting up a project, deploying a
-                      model, connecting services, or optimizing performance.
-                      Instead of navigating multiple pages and piecing together
-                      information, users can follow a skill to move from intent
-                      to execution in a clear, guided way.
-                    </p>
+                    Empowering both Humans and AI Agents
+                  </h3>
+                  <p class="mb-6">
+                    Skills can be used by both humans and AI agents (e.g., in
+                    Vertex AI), enabling:
+                  </p>
+                  <ul class="grid sm:grid-cols-2 gap-4 list-none pl-0">
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="material-symbols-outlined text-yellow-500 flex-shrink-0 mt-0.5"
+                        style="font-size: 20px"
+                        >bolt</span
+                      >
+                      <span>
+                        <strong class="font-medium text-gray-900"
+                          >Faster task completion</strong
+                        >
+                        through step-by-step, goal-oriented workflows
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="material-symbols-outlined text-blue-500 flex-shrink-0 mt-0.5"
+                        style="font-size: 20px"
+                        >account_tree</span
+                      >
+                      <span>
+                        <strong class="font-medium text-gray-900"
+                          >Reduced cognitive load</strong
+                        >
+                        by eliminating the need to reconstruct information
+                        across documentation
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="material-symbols-outlined text-green-500 flex-shrink-0 mt-0.5"
+                        style="font-size: 20px"
+                        >shield</span
+                      >
+                      <span>
+                        <strong class="font-medium text-gray-900"
+                          >Consistent and reliable execution</strong
+                        >
+                        based on trusted, official sources
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span
+                        class="material-symbols-outlined text-purple-500 flex-shrink-0 mt-0.5"
+                        style="font-size: 20px"
+                        >auto_awesome</span
+                      >
+                      <span>
+                        <strong class="font-medium text-gray-900"
+                          >Adaptive support</strong
+                        >
+                        that works for both beginners (structured guidance) and
+                        advanced users (efficient, direct actions)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
 
+                <div>
+                  <h3
+                    id="inside-a-skill"
+                    class="mt-12 mb-3 text-xl font-medium text-gray-900"
+                  >
+                    Inside a Skill
+                  </h3>
+                  <p class="mb-6">
+                    Each skill focuses on a specific task or workflow and can
+                    include:
+                  </p>
+                  <div class="mb-0 grid gap-4" data-cols-4-at="640">
                     <div
-                      class="mt-12 mb-20 rounded-2xl border border-blue-100 bg-blue-50/50 p-10"
+                      class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
                     >
-                      <h3
-                        class="text-xl font-medium text-gray-900 mb-6 flex items-center gap-3"
+                      <span
+                        class="material-symbols-outlined text-blue-500 mb-3 block"
+                        style="font-size: 22px"
+                        >check_circle</span
                       >
-                        <span
-                          class="material-symbols-outlined text-blue-500"
-                          style="font-size: 24px"
-                          >smart_toy</span
-                        >
-                        Empowering both Humans and AI Agents
-                      </h3>
-                      <p class="mb-6">
-                        Skills can be used by both humans and AI agents (e.g.,
-                        in Vertex AI), enabling:
+                      <h4
+                        class="skill-card-title font-medium text-gray-900 mb-1.5"
+                      >
+                        Clear instructions
+                      </h4>
+                      <p class="skill-card-desc text-gray-500">
+                        Step-by-step guidance and clear decision points.
                       </p>
-                      <ul class="grid sm:grid-cols-2 gap-4 list-none pl-0">
-                        <li class="flex items-start gap-3">
-                          <span
-                            class="material-symbols-outlined text-yellow-500 flex-shrink-0 mt-0.5"
-                            style="font-size: 20px"
-                            >bolt</span
-                          >
-                          <span>
-                            <strong class="font-medium text-gray-900"
-                              >Faster task completion</strong
-                            >
-                            through step-by-step, goal-oriented workflows
-                          </span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                          <span
-                            class="material-symbols-outlined text-blue-500 flex-shrink-0 mt-0.5"
-                            style="font-size: 20px"
-                            >account_tree</span
-                          >
-                          <span>
-                            <strong class="font-medium text-gray-900"
-                              >Reduced cognitive load</strong
-                            >
-                            by eliminating the need to reconstruct information
-                            across documentation
-                          </span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                          <span
-                            class="material-symbols-outlined text-green-500 flex-shrink-0 mt-0.5"
-                            style="font-size: 20px"
-                            >shield</span
-                          >
-                          <span>
-                            <strong class="font-medium text-gray-900"
-                              >Consistent and reliable execution</strong
-                            >
-                            based on trusted, official sources
-                          </span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                          <span
-                            class="material-symbols-outlined text-purple-500 flex-shrink-0 mt-0.5"
-                            style="font-size: 20px"
-                            >auto_awesome</span
-                          >
-                          <span>
-                            <strong class="font-medium text-gray-900"
-                              >Adaptive support</strong
-                            >
-                            that works for both beginners (structured guidance)
-                            and advanced users (efficient, direct actions)
-                          </span>
-                        </li>
-                      </ul>
                     </div>
-
-                    <div>
-                      <h3
-                        id="inside-a-skill"
-                        class="mt-12 mb-3 text-xl font-medium text-gray-900"
+                    <div
+                      class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
+                    >
+                      <span
+                        class="material-symbols-outlined text-green-500 mb-3 block"
+                        style="font-size: 22px"
+                        >search</span
                       >
-                        Inside a Skill
-                      </h3>
-                      <p class="mb-6">
-                        Each skill focuses on a specific task or workflow and
-                        can include:
+                      <h4
+                        class="skill-card-title font-medium text-gray-900 mb-1.5"
+                      >
+                        Relevant links
+                      </h4>
+                      <p class="skill-card-desc text-gray-500">
+                        Direct connections to required documentation and tools.
                       </p>
-                      <div class="mb-0 grid gap-4" data-cols-4-at="640">
-                        <div
-                          class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
-                        >
-                          <span
-                            class="material-symbols-outlined text-blue-500 mb-3 block"
-                            style="font-size: 22px"
-                            >check_circle</span
-                          >
-                          <h4
-                            class="skill-card-title font-medium text-gray-900 mb-1.5"
-                          >
-                            Clear instructions
-                          </h4>
-                          <p class="skill-card-desc text-gray-500">
-                            Step-by-step guidance and clear decision points.
-                          </p>
-                        </div>
-                        <div
-                          class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
-                        >
-                          <span
-                            class="material-symbols-outlined text-green-500 mb-3 block"
-                            style="font-size: 22px"
-                            >search</span
-                          >
-                          <h4
-                            class="skill-card-title font-medium text-gray-900 mb-1.5"
-                          >
-                            Relevant links
-                          </h4>
-                          <p class="skill-card-desc text-gray-500">
-                            Direct connections to required documentation and
-                            tools.
-                          </p>
-                        </div>
-                        <div
-                          class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
-                        >
-                          <span
-                            class="material-symbols-outlined text-purple-500 mb-3 block"
-                            style="font-size: 22px"
-                            >terminal</span
-                          >
-                          <h4
-                            class="skill-card-title font-medium text-gray-900 mb-1.5"
-                          >
-                            Examples
-                          </h4>
-                          <p class="skill-card-desc text-gray-500">
-                            Ready-to-use commands, configurations, or templates.
-                          </p>
-                        </div>
-                        <div
-                          class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
-                        >
-                          <span
-                            class="material-symbols-outlined text-orange-500 mb-3 block"
-                            style="font-size: 22px"
-                            >verified_user</span
-                          >
-                          <h4
-                            class="skill-card-title font-medium text-gray-900 mb-1.5"
-                          >
-                            Validation
-                          </h4>
-                          <p class="skill-card-desc text-gray-500">
-                            Steps to confirm successful completion of tasks.
-                          </p>
-                        </div>
-                      </div>
                     </div>
-
-                    <div>
-                      <h3
-                        id="example"
-                        class="mt-12 mb-4 text-xl font-medium text-gray-900"
+                    <div
+                      class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
+                    >
+                      <span
+                        class="material-symbols-outlined text-purple-500 mb-3 block"
+                        style="font-size: 22px"
+                        >terminal</span
                       >
-                        Example
-                      </h3>
+                      <h4
+                        class="skill-card-title font-medium text-gray-900 mb-1.5"
+                      >
+                        Examples
+                      </h4>
+                      <p class="skill-card-desc text-gray-500">
+                        Ready-to-use commands, configurations, or templates.
+                      </p>
+                    </div>
+                    <div
+                      class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm"
+                    >
+                      <span
+                        class="material-symbols-outlined text-orange-500 mb-3 block"
+                        style="font-size: 22px"
+                        >verified_user</span
+                      >
+                      <h4
+                        class="skill-card-title font-medium text-gray-900 mb-1.5"
+                      >
+                        Validation
+                      </h4>
+                      <p class="skill-card-desc text-gray-500">
+                        Steps to confirm successful completion of tasks.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-                      <!-- Example SKILL.md - foldable -->
+                <div>
+                  <h3
+                    id="example"
+                    class="mt-12 mb-4 text-xl font-medium text-gray-900"
+                  >
+                    Example
+                  </h3>
+
+                  <!-- Example SKILL.md - foldable -->
+                  <div
+                    class="mb-0 overflow-hidden rounded-xl border border-gray-200"
+                    id="skill-md-block"
+                  >
+                    <button
+                      type="button"
+                      class="skill-md-toggle w-full flex items-center justify-between px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
+                      aria-expanded="false"
+                      aria-controls="skill-md-body"
+                    >
+                      <span class="font-medium text-gray-900"
+                        >Example SKILL.md</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-gray-500 transition-transform duration-200 skill-md-arrow"
+                        style="font-size: 18px; transform: rotate(0deg)"
+                        >keyboard_arrow_down</span
+                      >
+                    </button>
+                    <div
+                      id="skill-md-body"
+                      class="px-6 py-5 bg-white border-t border-gray-200"
+                      hidden
+                    >
+                      <div class="space-y-4" id="skill-md-blocks"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Use Cases Section -->
+              <div class="mb-0">
+                <h2
+                  id="what-can-you-do"
+                  class="mb-4 text-xl font-medium text-gray-900"
+                >
+                  What can you do with skills?
+                </h2>
+                <p class="mb-8 text-base text-gray-600">
+                  Skills support a wide range of common actions across Google
+                  Cloud, including:
+                </p>
+
+                <div class="grid gap-6 md:grid-cols-2" id="usecase-grid"></div>
+              </div>
+
+              <!-- Summary Section -->
+              <div
+                id="how-skills-help"
+                class="rounded-3xl border border-blue-100 bg-blue-50/50 p-10 text-gray-900 md:p-12"
+              >
+                <div class="max-w-3xl">
+                  <h2 class="mb-4 text-2xl font-medium">How skills help</h2>
+                  <p class="mb-8 text-base text-gray-600">
+                    By turning documentation into modular, task-oriented
+                    experiences, skills allow users to:
+                  </p>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3">
                       <div
-                        class="mb-0 overflow-hidden rounded-xl border border-gray-200"
-                        id="skill-md-block"
+                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0"
                       >
-                        <button
-                          type="button"
-                          class="skill-md-toggle w-full flex items-center justify-between px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
-                          aria-expanded="false"
-                          aria-controls="skill-md-body"
-                        >
-                          <span class="font-medium text-gray-900"
-                            >Example SKILL.md</span
-                          >
-                          <span
-                            class="material-symbols-outlined text-gray-500 transition-transform duration-200 skill-md-arrow"
-                            style="font-size: 18px; transform: rotate(0deg)"
-                            >keyboard_arrow_down</span
-                          >
-                        </button>
-                        <div
-                          id="skill-md-body"
-                          class="px-6 py-5 bg-white border-t border-gray-200"
-                          hidden
-                        >
-                          <div class="space-y-4" id="skill-md-blocks"></div>
-                        </div>
+                        <span class="text-sm font-bold">1</span>
                       </div>
-                    </div>
-                  </div>
-
-                  <!-- Use Cases Section -->
-                  <div class="mb-0">
-                    <h2
-                      id="what-can-you-do"
-                      class="mb-4 text-xl font-medium text-gray-900"
-                    >
-                      What can you do with skills?
-                    </h2>
-                    <p class="mb-8 text-base text-gray-600">
-                      Skills support a wide range of common actions across
-                      Google Cloud, including:
-                    </p>
-
-                    <div
-                      class="grid gap-6 md:grid-cols-2"
-                      id="usecase-grid"
-                    ></div>
-                  </div>
-
-                  <!-- Summary Section -->
-                  <div
-                    id="how-skills-help"
-                    class="rounded-3xl border border-blue-100 bg-blue-50/50 p-10 text-gray-900 md:p-12"
-                  >
-                    <div class="max-w-3xl">
-                      <h2 class="mb-4 text-2xl font-medium">How skills help</h2>
-                      <p class="mb-8 text-base text-gray-600">
-                        By turning documentation into modular, task-oriented
-                        experiences, skills allow users to:
-                      </p>
-                      <ul class="space-y-4">
-                        <li class="flex items-center gap-3">
-                          <div
-                            class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0"
-                          >
-                            <span class="text-sm font-bold">1</span>
-                          </div>
-                          <span class="text-base text-gray-800"
-                            >Start from a clear goal instead of searching for
-                            information</span
-                          >
-                        </li>
-                        <li class="flex items-center gap-3">
-                          <div
-                            class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0"
-                          >
-                            <span class="text-sm font-bold">2</span>
-                          </div>
-                          <span class="text-base text-gray-800"
-                            >Stay in their workflow without unnecessary context
-                            switching</span
-                          >
-                        </li>
-                        <li class="flex items-center gap-3">
-                          <div
-                            class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0"
-                          >
-                            <span class="text-sm font-bold">3</span>
-                          </div>
-                          <span class="text-base text-gray-800"
-                            >Execute tasks with confidence using trusted,
-                            structured guidance</span
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                      <span class="text-base text-gray-800"
+                        >Start from a clear goal instead of searching for
+                        information</span
+                      >
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <div
+                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0"
+                      >
+                        <span class="text-sm font-bold">2</span>
+                      </div>
+                      <span class="text-base text-gray-800"
+                        >Stay in their workflow without unnecessary context
+                        switching</span
+                      >
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <div
+                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0"
+                      >
+                        <span class="text-sm font-bold">3</span>
+                      </div>
+                      <span class="text-base text-gray-800"
+                        >Execute tasks with confidence using trusted, structured
+                        guidance</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <aside class="skills-page-toc-aside" aria-label="On this page">
-                  <nav class="skills-page-toc">
-                    <p class="skills-page-toc-title">On this page</p>
-                    <div class="skills-page-toc-nav" id="skillsPageTocLinks">
-                      <a href="#whats-a-skill" data-section-link="whats-a-skill">
-                        What's a skill
-                      </a>
-                      <a
-                        href="#inside-a-skill"
-                        class="is-sub"
-                        data-section-link="inside-a-skill"
-                      >
-                        Inside a Skill
-                      </a>
-                      <a href="#example" class="is-sub" data-section-link="example">
-                        Example
-                      </a>
-                      <a href="#example" class="is-sub" data-section-link="example">
-                        Example SKILL.md
-                      </a>
-                      <a
-                        href="#what-can-you-do"
-                        data-section-link="what-can-you-do"
-                      >
-                        What can you do with skills?
-                      </a>
-                      <a
-                        href="#how-skills-help"
-                        data-section-link="how-skills-help"
-                      >
-                        How skills help
-                      </a>
-                    </div>
-                  </nav>
+              <nav class="skills-page-toc">
+                <p class="skills-page-toc-title">On this page</p>
+                <div class="skills-page-toc-nav" id="skillsPageTocLinks">
+                  <a href="#whats-a-skill" data-section-link="whats-a-skill">
+                    What's a skill
+                  </a>
+                  <a
+                    href="#inside-a-skill"
+                    class="is-sub"
+                    data-section-link="inside-a-skill"
+                  >
+                    Inside a Skill
+                  </a>
+                  <a href="#example" class="is-sub" data-section-link="example">
+                    Example
+                  </a>
+                  <a href="#example" class="is-sub" data-section-link="example">
+                    Example SKILL.md
+                  </a>
+                  <a
+                    href="#what-can-you-do"
+                    data-section-link="what-can-you-do"
+                  >
+                    What can you do with skills?
+                  </a>
+                  <a
+                    href="#how-skills-help"
+                    data-section-link="how-skills-help"
+                  >
+                    How skills help
+                  </a>
+                </div>
+              </nav>
             </aside>
           </div>
         </div>
@@ -645,7 +640,9 @@
 
       const skillMdFullText = skillBlocks
         .map((block) =>
-          block.outside ? `${block.markdown}\n\n${block.outside}` : block.markdown,
+          block.outside
+            ? `${block.markdown}\n\n${block.outside}`
+            : block.markdown,
         )
         .join("\n\n");
 
@@ -769,10 +766,7 @@
 
         const setActive = (id) => {
           links.forEach((link) => {
-            link.classList.toggle(
-              "is-active",
-              link.dataset.sectionLink === id,
-            );
+            link.classList.toggle("is-active", link.dataset.sectionLink === id);
           });
         };
 
