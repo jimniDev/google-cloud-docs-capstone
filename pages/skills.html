@@ -642,24 +642,44 @@
       ];
 
       const blocksHost = document.getElementById("skill-md-blocks");
-      blocksHost.innerHTML = skillBlocks
-        .map(
-          (block) => `
-        <div>
-          <div class="relative group bg-blue-50/50 border border-blue-100 rounded-xl p-5 mb-2">
-            <button class="absolute top-3 right-3 text-gray-400 hover:text-blue-600 transition-colors opacity-0 group-hover:opacity-100" title="Copy code" type="button">
-              <span class="material-symbols-outlined" style="font-size: 16px">content_copy</span>
-            </button>
-            <pre class="font-mono text-sm text-gray-800 whitespace-pre-wrap m-0 leading-relaxed">${block.markdown.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
-          </div>
-          ${
-            block.outside
-              ? `<div class="px-2 py-1 font-mono text-sm text-gray-600 whitespace-pre-wrap">${block.outside.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>`
-              : ""
-          }
-        </div>`,
+
+      const skillMdFullText = skillBlocks
+        .map((block) =>
+          block.outside ? `${block.markdown}\n\n${block.outside}` : block.markdown,
         )
-        .join("");
+        .join("\n\n");
+
+      const escapeHtml = (text) =>
+        text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      blocksHost.innerHTML = `
+        <div class="relative group bg-blue-50/50 border border-blue-100 rounded-xl p-5">
+          <button
+            class="skill-md-copy absolute top-3 right-3 text-gray-400 hover:text-blue-600 transition-colors opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+            title="Copy SKILL.md"
+            aria-label="Copy SKILL.md"
+            type="button"
+          >
+            <span class="material-symbols-outlined" style="font-size: 16px">content_copy</span>
+          </button>
+          <pre class="font-mono text-sm text-gray-800 whitespace-pre-wrap m-0 leading-relaxed">${escapeHtml(skillMdFullText)}</pre>
+        </div>`;
+
+      const copyBtn = blocksHost.querySelector(".skill-md-copy");
+      const copyIcon = copyBtn.querySelector(".material-symbols-outlined");
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(skillMdFullText);
+          copyIcon.textContent = "check";
+          copyBtn.classList.add("text-blue-600");
+          setTimeout(() => {
+            copyIcon.textContent = "content_copy";
+            copyBtn.classList.remove("text-blue-600");
+          }, 1500);
+        } catch (err) {
+          console.error("Failed to copy SKILL.md", err);
+        }
+      });
 
       const toggle = document.querySelector(".skill-md-toggle");
       const body = document.getElementById("skill-md-body");
